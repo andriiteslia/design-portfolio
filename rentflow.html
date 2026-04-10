@@ -12,34 +12,25 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #F6F4EF;
-      --bg-2:    #EDEBE4;
-      --bg-3:    #E2DFD6;
-      --text:    #14120E;
-      --text-2:  #6B6660;
-      --text-3:  #9C9890;
-      --accent:  #FF4D2B;
+      --bg:      #F7F8FF;
+      --bg-2:    #ECEFFE;
+      --bg-3:    #DEE2FB;
+      --text:    #12110E;
+      --text-2:  #6B6880;
+      --text-3:  #9C9AAE;
+      --accent:  #4865F4;
       --proj:    #1E3A8A;   /* RentFlow blue */
       --proj-l:  #3B82F6;
-      --border:  rgba(20,18,14,0.1);
+      --border:  rgba(72,101,244,0.12);
       --nav-h:   68px;
       --max-w:   1280px;
-    }
-    [data-theme="dark"] {
-      --bg:    #0F0E0C;
-      --bg-2:  #1A1916;
-      --bg-3:  #252320;
-      --text:  #F0EDE6;
-      --text-2:#8A8680;
-      --text-3:#5A5850;
-      --border:rgba(240,237,230,0.1);
     }
 
     html { scroll-behavior: smooth; }
     body {
       font-family: 'Outfit', sans-serif;
       background: var(--bg); color: var(--text);
-      transition: background .3s, color .3s;
+      
       overflow-x: hidden;
       cursor: none;
     }
@@ -67,7 +58,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h);
       background: var(--bg); border-bottom: 1px solid var(--border);
-      transition: background .3s, border-color .3s;
+      
     }
     .nav-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
@@ -458,7 +449,6 @@
       All work
     </a>
     <a href="index.html" class="nav-logo">AT<span>.</span></a>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"></button>
   </div>
 </nav>
 
@@ -675,7 +665,7 @@
           <div style="width:40px;height:40px;border-radius:50%;background:#3B82F6;border:3px solid rgba(255,255,255,.4);"></div>
           <div style="width:40px;height:40px;border-radius:50%;background:#E24B4A;border:3px solid rgba(255,255,255,.4);"></div>
           <div style="width:40px;height:40px;border-radius:50%;background:#F59E0B;border:3px solid rgba(255,255,255,.4);"></div>
-          <div style="width:40px;height:40px;border-radius:50%;background:#F6F4EF;border:3px solid rgba(255,255,255,.4);"></div>
+          <div style="width:40px;height:40px;border-radius:50%;background:#F7F8FF;border:3px solid rgba(255,255,255,.4);"></div>
         </div>
         <div class="screen-block-label">
           <div class="screen-block-title">Color tokens</div>
@@ -881,9 +871,6 @@
 </div><!-- /case-body -->
 
 <script>
-  const html = document.documentElement;
-  document.getElementById('themeBtn').addEventListener('click', () => {
-    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
   });
 
   const dot = document.getElementById('cur-dot');

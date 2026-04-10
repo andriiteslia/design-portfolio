@@ -12,25 +12,16 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #F6F4EF;
-      --bg-2:     #EDEBE4;
-      --bg-3:     #E2DFD6;
-      --text:     #14120E;
-      --text-2:   #6B6660;
-      --text-3:   #9C9890;
-      --accent:   #FF4D2B;
-      --border:   rgba(20,18,14,0.1);
-      --nav-h:    68px;
-      --max-w:    1280px;
-    }
-    [data-theme="dark"] {
-      --bg:     #0F0E0C;
-      --bg-2:   #1A1916;
-      --bg-3:   #252320;
-      --text:   #F0EDE6;
-      --text-2: #8A8680;
-      --text-3: #5A5850;
-      --border: rgba(240,237,230,0.1);
+      --bg:      #F7F8FF;
+      --bg-2:    #ECEFFE;
+      --bg-3:    #DEE2FB;
+      --text:    #12110E;
+      --text-2:  #6B6880;
+      --text-3:  #9C9AAE;
+      --accent:  #4865F4;
+      --border:  rgba(72,101,244,0.12);
+      --nav-h:   68px;
+      --max-w:   1280px;
     }
 
     html { scroll-behavior: smooth; }
@@ -38,15 +29,13 @@
       font-family: 'Outfit', sans-serif;
       background: var(--bg);
       color: var(--text);
-      transition: background 0.3s, color 0.3s;
       overflow-x: hidden;
       cursor: none;
     }
     @media (hover: none), (max-width: 768px) {
       body { cursor: auto; }
       #cur-dot, #cur-ring { display: none; }
-      .btn-fill, .btn-outline, .theme-btn,
-      .nav-menu-btn, a, button { cursor: pointer; }
+      .btn-fill, .btn-outline, .nav-menu-btn, a, button { cursor: pointer; }
     }
 
     /* ── Cursor ──────────────────────────── */
@@ -101,20 +90,6 @@
       letter-spacing: .01em; transition: color .2s;
     }
     .nav-links a:hover { color: var(--text); }
-    .theme-btn {
-      margin-left: 28px;
-      width: 46px; height: 24px;
-      background: var(--bg-3); border: none; border-radius: 12px;
-      cursor: none; position: relative; transition: background .3s;
-    }
-    .theme-btn::after {
-      content: '';
-      position: absolute; top: 3px; left: 3px;
-      width: 18px; height: 18px;
-      background: var(--text); border-radius: 50%;
-      transition: transform .3s, background .3s;
-    }
-    [data-theme="dark"] .theme-btn::after { transform: translateX(22px); }
     .nav-menu-btn {
       display: none;
       background: none; border: none; cursor: none;
@@ -159,7 +134,11 @@
       letter-spacing: -.03em;
       margin-bottom: 48px;
     }
-    .hero-title .line { overflow: hidden; }
+    .hero-title .line {
+      overflow: hidden;
+      padding-bottom: 0.14em;
+      margin-bottom: -0.14em;
+    }
     .hero-title .word {
       display: inline-block;
       opacity: 0; transform: translateY(100%);
@@ -561,9 +540,8 @@
       <a href="#about">About</a>
       <a href="#say">Testimonials</a>
       <a href="#contact">Contact</a>
-      <a href="#" style="color:var(--accent)" target="_blank">Resume ↗</a>
+      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" style="color:var(--accent)">Resume ↗</a>
     </div>
-    <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode"></button>
     <button class="nav-menu-btn" id="menuBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -1002,6 +980,7 @@
       </a>
       <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" class="btn-outline">LinkedIn ↗</a>
       <a href="https://dribbble.com/andriiteslia" target="_blank" class="btn-outline">Dribbble ↗</a>
+      <a href="tel:+380955085475" class="btn-outline">+380 95 508 54 75</a>
     </div>
   </div>
 </div>
@@ -1011,21 +990,16 @@
   <div class="footer-inner">
     <span class="footer-copy">© 2025 Andrii Teslia — Lviv, Ukraine</span>
     <div class="footer-links">
-      <a href="mailto:tesliaandrii@gmail.com">Email</a>
+      <a href="mailto:tesliaandrii@gmail.com">tesliaandrii@gmail.com</a>
       <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank">LinkedIn</a>
       <a href="https://dribbble.com/andriiteslia" target="_blank">Dribbble</a>
-      <a href="#" target="_blank">Resume</a>
+      <a href="tel:+380955085475">+380 95 508 54 75</a>
+      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank">Resume ↗</a>
     </div>
   </div>
 </footer>
 
 <script>
-  // ── Theme toggle
-  const html = document.documentElement;
-  document.getElementById('themeBtn').addEventListener('click', () => {
-    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-  });
-
   // ── Custom cursor
   const dot  = document.getElementById('cur-dot');
   const ring = document.getElementById('cur-ring');
