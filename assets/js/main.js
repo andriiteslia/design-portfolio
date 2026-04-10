@@ -32,20 +32,33 @@ if (menuBtn) {
 }
 
 
-// ── Live Lviv time ────────────────────────────────────────────
-function updateLvivTime() {
-  var el = document.getElementById('lvivTime');
-  if (!el) return;
-  var now = new Date();
-  var lviv = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Europe/Kiev',
-    hour: '2-digit', minute: '2-digit', second: '2-digit',
-    hour12: false
-  }).format(now);
-  el.textContent = lviv + ' local';
+// ── Nav — transparent on top, pill on scroll ──────────────────
+var nav = document.querySelector('nav');
+var navPill = document.getElementById('navPill');
+if (nav) {
+  function updateNav() {
+    if (window.scrollY > 80) {
+      nav.style.opacity = '0';
+      nav.style.pointerEvents = 'none';
+      if (navPill) navPill.classList.add('visible');
+    } else {
+      if (window.scrollY > 10) {
+        nav.style.background = 'rgba(247,248,255,0.75)';
+        nav.style.backdropFilter = 'blur(16px)';
+        nav.style.webkitBackdropFilter = 'blur(16px)';
+      } else {
+        nav.style.background = 'transparent';
+        nav.style.backdropFilter = 'none';
+        nav.style.webkitBackdropFilter = 'none';
+      }
+      nav.style.opacity = '1';
+      nav.style.pointerEvents = '';
+      if (navPill) navPill.classList.remove('visible');
+    }
+  }
+  updateNav();
+  window.addEventListener('scroll', updateNav, { passive: true });
 }
-updateLvivTime();
-setInterval(updateLvivTime, 1000);
 
 // ── Scroll reveal ─────────────────────────────────────────────
 var ro = new IntersectionObserver(function(es) {
