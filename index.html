@@ -30,30 +30,9 @@
       background: var(--bg);
       color: var(--text);
       overflow-x: hidden;
-      cursor: none;
     }
     @media (hover: none), (max-width: 768px) {
-      body { cursor: auto; }
-      #cur-dot, #cur-ring { display: none; }
       .btn-fill, .btn-outline, .nav-menu-btn, a, button { cursor: pointer; }
-    }
-
-    /* ── Cursor ──────────────────────────── */
-    #cur-dot {
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      position: fixed; pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-    }
-    #cur-ring {
-      width: 30px; height: 30px;
-      border: 1.5px solid var(--accent);
-      border-radius: 50%;
-      position: fixed; pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%);
-      opacity: 0.45;
-      transition: width .2s, height .2s, opacity .2s;
     }
 
     /* ── Shared page-width container ────── */
@@ -136,8 +115,8 @@
     }
     .hero-title .line {
       overflow: hidden;
-      padding-bottom: 0.14em;
-      margin-bottom: -0.14em;
+      padding-bottom: 0.22em;
+      margin-bottom: -0.22em;
     }
     .hero-title .word {
       display: inline-block;
@@ -227,9 +206,15 @@
     .stats-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
       padding: 0 48px;
-      display: grid; grid-template-columns: repeat(5,1fr); gap: 16px;
+      display: grid; grid-template-columns: repeat(5,1fr); gap: 0;
     }
-    .stat { display: flex; flex-direction: column; gap: 6px; }
+    .stat {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 0 28px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:first-child { padding-left: 0; }
+    .stat:last-child  { border-right: none; padding-right: 0; }
     .stat-num {
       font-family: 'Manrope', sans-serif;
       font-size: clamp(26px, 2.6vw, 42px);
@@ -516,6 +501,10 @@
       .hero-location { justify-self: start; }
       .stats-band { padding: 48px 0; }
       .stats-inner { padding: 0 24px; grid-template-columns: repeat(2,1fr); }
+      .stat { padding: 16px 16px; border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:first-child { padding-left: 0; }
+      .stat:nth-child(odd) { border-right: 1px solid var(--border); }
+      .stat:last-child { border-bottom: none; }
       .marquee-wrap { display: none; }
       section { padding: 80px 24px; }
       .projects-grid { grid-template-columns: 1fr; }
@@ -528,13 +517,10 @@
 </head>
 <body>
 
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
-
 <!-- ─── NAV ─────────────────────────────── -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">AT<span>.</span></a>
+    <a href="#" class="nav-logo">AT. <span>DESIGN.</span></a>
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#about">About</a>
@@ -1000,28 +986,6 @@
 </footer>
 
 <script>
-  // ── Custom cursor
-  const dot  = document.getElementById('cur-dot');
-  const ring = document.getElementById('cur-ring');
-  let mx=0, my=0, rx=0, ry=0;
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    dot.style.left = mx+'px'; dot.style.top = my+'px';
-  });
-  (function tick() {
-    rx += (mx-rx) * .13; ry += (my-ry) * .13;
-    ring.style.left = rx+'px'; ring.style.top = ry+'px';
-    requestAnimationFrame(tick);
-  })();
-  document.querySelectorAll('a,button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='.7';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width='30px'; ring.style.height='30px'; ring.style.opacity='.45';
-    });
-  });
-
   // ── Scroll reveal
   const ro = new IntersectionObserver(es => {
     es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });

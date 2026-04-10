@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,35 +30,15 @@
     body {
       font-family: 'Outfit', sans-serif;
       background: var(--bg); color: var(--text);
-      
       overflow-x: hidden;
-      cursor: none;
-    }
-    @media (hover: none), (max-width: 768px) {
-      body { cursor: auto; }
-      #cur-dot, #cur-ring { display: none; }
-      a, button { cursor: pointer; }
     }
 
-    /* Cursor */
-    #cur-dot {
-      width: 6px; height: 6px; background: var(--accent);
-      border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999;
-      transform: translate(-50%,-50%);
-    }
-    #cur-ring {
-      width: 30px; height: 30px; border: 1.5px solid var(--accent);
-      border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998;
-      transform: translate(-50%,-50%); opacity: .45;
-      transition: width .2s, height .2s, opacity .2s;
-    }
 
     /* Nav */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h);
       background: var(--bg); border-bottom: 1px solid var(--border);
-      
     }
     .nav-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
@@ -78,17 +58,6 @@
       letter-spacing: -.03em; color: var(--text); text-decoration: none; flex: 1;
     }
     .nav-logo span { color: var(--accent); }
-    .theme-btn {
-      width: 46px; height: 24px; background: var(--bg-3);
-      border: none; border-radius: 12px; cursor: none; position: relative;
-      transition: background .3s;
-    }
-    .theme-btn::after {
-      content: ''; position: absolute; top: 3px; left: 3px;
-      width: 18px; height: 18px; background: var(--text);
-      border-radius: 50%; transition: transform .3s;
-    }
-    [data-theme="dark"] .theme-btn::after { transform: translateX(22px); }
 
     /* Container */
     .pg {
@@ -436,9 +405,6 @@
 </head>
 <body>
 
-<div id="cur-dot"></div>
-<div id="cur-ring"></div>
-
 <!-- Nav -->
 <nav>
   <div class="nav-inner">
@@ -448,7 +414,7 @@
       </svg>
       All work
     </a>
-    <a href="index.html" class="nav-logo">AT<span>.</span></a>
+    <a href="index.html" class="nav-logo">AT. <span>DESIGN.</span></a>
   </div>
 </nav>
 
@@ -872,18 +838,6 @@
 
 <script>
   });
-
-  const dot = document.getElementById('cur-dot');
-  const ring = document.getElementById('cur-ring');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => {
-    mx=e.clientX; my=e.clientY;
-    dot.style.left=mx+'px'; dot.style.top=my+'px';
-  });
-  (function tick(){ rx+=(mx-rx)*.13; ry+=(my-ry)*.13; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(tick); })();
-  document.querySelectorAll('a,button').forEach(el => {
-    el.addEventListener('mouseenter', () => { ring.style.width='52px'; ring.style.height='52px'; ring.style.opacity='.7'; });
-    el.addEventListener('mouseleave', () => { ring.style.width='30px'; ring.style.height='30px'; ring.style.opacity='.45'; });
   });
 
   const ro = new IntersectionObserver(es => {
