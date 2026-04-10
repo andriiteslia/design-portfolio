@@ -837,9 +837,6 @@
 </div><!-- /case-body -->
 
 <script>
-  });
-  });
-
   const ro = new IntersectionObserver(es => {
     es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
   }, { threshold: .1 });
