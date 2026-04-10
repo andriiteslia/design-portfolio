@@ -38,7 +38,7 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       height: var(--nav-h);
-      background: rgba(247,248,255,0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
     }
     .nav-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
@@ -73,14 +73,7 @@
       display: flex; flex-direction: column; justify-content: flex-end;
       position: relative; overflow: hidden;
     }
-    .case-hero::before {
-      content: 'RF';
-      position: absolute; right: -2%; bottom: -10%;
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: clamp(200px, 28vw, 420px);
-      font-weight: 800; letter-spacing: -.06em;
-      color: rgba(255,255,255,.07); pointer-events: none;
-      line-height: 1;
-    }
+    .case-hero::before { display: none; }
     .case-hero-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
       padding: 60px 48px; width: 100%; position: relative; z-index: 1;
@@ -164,7 +157,7 @@
     .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
     .cs-img-row.c3 { grid-template-columns: repeat(3,1fr); }
     .cs-img-row.c4 { grid-template-columns: repeat(4,1fr); }
-    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: var(--bg-2); border: 1px solid var(--border); }
+    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--border); }
     .cs-img-wrap img { width: 100%; display: block; }
     .cs-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 40px; border: 1px solid var(--border); }
 
@@ -488,13 +481,6 @@
   </div>
 </div>
 
-<!-- Hero banner image -->
-<div style="max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;margin-top:48px;">
-  <div class="cs-img-wrap">
-    <img src="assets/img/rentflow/hero-banner.png" alt="RentFlow Dubai — platform overview">
-  </div>
-</div>
-
 <!-- Meta strip -->
 <div class="meta-strip">
   <div class="meta-inner">
@@ -532,7 +518,7 @@
     </p>
 
     <!-- Value exchange -->
-    <div class="cs-img-wrap reveal" style="margin-top:48px;">
+    <div class="cs-img-wrap reveal" style="margin-top:48px;max-width:600px;">
       <img src="assets/img/rentflow/value-exchange-diagram.png" alt="Value exchange — money flow between 4 roles">
     </div>
   </div>
@@ -588,13 +574,8 @@
       Next, I ran a stakeholder workshop with the client to unpack the SWOT insights. We prioritized open questions and agreed to conduct at least <strong>five qualitative interviews with each core persona</strong> — tenants, agents, and landlords — while the client handled interviews with investors.
     </p>
 
-    <div class="cs-img-row c2 reveal" style="margin-top:40px;">
-      <div class="cs-img-wrap">
-        <img src="assets/img/rentflow/swot-analysis.png" alt="Competitor SWOT Analysis — Dubai real-estate platforms">
-      </div>
-      <div class="cs-img-wrap">
-        <img src="assets/img/rentflow/wireframes-overview.png" alt="Wireframes — Lo-fi validation flows">
-      </div>
+    <div class="cs-img-wrap reveal" style="margin-top:40px;">
+      <img src="assets/img/rentflow/swot-analysis.png" alt="Competitor SWOT Analysis — Dubai real-estate platforms">
     </div>
   </div>
 
