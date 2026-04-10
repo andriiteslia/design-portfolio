@@ -1,23 +1,36 @@
 // ── Burger menu ───────────────────────────────────────────────
 var menuBtn = document.getElementById('menuBtn');
 var navLinks = document.querySelector('.nav-links');
-var navEl = document.querySelector('nav');
-if (menuBtn && navLinks) {
-  menuBtn.addEventListener('click', function() {
-    var isOpen = navLinks.classList.toggle('open');
-    menuBtn.classList.toggle('open', isOpen);
-    navEl.classList.toggle('nav-open', isOpen);
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  });
+
+// Build overlay once
+var mobileMenu = document.createElement('div');
+mobileMenu.className = 'mobile-menu';
+// Clone links from desktop nav into overlay
+if (navLinks) {
   navLinks.querySelectorAll('a').forEach(function(a) {
-    a.addEventListener('click', function() {
-      navLinks.classList.remove('open');
-      menuBtn.classList.remove('open');
-      navEl.classList.remove('nav-open');
-      document.body.style.overflow = '';
-    });
+    var clone = a.cloneNode(true);
+    mobileMenu.appendChild(clone);
   });
 }
+document.body.appendChild(mobileMenu);
+
+function closeMenu() {
+  menuBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (menuBtn) {
+  menuBtn.addEventListener('click', function() {
+    var isOpen = mobileMenu.classList.toggle('open');
+    menuBtn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', closeMenu);
+  });
+}
+
 
 // ── Scroll reveal ─────────────────────────────────────────────
 var ro = new IntersectionObserver(function(es) {
