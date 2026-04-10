@@ -53,7 +53,7 @@ var nav = document.querySelector('nav');
 if (nav) {
   window.addEventListener('scroll', function() {
     nav.style.borderBottomColor = window.scrollY > 30
-      ? 'var(--border)'
-      : 'transparent';
+      ? 'transparent'
+      : 'var(--border)';
   }, { passive: true });
 }
