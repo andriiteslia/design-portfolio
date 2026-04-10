@@ -164,13 +164,20 @@
       .photo-wrap{position:static}
       .photo{aspect-ratio:16/9;max-height:400px}
     }
+    .nav-links.open{display:flex!important;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:var(--bg);padding:40px 24px;gap:0;z-index:99;border-top:1px solid var(--border)}
+    .nav-links.open a{font-size:22px;font-weight:600;color:var(--text);padding:18px 0;border-bottom:1px solid var(--border)}
+    .nav-links.open a:last-child{border-bottom:none}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .nav-burger.open span:nth-child(2){opacity:0}
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .nav-burger span{transition:transform .25s,opacity .2s}
     @media(max-width:768px){
       .nav-in{padding:0 24px}.nav-links{display:none}.nav-burger{display:flex}
       .hero-in{padding:0 24px}.hero{padding-bottom:80px}
       .hero-bot{grid-template-columns:1fr;gap:24px}.hero-loc{justify-self:start}
       .stats{padding:48px 0}.stats-in{padding:0 24px;grid-template-columns:repeat(2,1fr)}
       .stat{padding:16px;border-right:none;border-bottom:1px solid var(--border)}
-      .stat:first-child{padding-left:0}.stat:nth-child(odd){border-right:1px solid var(--border)}.stat:last-child{border-bottom:none}
+      .stat:first-child{padding-left:16px}.stat:nth-child(odd){border-right:1px solid var(--border)}.stat:last-child{border-bottom:none}
       .mq{display:none}
       section{padding:80px 24px}
       .proj-grid{grid-template-columns:1fr}
@@ -190,6 +197,7 @@
       <a href="#about">About</a>
       <a href="#say">Testimonials</a>
       <a href="#contact">Contact</a>
+      <a href="https://t.me/andriiteslia" target="_blank" style="color:var(--accent)">Telegram ↗</a>
       <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" style="color:var(--accent)">Resume ↗</a>
     </div>
     <button class="nav-burger" id="menuBtn"><span></span><span></span><span></span></button>
@@ -292,7 +300,7 @@
         <span class="sk">Figma</span><span class="sk">Design Systems</span><span class="sk">UX Research</span><span class="sk">Interaction Design</span><span class="sk">WCAG 2.2</span><span class="sk">Apple HIG</span><span class="sk">Material Design</span><span class="sk">Atomic Design</span><span class="sk">AI-Assisted Design</span><span class="sk">Prototyping</span><span class="sk">Data Visualization</span><span class="sk">Information Architecture</span><span class="sk">Usability Testing</span><span class="sk">RTL Design</span><span class="sk">Design Tokens</span>
       </div>
       <div class="exp">
-        <div class="exp-row"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft<span class="exp-badge">Current</span></div></div><div class="exp-yr">Aug 2025 – Present</div></div>
+        <div class="exp-row"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft</div></div><div class="exp-yr">Aug 2025 – Present</div></div>
         <div class="exp-row"><div><div class="exp-title">Senior UX/UI Designer</div><div class="exp-co">Teamvoy</div></div><div class="exp-yr">Mar 2023 – Feb 2025</div></div>
         <div class="exp-row"><div><div class="exp-title">Lead UX/UI Designer (Product)</div><div class="exp-co">Surprise</div></div><div class="exp-yr">Sep 2020 – Dec 2022</div></div>
         <div class="exp-row"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">LaSoft</div></div><div class="exp-yr">Feb – Sep 2020</div></div>
@@ -321,10 +329,10 @@
     <p class="contact-sub">Open to senior product design roles and meaningful projects. Currently based in Lviv, Ukraine — working worldwide.</p>
     <div class="contact-btns">
       <a href="mailto:tesliaandrii@gmail.com" class="btn-fill">tesliaandrii@gmail.com →</a>
-      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" class="btn-out">LinkedIn ↗</a>
-      <a href="https://dribbble.com/andriiteslia" target="_blank" class="btn-out">Dribbble ↗</a>
       <a href="tel:+380955085475" class="btn-out">+380 95 508 54 75</a>
+      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" class="btn-out">LinkedIn ↗</a>
       <a href="https://t.me/andriiteslia" target="_blank" class="btn-out">Telegram ↗</a>
+      <a href="https://dribbble.com/andriiteslia" target="_blank" class="btn-out">Dribbble ↗</a>
     </div>
   </div>
 </div>
@@ -334,9 +342,10 @@
     <span class="foot-copy">© 2025 Andrii Teslia — Lviv, Ukraine</span>
     <div class="foot-links">
       <a href="mailto:tesliaandrii@gmail.com">tesliaandrii@gmail.com</a>
-      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank">LinkedIn</a>
-      <a href="https://dribbble.com/andriiteslia" target="_blank">Dribbble</a>
       <a href="tel:+380955085475">+380 95 508 54 75</a>
+      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank">LinkedIn</a>
+      <a href="https://t.me/andriiteslia" target="_blank">Telegram</a>
+      <a href="https://dribbble.com/andriiteslia" target="_blank">Dribbble</a>
       <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank">Resume ↗</a>
     </div>
   </div>
