@@ -21,8 +21,12 @@
     @media(hover:none),(max-width:768px){body{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
 
     /* ── nav ── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:rgba(247,248,255,0.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:height .3s cubic-bezier(.22,1,.36,1),background .3s}
-    nav.nav-open{height:100dvh;background:#F7F8FF;backdrop-filter:none;-webkit-backdrop-filter:none}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:rgba(247,248,255,0.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF;z-index:99;padding:40px 24px;flex-direction:column;overflow-y:auto}
+    .mobile-menu.open{display:flex}
+    .mobile-menu a{font-size:22px;font-weight:600;color:var(--text);text-decoration:none;padding:18px 0;border-bottom:1px solid var(--border)}
+    .mobile-menu a:last-child{border-bottom:none}
+    .mobile-menu a[style*="color:var(--accent)"]{color:var(--accent)!important}
     .nav-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;height:100%;display:flex;align-items:center}
     .nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--text);text-decoration:none;flex:1}
     .nav-logo span{color:var(--accent)}
@@ -30,7 +34,10 @@
     .nav-links a{font-size:14px;color:var(--text-2);text-decoration:none;transition:color .2s}
     .nav-links a:hover{color:var(--text)}
     .nav-burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;margin-left:20px}
-    .nav-burger span{display:block;width:22px;height:1.5px;background:var(--text)}
+    .nav-burger span{display:block;width:22px;height:1.5px;background:var(--text);transition:transform .25s,opacity .2s}
+    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+    .nav-burger.open span:nth-child(2){opacity:0}
+    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
     /* ── buttons ── */
     .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;transition:opacity .2s,transform .2s}
