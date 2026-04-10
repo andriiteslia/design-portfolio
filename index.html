@@ -24,7 +24,7 @@
     @media(hover:none),(max-width:768px){body{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
 
     /* ── nav ── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:rgba(247,248,255,0.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:transparent;transition:background .4s,backdrop-filter .4s}
     .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF;z-index:99;padding:40px 24px;flex-direction:column;overflow-y:auto}
     .mobile-menu.open{display:flex}
     .mobile-menu a{font-size:22px;font-weight:600;color:var(--text);text-decoration:none;padding:18px 0;border-bottom:1px solid var(--border)}
@@ -56,11 +56,8 @@
     @keyframes blobMove{from{transform:translate(0,0) scale(1)}to{transform:translate(3%,4%) scale(1.06)}}
     .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1}
     /* badge */
-    .badge{display:inline-flex;align-items:center;gap:10px;font-size:13px;color:var(--text-2);background:rgba(255,255,255,.85);backdrop-filter:blur(12px);border:1px solid var(--border);padding:8px 16px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards;box-shadow:0 2px 16px rgba(72,101,244,.08)}
-    .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
-    .badge-divider{width:1px;height:14px;background:var(--border)}
-    .badge-loc{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--text-3)}
-    .badge-time{font-size:12px;color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums}
+    .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
+    .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
     @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
     .h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(44px,7vw,108px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:48px}
     .h1 .line{overflow:hidden;padding-bottom:.22em;margin-bottom:-.22em}
@@ -236,17 +233,7 @@
 
 <div class="hero">
   <div class="hero-in">
-    <div class="badge">
-      <span class="badge-dot"></span>
-      Open to senior product design roles
-      <span class="badge-divider"></span>
-      <span class="badge-loc">
-        <svg width="11" height="11" viewBox="0 0 14 14" fill="none"><path d="M7 1C5.067 1 3.5 2.567 3.5 4.5 3.5 7.375 7 13 7 13s3.5-5.625 3.5-8.5C10.5 2.567 8.933 1 7 1zm0 4.75a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z" fill="currentColor" opacity=".5"/></svg>
-        Lviv, Ukraine
-      </span>
-      <span class="badge-divider"></span>
-      <span class="badge-time" id="lvivTime">--:--</span>
-    </div>
+    <div class="badge"><span class="badge-dot"></span>Open to senior product design roles</div>
     <h1 class="h1">
       <div class="line"><span class="word w1">Andrii</span></div>
       <div class="line"><span class="word w2">Teslia</span><span class="word w3" style="color:var(--accent)">&nbsp;—</span></div>
