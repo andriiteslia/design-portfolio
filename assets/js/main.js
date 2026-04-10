@@ -32,6 +32,21 @@ if (menuBtn) {
 }
 
 
+// ── Live Lviv time ────────────────────────────────────────────
+function updateLvivTime() {
+  var el = document.getElementById('lvivTime');
+  if (!el) return;
+  var now = new Date();
+  var lviv = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Kiev',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+    hour12: false
+  }).format(now);
+  el.textContent = lviv + ' local';
+}
+updateLvivTime();
+setInterval(updateLvivTime, 1000);
+
 // ── Scroll reveal ─────────────────────────────────────────────
 var ro = new IntersectionObserver(function(es) {
   es.forEach(function(e) {
