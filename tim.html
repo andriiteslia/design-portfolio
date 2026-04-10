@@ -421,31 +421,9 @@
 
     /* cursor */
     @media(hover:none),(max-width:768px){body{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
-        /* ── cursor ── */
-    body,a,button{cursor:none}
-    @media(hover:none),(max-width:768px){body,a,button{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
-    #c-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-    #c-ring{width:36px;height:36px;border:1.5px solid rgba(72,101,244,.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s cubic-bezier(.22,1,.36,1),height .3s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s}
-    #c-ring.sm{width:22px;height:22px;background:rgba(72,101,244,.1);border-color:rgba(72,101,244,.9)}
-    #c-ring.lg{width:68px;height:68px;background:rgba(72,101,244,.06);border-color:rgba(72,101,244,.4)}
-    #c-lbl{position:fixed;pointer-events:none;z-index:9998;font-family:'Manrope',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .2s;white-space:nowrap;transform:translate(-50%,-50%)}
-    #c-lbl.show{opacity:1}
-    /* ── cursor ── */
-    body,a,button{cursor:none}
-    @media(hover:none),(max-width:768px){body,a,button{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
-    #c-dot{width:6px;height:6px;background:var(--accent);border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
-    #c-ring{width:36px;height:36px;border:1.5px solid rgba(72,101,244,.6);border-radius:50%;position:fixed;pointer-events:none;z-index:9997;transform:translate(-50%,-50%);transition:width .3s cubic-bezier(.22,1,.36,1),height .3s cubic-bezier(.22,1,.36,1),background .25s,border-color .25s}
-    #c-ring.sm{width:22px;height:22px;background:rgba(72,101,244,.1);border-color:rgba(72,101,244,.9)}
-    #c-ring.lg{width:68px;height:68px;background:rgba(72,101,244,.06);border-color:rgba(72,101,244,.4)}
-    #c-lbl{position:fixed;pointer-events:none;z-index:9998;font-family:'Manrope',sans-serif;font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);opacity:0;transition:opacity .2s;white-space:nowrap;transform:translate(-50%,-50%)}
-    #c-lbl.show{opacity:1}
   </style>
 </head>
 <body>
-<div id="c-dot"></div>
-<div id="c-ring"></div>
-<div id="c-lbl"></div>
-
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-back">
@@ -1010,21 +988,6 @@
     document.querySelectorAll('.proj-card').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');rs=68;lbl.textContent='View →';lbl.classList.add('show');});el.addEventListener('mouseleave',function(){ring.classList.remove('lg');rs=36;lbl.classList.remove('show');lbl.textContent='';});});
     document.querySelectorAll('.case-hero').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');rs=68;lbl.textContent='Scroll ↓';lbl.classList.add('show');});el.addEventListener('mouseleave',function(){ring.classList.remove('lg');rs=36;lbl.classList.remove('show');lbl.textContent='';});});
   })();
-
-  // cursor
-  (function(){
-    if(window.matchMedia('(hover:none),(max-width:768px)').matches)return;
-    var dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring'),lbl=document.getElementById('c-lbl');
-    if(!dot||!ring||!lbl)return;
-    var mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-    (function tick(){
-      rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
-      dot.style.left=mx+'px';dot.style.top=my+'px';
-      ring.style.left=rx+'px';ring.style.top=ry+'px';
-      lbl.style.left=rx+'px';lbl.style.top=ry+'px';
-      requestAnimationFrame(tick);
-    })();
     document.querySelectorAll('a,button').forEach(function(el){
       el.addEventListener('mouseenter',function(){if(!ring.classList.contains('lg'))ring.classList.add('sm');});
       el.addEventListener('mouseleave',function(){ring.classList.remove('sm');});
