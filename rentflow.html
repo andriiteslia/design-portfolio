@@ -401,9 +401,55 @@
       .screen-row.cols-2 { grid-template-columns: 1fr; }
       .quote-block { padding: 32px 24px; }
     }
+
+    /* ── Cursor ── */
+    body { cursor: none; }
+    @media (hover: none), (max-width: 768px) {
+      body { cursor: auto; }
+      #cur, #cur-dot { display: none; }
+    }
+    #cur {
+      width: 44px; height: 44px;
+      background: #fff;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      mix-blend-mode: difference;
+      will-change: transform;
+      transition: width .25s cubic-bezier(.22,1,.36,1),
+                  height .25s cubic-bezier(.22,1,.36,1),
+                  opacity .2s;
+    }
+    #cur.expand { width: 72px; height: 72px; }
+    #cur.press  { width: 32px; height: 32px; }
+    #cur-dot {
+      width: 5px; height: 5px;
+      background: var(--text);
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      will-change: transform;
+    }
+    #cur-label {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9997;
+      font-family: 'Manrope', sans-serif;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: #fff; mix-blend-mode: difference;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .2s;
+      transform-origin: center;
+    }
+    #cur-label.visible { opacity: 1; }
   </style>
 </head>
 <body>
+<div id="cur"></div>
+<div id="cur-dot"></div>
+<div id="cur-label"></div>
+
 
 <!-- Nav -->
 <nav>
@@ -841,6 +887,63 @@
     es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
   }, { threshold: .1 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* ── Cursor ── */
+  (function() {
+    var isMobile = window.matchMedia('(hover: none), (max-width: 768px)').matches;
+    if (isMobile) return;
+
+    var cur     = document.getElementById('cur');
+    var curDot  = document.getElementById('cur-dot');
+    var curLbl  = document.getElementById('cur-label');
+    var tx = -100, ty = -100, cx = -100, cy = -100;
+
+    document.addEventListener('mousemove', function(e) {
+      tx = e.clientX; ty = e.clientY;
+      curDot.style.transform = 'translate(calc(' + tx + 'px - 50%), calc(' + ty + 'px - 50%))';
+    });
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    (function tick() {
+      cx = lerp(cx, tx, 0.1);
+      cy = lerp(cy, ty, 0.1);
+      cur.style.transform    = 'translate(calc(' + cx + 'px - 50%), calc(' + cy + 'px - 50%))';
+      curLbl.style.transform = 'translate(calc(' + cx + 'px - 50%), calc(' + cy + 'px + 26px))';
+      requestAnimationFrame(tick);
+    })();
+
+    /* hover targets */
+    document.querySelectorAll('a, button').forEach(function(el) {
+      el.addEventListener('mouseenter', function() { cur.classList.add('expand'); });
+      el.addEventListener('mouseleave', function() { cur.classList.remove('expand'); curLbl.classList.remove('visible'); curLbl.textContent = ''; });
+    });
+
+    /* project cards — show label */
+    var labelMap = {
+      'proj-card': 'View →',
+      'result-card': '',
+      'testi-card': ''
+    };
+    ['proj-card','ch-card','metric-card'].forEach(function(cls) {
+      document.querySelectorAll('.' + cls).forEach(function(el) {
+        el.addEventListener('mouseenter', function() {
+          cur.classList.add('expand');
+          if (cls === 'proj-card') {
+            curLbl.textContent = 'View →';
+            curLbl.classList.add('visible');
+          }
+        });
+        el.addEventListener('mouseleave', function() {
+          cur.classList.remove('expand');
+          curLbl.classList.remove('visible');
+          curLbl.textContent = '';
+        });
+      });
+    });
+
+    document.addEventListener('mousedown', function() { cur.classList.add('press'); });
+    document.addEventListener('mouseup',   function() { cur.classList.remove('press'); });
+  })();
 </script>
 </body>
 </html>
