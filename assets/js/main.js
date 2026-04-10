@@ -1,16 +1,19 @@
 // ── Burger menu ───────────────────────────────────────────────
 var menuBtn = document.getElementById('menuBtn');
 var navLinks = document.querySelector('.nav-links');
+var navEl = document.querySelector('nav');
 if (menuBtn && navLinks) {
   menuBtn.addEventListener('click', function() {
     var isOpen = navLinks.classList.toggle('open');
     menuBtn.classList.toggle('open', isOpen);
+    navEl.classList.toggle('nav-open', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
   navLinks.querySelectorAll('a').forEach(function(a) {
     a.addEventListener('click', function() {
       navLinks.classList.remove('open');
       menuBtn.classList.remove('open');
+      navEl.classList.remove('nav-open');
       document.body.style.overflow = '';
     });
   });
