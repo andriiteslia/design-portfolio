@@ -28,19 +28,22 @@
     /* floating pill state */
     nav.scrolled{background:transparent!important;backdrop-filter:none!important;top:16px}
     .nav-pill{
-      display:none;
-      position:fixed;top:16px;left:50%;transform:translateX(-50%);
+      display:flex;
+      position:fixed;top:16px;left:50%;
+      transform:translateX(-50%) translateY(-16px);
       z-index:101;
-      background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
       border:1px solid rgba(72,101,244,0.12);border-radius:100px;
       padding:10px 16px 10px 12px;
       align-items:center;gap:6px;
-      box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
-      opacity:0;transform:translateX(-50%) translateY(-8px);
-      transition:opacity .35s,transform .35s;
+      box-shadow:0 4px 32px rgba(0,0,0,.1),0 1px 4px rgba(0,0,0,.04);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity .4s cubic-bezier(.22,1,.36,1), transform .4s cubic-bezier(.22,1,.36,1), visibility .4s;
       white-space:nowrap;
     }
-    .nav-pill.visible{display:flex;opacity:1;transform:translateX(-50%) translateY(0)}
+    .nav-pill.visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
     .nav-pill-logo{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;margin-right:4px}
     .nav-pill-logo img{width:100%;height:100%;object-fit:cover}
     .nav-pill-links{display:flex;align-items:center;gap:4px}
