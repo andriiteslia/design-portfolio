@@ -376,7 +376,6 @@
     }
 
     /* ── Cursor ── */
-    body { cursor: none; }
     @media (hover: none), (max-width: 768px) {
       body { cursor: auto; }
       #cur, #cur-dot { display: none; }
@@ -416,13 +415,64 @@
       transform-origin: center;
     }
     #cur-label.visible { opacity: 1; }
+
+    /* ── Cursor C: ring + label ── */
+    body { cursor: none; }
+    @media (hover: none), (max-width: 768px) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring, #cur-lbl { display: none; }
+    }
+    #cur-dot {
+      width: 5px; height: 5px;
+      background: #4865F4;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9999;
+      will-change: transform;
+      transform: translate(-50%, -50%);
+    }
+    #cur-ring {
+      width: 38px; height: 38px;
+      border: 1.5px solid #4865F4;
+      border-radius: 50%;
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 9998;
+      will-change: transform;
+      transform: translate(-50%, -50%);
+      opacity: .65;
+      transition: width .3s cubic-bezier(.22,1,.36,1),
+                  height .3s cubic-bezier(.22,1,.36,1),
+                  background .25s, opacity .2s;
+    }
+    #cur-ring.sm {
+      width: 26px; height: 26px;
+      background: rgba(72,101,244,.1);
+      opacity: 1;
+    }
+    #cur-ring.lg {
+      width: 70px; height: 70px;
+      background: rgba(72,101,244,.07);
+      opacity: 1;
+    }
+    #cur-lbl {
+      position: fixed; top: 0; left: 0;
+      pointer-events: none; z-index: 10000;
+      font-family: 'Manrope', sans-serif;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: #4865F4;
+      opacity: 0;
+      transition: opacity .2s;
+      white-space: nowrap;
+      will-change: transform;
+    }
+    #cur-lbl.show { opacity: 1; }
   </style>
 </head>
 <body>
-<div id="cur"></div>
 <div id="cur-dot"></div>
-<div id="cur-label"></div>
-
+<div id="cur-ring"></div>
+<div id="cur-lbl"></div>
 
 <nav>
   <div class="nav-inner">
@@ -938,6 +988,63 @@
 
     document.addEventListener('mousedown', function() { cur.classList.add('press'); });
     document.addEventListener('mouseup',   function() { cur.classList.remove('press'); });
+  })();
+
+  /* ── Cursor C ── */
+  (function(){
+    if(window.matchMedia('(hover:none),(max-width:768px)').matches) return;
+    var dot=document.getElementById('cur-dot');
+    var ring=document.getElementById('cur-ring');
+    var lbl=document.getElementById('cur-lbl');
+    var tx=-200,ty=-200,rx=-200,ry=-200;
+
+    document.addEventListener('mousemove',function(e){
+      tx=e.clientX; ty=e.clientY;
+      dot.style.transform='translate(calc('+tx+'px - 50%),calc('+ty+'px - 50%))';
+    });
+
+    (function tick(){
+      rx+=(tx-rx)*.11; ry+=(ty-ry)*.11;
+      ring.style.transform='translate(calc('+rx+'px - 50%),calc('+ry+'px - 50%))';
+      lbl.style.transform ='translate(calc('+rx+'px - 50%),calc('+ry+'px - 50%))';
+      requestAnimationFrame(tick);
+    })();
+
+    document.querySelectorAll('a,button').forEach(function(el){
+      el.addEventListener('mouseenter',function(){
+        if(!ring.classList.contains('lg')) ring.classList.add('sm');
+      });
+      el.addEventListener('mouseleave',function(){
+        ring.classList.remove('sm');
+      });
+    });
+
+    document.querySelectorAll('.proj-card').forEach(function(el){
+      el.addEventListener('mouseenter',function(){
+        ring.classList.remove('sm');
+        ring.classList.add('lg');
+        lbl.textContent='View →';
+        lbl.classList.add('show');
+      });
+      el.addEventListener('mouseleave',function(){
+        ring.classList.remove('lg');
+        lbl.classList.remove('show');
+        lbl.textContent='';
+      });
+    });
+
+    document.querySelectorAll('.case-hero').forEach(function(el){
+      el.addEventListener('mouseenter',function(){
+        ring.classList.add('lg');
+        lbl.textContent='Scroll ↓';
+        lbl.classList.add('show');
+      });
+      el.addEventListener('mouseleave',function(){
+        ring.classList.remove('lg');
+        lbl.classList.remove('show');
+        lbl.textContent='';
+      });
+    });
   })();
 </script>
 </body>
