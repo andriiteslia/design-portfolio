@@ -78,8 +78,8 @@
 
     /* ── sections ── */
     section{padding:120px 48px;max-width:calc(var(--max-w) + 96px);margin:0 auto}
-    .sec-lbl{display:flex;align-items:baseline;gap:14px;margin-bottom:56px}
-    .sec-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.12em}
+    .sec-lbl{display:flex;flex-direction:column;gap:10px;margin-bottom:56px}
+    .sec-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
     .sec-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;letter-spacing:-.03em}
 
     /* ── project cards ── */
@@ -164,7 +164,7 @@
       .photo-wrap{position:static}
       .photo{aspect-ratio:16/9;max-height:400px}
     }
-    .nav-links.open{display:flex!important;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:var(--bg);padding:40px 24px;gap:0;z-index:99;border-top:1px solid var(--border)}
+    .nav-links.open{display:flex!important;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:40px 24px;gap:0;z-index:200;border-top:1px solid var(--border)}
     .nav-links.open a{font-size:22px;font-weight:600;color:var(--text);padding:18px 0;border-bottom:1px solid var(--border)}
     .nav-links.open a:last-child{border-bottom:none}
     .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
