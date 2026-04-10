@@ -25,6 +25,30 @@
 
     /* ── nav ── */
     nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:transparent;transition:background .4s,backdrop-filter .4s}
+    /* floating pill state */
+    nav.scrolled{background:transparent!important;backdrop-filter:none!important;top:16px}
+    .nav-pill{
+      display:none;
+      position:fixed;top:16px;left:50%;transform:translateX(-50%);
+      z-index:101;
+      background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+      border:1px solid rgba(72,101,244,0.12);border-radius:100px;
+      padding:10px 16px 10px 12px;
+      align-items:center;gap:6px;
+      box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 4px rgba(0,0,0,.04);
+      opacity:0;transform:translateX(-50%) translateY(-8px);
+      transition:opacity .35s,transform .35s;
+      white-space:nowrap;
+    }
+    .nav-pill.visible{display:flex;opacity:1;transform:translateX(-50%) translateY(0)}
+    .nav-pill-logo{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;margin-right:4px}
+    .nav-pill-logo img{width:100%;height:100%;object-fit:cover}
+    .nav-pill-links{display:flex;align-items:center;gap:4px}
+    .nav-pill-links a{font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:100px;transition:background .2s,color .2s}
+    .nav-pill-links a:hover{background:var(--bg-2);color:var(--text)}
+    .nav-pill-cta{display:inline-flex;align-items:center;font-size:13px;font-weight:600;background:var(--accent);color:#fff;padding:8px 18px;border-radius:100px;text-decoration:none;margin-left:6px;transition:opacity .2s}
+    .nav-pill-cta:hover{opacity:.85}
+    @media(max-width:768px){.nav-pill{display:none!important}}
     .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF;z-index:99;padding:40px 24px;flex-direction:column;overflow-y:auto}
     .mobile-menu.open{display:flex}
     .mobile-menu a{font-size:22px;font-weight:600;color:var(--text);text-decoration:none;padding:18px 0;border-bottom:1px solid var(--border)}
@@ -230,6 +254,20 @@
     <button class="nav-burger" id="menuBtn"><span></span><span></span><span></span></button>
   </div>
 </nav>
+
+<!-- Floating pill navbar -->
+<div class="nav-pill" id="navPill">
+  <div class="nav-pill-logo">
+    <img src="favicon.png" alt="AT">
+  </div>
+  <div class="nav-pill-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#say">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-pill-cta">Get in touch</a>
+</div>
 
 <div class="hero">
   <div class="hero-in">
