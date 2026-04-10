@@ -1,4 +1,22 @@
-// ── Scroll reveal ────────────────────────────────────────────
+// ── Burger menu ───────────────────────────────────────────────
+var menuBtn = document.getElementById('menuBtn');
+var navLinks = document.querySelector('.nav-links');
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener('click', function() {
+    var isOpen = navLinks.classList.toggle('open');
+    menuBtn.classList.toggle('open', isOpen);
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      navLinks.classList.remove('open');
+      menuBtn.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+}
+
+// ── Scroll reveal ─────────────────────────────────────────────
 var ro = new IntersectionObserver(function(es) {
   es.forEach(function(e) {
     if (e.isIntersecting) {
