@@ -1,0 +1,41 @@
+// ── Scroll reveal ────────────────────────────────────────────
+var ro = new IntersectionObserver(function(es) {
+  es.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      ro.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(function(el) { ro.observe(el); });
+
+// ── Animated counters (index only) ───────────────────────────
+function runCounter(el) {
+  var target = +el.dataset.to;
+  var inc = target / (1600 / 16);
+  var v = 0;
+  var s = setInterval(function() {
+    v = Math.min(v + inc, target);
+    el.textContent = Math.round(v);
+    if (v >= target) clearInterval(s);
+  }, 16);
+}
+var co = new IntersectionObserver(function(es) {
+  es.forEach(function(e) {
+    if (e.isIntersecting) {
+      runCounter(e.target);
+      co.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('.counter').forEach(function(el) { co.observe(el); });
+
+// ── Nav scroll border ─────────────────────────────────────────
+var nav = document.querySelector('nav');
+if (nav) {
+  window.addEventListener('scroll', function() {
+    nav.style.borderBottomColor = window.scrollY > 30
+      ? 'var(--border)'
+      : 'transparent';
+  }, { passive: true });
+}
