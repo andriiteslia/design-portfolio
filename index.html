@@ -76,10 +76,8 @@
 
     /* ── hero ── */
     .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
-    /* gradient blobs */
-    .hero::before{content:'';position:absolute;top:-10%;left:-5%;width:60vw;height:60vw;max-width:800px;max-height:800px;background:radial-gradient(ellipse at center,rgba(72,101,244,.13) 0%,rgba(72,101,244,.04) 50%,transparent 70%);border-radius:50%;pointer-events:none;z-index:0;animation:blobMove 8s ease-in-out infinite alternate}
-    .hero::after{content:'';position:absolute;bottom:-15%;right:-5%;width:45vw;height:45vw;max-width:600px;max-height:600px;background:radial-gradient(ellipse at center,rgba(72,101,244,.09) 0%,rgba(130,100,244,.04) 50%,transparent 70%);border-radius:50%;pointer-events:none;z-index:0;animation:blobMove 10s ease-in-out infinite alternate-reverse}
-    @keyframes blobMove{from{transform:translate(0,0) scale(1)}to{transform:translate(3%,4%) scale(1.06)}}
+    .hero::before{content:'';position:absolute;top:-20%;left:-10%;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(ellipse at center,rgba(72,101,244,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
+    .hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(ellipse at center,rgba(72,101,244,.04) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
     .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1}
     /* badge */
     .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
