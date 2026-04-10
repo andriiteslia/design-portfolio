@@ -410,7 +410,7 @@
 
     /* ── Cursor C: ring + label ── */
         
-      #cur-dot, #cur-ring, 
+      
     }
     
     
@@ -877,130 +877,6 @@
 
 </div><!-- /case-body -->
 
-<script>
-  const ro = new IntersectionObserver(es => {
-    es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } });
-  }, { threshold: .1 });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  /* ── Cursor ── */
-  (function() {
-    var isMobile = window.matchMedia('(hover: none), (max-width: 768px)').matches;
-    if (isMobile) return;
-
-    var cur     = document.getElementById('cur');
-    var curDot  = document.getElementById('cur-dot');
-    var curLbl  = document.getElementById('cur-label');
-    var tx = -100, ty = -100, cx = -100, cy = -100;
-
-    document.addEventListener('mousemove', function(e) {
-      tx = e.clientX; ty = e.clientY;
-      curDot.style.transform = 'translate(calc(' + tx + 'px - 50%), calc(' + ty + 'px - 50%))';
-    });
-
-    function lerp(a, b, t) { return a + (b - a) * t; }
-    (function tick() {
-      cx = lerp(cx, tx, 0.1);
-      cy = lerp(cy, ty, 0.1);
-      cur.style.transform    = 'translate(calc(' + cx + 'px - 50%), calc(' + cy + 'px - 50%))';
-      curLbl.style.transform = 'translate(calc(' + cx + 'px - 50%), calc(' + cy + 'px + 26px))';
-      requestAnimationFrame(tick);
-    })();
-
-    /* hover targets */
-    document.querySelectorAll('a, button').forEach(function(el) {
-      el.addEventListener('mouseenter', function() { cur.classList.add('expand'); });
-      el.addEventListener('mouseleave', function() { cur.classList.remove('expand'); curLbl.classList.remove('visible'); curLbl.textContent = ''; });
-    });
-
-    /* project cards — show label */
-    var labelMap = {
-      'proj-card': 'View →',
-      'result-card': '',
-      'testi-card': ''
-    };
-    ['proj-card','ch-card','metric-card'].forEach(function(cls) {
-      document.querySelectorAll('.' + cls).forEach(function(el) {
-        el.addEventListener('mouseenter', function() {
-          cur.classList.add('expand');
-          if (cls === 'proj-card') {
-            curLbl.textContent = 'View →';
-            curLbl.classList.add('visible');
-          }
-        });
-        el.addEventListener('mouseleave', function() {
-          cur.classList.remove('expand');
-          curLbl.classList.remove('visible');
-          curLbl.textContent = '';
-        });
-      });
-    });
-
-    document.addEventListener('mousedown', function() { cur.classList.add('press'); });
-    document.addEventListener('mouseup',   function() { cur.classList.remove('press'); });
-  })();
-
-    document.querySelectorAll('a,button').forEach(function(el){
-      el.addEventListener('mouseenter',function(){
-        if(!ring.classList.contains('lg')) ring.classList.add('sm');
-      });
-      el.addEventListener('mouseleave',function(){
-        ring.classList.remove('sm');
-      });
-    });
-
-    document.querySelectorAll('.proj-card').forEach(function(el){
-      el.addEventListener('mouseenter',function(){
-        ring.classList.remove('sm');
-        ring.classList.add('lg');
-        lbl.textContent='View →';
-        lbl.classList.add('show');
-      });
-      el.addEventListener('mouseleave',function(){
-        ring.classList.remove('lg');
-        lbl.classList.remove('show');
-        lbl.textContent='';
-      });
-    });
-
-    document.querySelectorAll('.case-hero').forEach(function(el){
-      el.addEventListener('mouseenter',function(){
-        ring.classList.add('lg');
-        lbl.textContent='Scroll ↓';
-        lbl.classList.add('show');
-      });
-      el.addEventListener('mouseleave',function(){
-        ring.classList.remove('lg');
-        lbl.classList.remove('show');
-        lbl.textContent='';
-      });
-    });
-  })();
-
-  (function(){
-    if(window.matchMedia('(hover:none),(max-width:768px)').matches)return;
-    var dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring'),lbl=document.getElementById('c-lbl');
-    if(!dot||!ring||!lbl)return;
-    var mx=window.innerWidth/2,my=window.innerHeight/2,rx=mx,ry=my,rs=36;
-    document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
-    (function tick(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;dot.style.transform='translate('+(mx-3)+'px,'+(my-3)+'px)';ring.style.transform='translate('+(rx-rs/2)+'px,'+(ry-rs/2)+'px)';lbl.style.transform='translate('+rx+'px,'+ry+'px) translate(-50%,-50%)';requestAnimationFrame(tick);})();
-    document.querySelectorAll('a,button').forEach(function(el){el.addEventListener('mouseenter',function(){if(!ring.classList.contains('lg')){ring.classList.add('sm');rs=22;}});el.addEventListener('mouseleave',function(){ring.classList.remove('sm');if(!ring.classList.contains('lg'))rs=36;});});
-    document.querySelectorAll('.proj-card').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');rs=68;lbl.textContent='View →';lbl.classList.add('show');});el.addEventListener('mouseleave',function(){ring.classList.remove('lg');rs=36;lbl.classList.remove('show');lbl.textContent='';});});
-    document.querySelectorAll('.case-hero').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');rs=68;lbl.textContent='Scroll ↓';lbl.classList.add('show');});el.addEventListener('mouseleave',function(){ring.classList.remove('lg');rs=36;lbl.classList.remove('show');lbl.textContent='';});});
-  })();
-    document.querySelectorAll('a,button').forEach(function(el){
-      el.addEventListener('mouseenter',function(){if(!ring.classList.contains('lg'))ring.classList.add('sm');});
-      el.addEventListener('mouseleave',function(){ring.classList.remove('sm');});
-    });
-    document.querySelectorAll('.proj-card').forEach(function(el){
-      el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');lbl.textContent='View →';lbl.classList.add('show');});
-      el.addEventListener('mouseleave',function(){ring.classList.remove('lg');lbl.classList.remove('show');lbl.textContent='';});
-    });
-    document.querySelectorAll('.case-hero').forEach(function(el){
-      el.addEventListener('mouseenter',function(){ring.classList.remove('sm');ring.classList.add('lg');lbl.textContent='Scroll ↓';lbl.classList.add('show');});
-      el.addEventListener('mouseleave',function(){ring.classList.remove('lg');lbl.classList.remove('show');lbl.textContent='';});
-    });
-  })();
-</script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
