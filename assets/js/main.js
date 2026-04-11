@@ -34,7 +34,7 @@ if (menuBtn) {
 
 // ── Contact section reveal on scroll ─────────────────────────
 var contactWrap = document.querySelector('.contact-wrap');
-if (contactWrap) {
+if (contactWrap && window.innerWidth > 768) {
   contactWrap.style.transition = 'transform 0.1s ease-out';
   window.addEventListener('scroll', function() {
     var rect = contactWrap.getBoundingClientRect();
