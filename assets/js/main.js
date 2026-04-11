@@ -32,6 +32,20 @@ if (menuBtn) {
 }
 
 
+// ── Contact section reveal on scroll ─────────────────────────
+var contactWrap = document.querySelector('.contact-wrap');
+if (contactWrap) {
+  contactWrap.style.transition = 'transform 0.1s ease-out';
+  window.addEventListener('scroll', function() {
+    var rect = contactWrap.getBoundingClientRect();
+    var winH = window.innerHeight;
+    var progress = Math.max(0, Math.min(1, (winH - rect.top) / (winH * 0.6)));
+    var scale = 0.92 + progress * 0.08;
+    var ty = (1 - progress) * 60;
+    contactWrap.style.transform = 'translateY(' + ty + 'px) scale(' + scale + ')';
+  }, { passive: true });
+}
+
 // ── Nav — transparent on top, pill on scroll ──────────────────
 var nav = document.querySelector('nav');
 var navPill = document.getElementById('navPill');
