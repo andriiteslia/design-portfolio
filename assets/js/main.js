@@ -60,6 +60,28 @@ if (nav) {
   window.addEventListener('scroll', updateNav, { passive: true });
 }
 
+// ── Btn-fill ripple on mouse position ────────────────────────
+document.querySelectorAll('.btn-fill').forEach(function(btn) {
+  var ripple = btn.querySelector('.btn-ripple');
+  if (!ripple) return;
+  btn.addEventListener('mouseenter', function(e) {
+    var r = btn.getBoundingClientRect();
+    var size = Math.max(r.width, r.height) * 2;
+    var x = e.clientX - r.left - size / 2;
+    var y = e.clientY - r.top  - size / 2;
+    ripple.style.width  = size + 'px';
+    ripple.style.height = size + 'px';
+    ripple.style.left   = x + 'px';
+    ripple.style.top    = y + 'px';
+  });
+  btn.addEventListener('mousemove', function(e) {
+    var r = btn.getBoundingClientRect();
+    var size = Math.max(r.width, r.height) * 2;
+    ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
+    ripple.style.top  = (e.clientY - r.top  - size / 2) + 'px';
+  });
+});
+
 // ── Scroll reveal ─────────────────────────────────────────────
 var ro = new IntersectionObserver(function(es) {
   es.forEach(function(e) {
