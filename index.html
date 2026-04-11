@@ -73,11 +73,11 @@
     .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
     /* ── buttons ── */
-    .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;transition:transform .2s,color .3s;position:relative;overflow:hidden}
+    .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;transition:transform .2s;position:relative;overflow:hidden}
     .btn-fill:hover{transform:translateY(-2px)}
-    .btn-fill .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);transform:scale(0);opacity:0;pointer-events:none;transition:transform .55s cubic-bezier(.22,1,.36,1),opacity .55s}
-    .btn-fill:hover .btn-ripple{transform:scale(2.8);opacity:1}
-    .btn-fill span.btn-label{position:relative;z-index:1}
+    .btn-fill .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
+    .btn-fill.ripple-active .btn-ripple{transform:scale(1);opacity:1}
+    .btn-fill span.btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px}
     .btn-out{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;border:1px solid var(--border);transition:background .2s,border-color .2s,color .2s}
     .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
 
