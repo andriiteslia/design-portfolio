@@ -224,6 +224,7 @@
       .about-grid{grid-template-columns:1fr}
       .photo-wrap{position:static}
       .photo{aspect-ratio:16/9;max-height:400px}
+      @media(max-width:480px){.photo{aspect-ratio:1;max-height:none}}
     }
     .nav-links.open{display:flex!important;flex-direction:column;position:absolute;top:var(--nav-h);left:0;right:0;bottom:0;background:transparent;padding:40px 24px;gap:0;z-index:1;border-top:1px solid var(--border)}
     .nav-links.open a{font-size:22px;font-weight:600;color:var(--text);padding:18px 0;border-bottom:1px solid var(--border)}
