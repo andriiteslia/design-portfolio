@@ -203,6 +203,11 @@
     .t-name{font-size:14px;font-weight:500}
     .t-role{font-size:12px;color:var(--text-3)}
 
+    /* ── contact sticky reveal ── */
+    .contact-sticky-wrap{position:sticky;bottom:0;z-index:0}
+    #contact{position:relative;z-index:1}
+    .contact-wrap{will-change:transform;transform-origin:center bottom}
+
     /* ── contact ── */
     .contact-wrap{text-align:center;padding:160px 48px;max-width:860px;margin:0 auto}
     .contact-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(38px,6vw,84px);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:28px}
@@ -416,6 +421,7 @@
   </div>
 </div>
 
+<div class="contact-sticky-wrap">
 <div id="contact">
   <div class="contact-wrap reveal">
     <h2 class="contact-title">Let's build something<br><em>great</em> together</h2>
@@ -429,6 +435,7 @@
     </div>
   </div>
 </div>
+</div><!-- /contact-sticky-wrap -->
 
 <footer>
   <div class="foot-in">
