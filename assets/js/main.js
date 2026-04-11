@@ -77,7 +77,9 @@ document.addEventListener('mousemove', function(e) {
   var ty = dy * 4;
   var val = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translate(' + tx + 'px,' + ty + 'px)';
   tiltEls.forEach(function(el) {
-    if (el) el.style.transform = val;
+    if (!el) return;
+    el.style.transition = 'transform 0.08s ease-out';
+    el.style.transform = val;
   });
 });
 document.addEventListener('mouseleave', function() {
