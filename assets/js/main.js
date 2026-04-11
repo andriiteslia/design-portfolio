@@ -65,9 +65,9 @@ var heroIn = document.querySelector('.hero-in');
 if (heroIn) {
   window.addEventListener('scroll', function() {
     var s = window.scrollY;
-    var speed = 0.4;
-    heroIn.style.transform = 'translateY(' + (-s * speed) + 'px)';
-    heroIn.style.opacity = Math.max(0, 1 - s / (window.innerHeight * 0.7));
+    var progress = Math.min(s / window.innerHeight, 1);
+    var scale = 1 - progress * 0.08;
+    heroIn.style.transform = 'scale(' + scale + ')';
   }, { passive: true });
 }
 
