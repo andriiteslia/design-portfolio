@@ -86,10 +86,13 @@
     .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
 
     /* ── hero ── */
-    .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
+    .hero-sticky-wrap{position:sticky;top:0;z-index:0;height:100vh}
+    .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;height:100vh}
     .hero::before{content:'';position:absolute;top:-20%;left:-10%;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(ellipse at center,rgba(72,101,244,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
     .hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(ellipse at center,rgba(72,101,244,.04) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
     .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
+    /* content over hero */
+    .hero-overlay-content{position:relative;z-index:1;background:var(--bg);border-radius:24px 24px 0 0;margin-top:-24px;box-shadow:0 -8px 40px rgba(0,0,0,.06)}
     /* badge */
     .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
     .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
@@ -282,6 +285,7 @@
   <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-pill-cta"><div class="btn-ripple"></div><span class="btn-label">Download Resume ↗</span></a>
 </div>
 
+<div class="hero-sticky-wrap">
 <div class="hero">
   <div class="hero-in">
     <div class="badge"><span class="badge-dot"></span>Open to Lead/Senior product design roles</div>
@@ -300,7 +304,9 @@
   </div>
   <div class="scroll-hint"><span>Scroll</span><div class="sh-line"></div></div>
 </div>
+</div><!-- /hero-sticky-wrap -->
 
+<div class="hero-overlay-content">
 <div class="stats">
   <div class="stats-in">
     <div class="stat reveal"><div class="stat-n"><span class="counter" data-to="8">0</span><span class="sfx">+ yrs</span></div><div class="stat-l">Professional UX/UI<br>& product experience</div></div>
@@ -437,6 +443,8 @@
     </div>
   </div>
 </footer>
+
+</div><!-- /hero-overlay-content -->
 
 <script src="assets/js/main.js"></script>
 </body>
