@@ -37,30 +37,25 @@
     }
 
 
-    /* Nav */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: var(--nav-h);
-      background: rgba(255,255,255,0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    }
-    .nav-inner {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px; width: 100%; height: 100%;
-      display: flex; align-items: center; gap: 32px;
-    }
-    .nav-back {
+    /* ── Glass back button ── */
+    .glass-back {
+      position: fixed; top: 20px; left: 24px; z-index: 100;
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--text-2); text-decoration: none;
-      transition: color .2s;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px; font-weight: 600; color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,0.7);
+      border-bottom: 1px solid rgba(200,205,255,0.3);
+      padding: 8px 16px 8px 12px;
+      border-radius: 100px;
+      transition: background .2s, transform .2s;
     }
-    .nav-back:hover { color: var(--text); }
-    .nav-back svg { transition: transform .2s; }
-    .nav-back:hover svg { transform: translateX(-3px); }
-    .nav-logo {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 18px;
-      letter-spacing: -.03em; color: var(--text); text-decoration: none; flex: 1;
-    }
-    .nav-logo span { color: var(--accent); }
+    .glass-back:hover { background: rgba(255,255,255,0.82); transform: translateX(-2px); }
+    .glass-back svg { transition: transform .2s; }
+    .glass-back:hover svg { transform: translateX(-3px); }
 
     /* Container */
     .pg {
@@ -70,7 +65,7 @@
 
     /* Hero */
     .case-hero {
-      padding-top: var(--nav-h);
+      
       background: linear-gradient(160deg, var(--proj) 0%, var(--proj-l) 100%);
       min-height: 70vh;
       display: flex; flex-direction: column; justify-content: flex-end;
@@ -456,18 +451,12 @@
   </style>
 </head>
 <body>
-<!-- Nav -->
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-back">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      All work
-    </a>
-    <a href="index.html" class="nav-logo">AT. <span>DESIGN PORTFOLIO.</span></a>
-  </div>
-</nav>
+<a href="index.html" class="glass-back">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+    <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+  All work
+</a>
 
 <!-- Hero -->
 <div class="case-hero">
