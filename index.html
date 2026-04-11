@@ -92,7 +92,7 @@
     .hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(ellipse at center,rgba(72,101,244,.04) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
     .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
     /* content over hero */
-    .hero-overlay-content{position:relative;z-index:1;background:var(--bg);border-radius:24px 24px 0 0;margin-top:-24px;box-shadow:0 -2px 12px rgba(0,0,0,.04)}
+    .hero-overlay-content{position:relative;z-index:1;background:var(--bg);border-radius:24px 24px 0 0;margin-top:-24px;}
     /* badge */
     .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
     .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
@@ -107,7 +107,7 @@
     .hero-desc strong{color:var(--text);font-weight:500}
     .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;justify-content:center}
     .hero-loc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);justify-self:end;align-self:center}
-    .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .6s 1.2s forwards}
+    .scroll-hint{position:absolute;bottom:36px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .6s 1.2s forwards}
     @media(max-width:1024px){.scroll-hint{display:none}}
     .scroll-hint span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
     .sh-line{width:1px;height:44px;background:var(--text-3);opacity:.4;animation:shLine 1.8s ease-in-out infinite;transform-origin:top}
