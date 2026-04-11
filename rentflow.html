@@ -38,8 +38,13 @@
 
 
     /* ── Glass back button ── */
+    .glass-back-wrap {
+      position: fixed; top: 20px; left: 0; right: 0; z-index: 100;
+      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
+      padding: 0 48px; pointer-events: none;
+    }
     .glass-back {
-      position: fixed; top: 20px; left: 24px; z-index: 100;
+      pointer-events: auto;
       display: inline-flex; align-items: center; gap: 8px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: 13px; font-weight: 600; color: var(--text);
@@ -56,6 +61,7 @@
     .glass-back:hover { background: rgba(255,255,255,0.82); transform: translateX(-2px); }
     .glass-back svg { transition: transform .2s; }
     .glass-back:hover svg { transform: translateX(-3px); }
+    @media(max-width:768px){ .glass-back-wrap { padding: 0 24px; } }
 
     /* Container */
     .pg {
@@ -451,12 +457,14 @@
   </style>
 </head>
 <body>
-<a href="index.html" class="glass-back">
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-    <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>
-  All work
-</a>
+<div class="glass-back-wrap">
+  <a href="index.html" class="glass-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All work
+  </a>
+</div>
 
 <!-- Hero -->
 <div class="case-hero">
