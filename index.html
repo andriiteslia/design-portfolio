@@ -52,8 +52,11 @@
     .nav-pill-links{display:flex;align-items:center;gap:4px}
     .nav-pill-links a{font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:100px;transition:background .2s,color .2s}
     .nav-pill-links a:hover{background:var(--bg-2);color:var(--text)}
-    .nav-pill-cta{display:inline-flex;align-items:center;font-size:13px;font-weight:600;background:var(--accent);color:#fff;padding:8px 18px;border-radius:100px;text-decoration:none;margin-left:6px;transition:opacity .2s}
-    .nav-pill-cta:hover{opacity:.85}
+    .nav-pill-cta{display:inline-flex;align-items:center;font-size:13px;font-weight:600;background:var(--text);color:var(--bg);padding:8px 18px;border-radius:100px;text-decoration:none;margin-left:6px;transition:transform .2s;position:relative;overflow:hidden}
+    .nav-pill-cta:hover{transform:translateY(-1px)}
+    .nav-pill-cta .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
+    .nav-pill-cta.ripple-active .btn-ripple{transform:scale(1);opacity:1}
+    .nav-pill-cta .btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px}
     @media(max-width:768px){.nav-pill{display:none!important}}
     .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF;z-index:99;padding:40px 24px;flex-direction:column;overflow-y:auto}
     .mobile-menu.open{display:flex}
@@ -273,7 +276,7 @@
     <a href="#say">Testimonials</a>
     <a href="#contact">Contact</a>
   </div>
-  <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-pill-cta">Download Resume ↗</a>
+  <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-pill-cta"><div class="btn-ripple"></div><span class="btn-label">Download Resume ↗</span></a>
 </div>
 
 <div class="hero">
