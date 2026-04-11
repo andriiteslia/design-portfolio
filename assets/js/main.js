@@ -67,7 +67,8 @@ if (heroIn) {
     var s = window.scrollY;
     var progress = Math.min(s / window.innerHeight, 1);
     var scale = 1 - progress * 0.08;
-    heroIn.style.transform = 'scale(' + scale + ')';
+    var ty = -s * 0.3;
+    heroIn.style.transform = 'translateY(' + ty + 'px) scale(' + scale + ')';
   }, { passive: true });
 }
 
