@@ -61,7 +61,7 @@ if (nav) {
 }
 
 // ── Btn-fill ripple on mouse position ────────────────────────
-document.querySelectorAll('.btn-fill').forEach(function(btn) {
+document.querySelectorAll('.btn-fill, .nav-pill-cta').forEach(function(btn) {
   var ripple = btn.querySelector('.btn-ripple');
   if (!ripple) return;
 
