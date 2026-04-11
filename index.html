@@ -85,10 +85,10 @@
     .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
 
     /* ── hero ── */
-    .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden}
+    .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden}
     .hero::before{content:'';position:absolute;top:-20%;left:-10%;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(ellipse at center,rgba(72,101,244,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
     .hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(ellipse at center,rgba(72,101,244,.04) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
-    .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1}
+    .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
     /* badge */
     .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
     .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
@@ -98,10 +98,10 @@
     .h1 .word{display:inline-block;opacity:0;transform:translateY(100%);animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards}
     .h1 .w1{animation-delay:.15s}.h1 .w2{animation-delay:.25s}.h1 .w3{animation-delay:.35s}.h1 .w4{animation-delay:.45s}.h1 .w5{animation-delay:.55s}
     @keyframes wordUp{to{opacity:1;transform:translateY(0)}}
-    .hero-bot{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:end;opacity:0;animation:fadeUp .6s .7s forwards}
-    .hero-desc{font-size:16px;line-height:1.75;color:var(--text-2);font-weight:300}
+    .hero-bot{display:flex;flex-direction:column;align-items:center;gap:16px;opacity:0;animation:fadeUp .6s .7s forwards}
+    .hero-desc{font-size:16px;line-height:1.75;color:var(--text-2);font-weight:300;max-width:560px;text-align:center}
     .hero-desc strong{color:var(--text);font-weight:500}
-    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;justify-content:center}
     .hero-loc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);justify-self:end;align-self:center}
     .scroll-hint{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .6s 1.2s forwards}
     .scroll-hint span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
@@ -284,18 +284,15 @@
   <div class="hero-in">
     <div class="badge"><span class="badge-dot"></span>Open to Lead/Senior product design roles</div>
     <h1 class="h1">
-      <div class="line"><span class="word w1">Andrii</span></div>
-      <div class="line"><span class="word w2">Teslia</span><span class="word w3" style="color:var(--accent)">&nbsp;—</span></div>
+      <div class="line"><span class="word w1">Andrii</span>&nbsp;<span class="word w2">Teslia</span><span class="word w3" style="color:var(--accent)">&nbsp;—</span></div>
       <div class="line"><span class="word w4">Product &amp;</span></div>
       <div class="line"><span class="word w5"><em style="font-style:normal;color:var(--accent)">UX/UI</em>&nbsp;Designer</span></div>
     </h1>
     <div class="hero-bot">
-      <div>
-        <p class="hero-desc"><strong>8 years</strong> crafting pixel-perfect experiences for <strong>fintech, proptech, health-tech, B2B SaaS</strong> and <strong>CRM</strong> products. Figma expert, design systems architect, and AI-workflow practitioner. Based in Lviv, Ukraine — working worldwide.</p>
-        <div class="hero-cta">
-          <a href="#work" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">View my work →</span></a>
-          <a href="#contact" class="btn-out">Get in touch</a>
-        </div>
+      <p class="hero-desc"><strong>8 years</strong> crafting pixel-perfect experiences for <strong>fintech, proptech, health-tech, B2B SaaS</strong> and <strong>CRM</strong> products. Figma expert, design systems architect, AI-workflow practitioner, and <strong>no-code AI builder</strong>. Based in Lviv, Ukraine — working worldwide.</p>
+      <div class="hero-cta">
+        <a href="#work" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">View my work →</span></a>
+        <a href="#contact" class="btn-out">Get in touch</a>
       </div>
     </div>
   </div>
