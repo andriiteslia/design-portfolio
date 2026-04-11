@@ -61,25 +61,32 @@ if (nav) {
 }
 
 // ── Hero title tilt parallax ──────────────────────────────────
-var heroTitle = document.querySelector('.h1');
-if (heroTitle) {
-  heroTitle.style.transition = 'transform 0.15s ease-out';
-  document.addEventListener('mousemove', function(e) {
-    var cx = window.innerWidth / 2;
-    var cy = window.innerHeight / 2;
-    var dx = (e.clientX - cx) / cx; // -1 to 1
-    var dy = (e.clientY - cy) / cy; // -1 to 1
-    var rotateX = dy * -4;  // tilt up/down max 4deg
-    var rotateY = dx * 5;   // tilt left/right max 5deg
-    var tx = dx * 8;        // translate max 8px
-    var ty = dy * 4;        // translate max 4px
-    heroTitle.style.transform = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translate(' + tx + 'px,' + ty + 'px)';
+var tiltEls = [document.querySelector('.h1'), document.querySelector('.contact-title')];
+tiltEls.forEach(function(el) {
+  if (!el) return;
+  el.style.transition = 'transform 0.08s ease-out';
+});
+document.addEventListener('mousemove', function(e) {
+  var cx = window.innerWidth / 2;
+  var cy = window.innerHeight / 2;
+  var dx = (e.clientX - cx) / cx;
+  var dy = (e.clientY - cy) / cy;
+  var rotateX = dy * -4;
+  var rotateY = dx * 5;
+  var tx = dx * 8;
+  var ty = dy * 4;
+  var val = 'perspective(800px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translate(' + tx + 'px,' + ty + 'px)';
+  tiltEls.forEach(function(el) {
+    if (el) el.style.transform = val;
   });
-  document.addEventListener('mouseleave', function() {
-    heroTitle.style.transition = 'transform 0.6s ease-out';
-    heroTitle.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translate(0,0)';
+});
+document.addEventListener('mouseleave', function() {
+  tiltEls.forEach(function(el) {
+    if (!el) return;
+    el.style.transition = 'transform 0.6s ease-out';
+    el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translate(0,0)';
   });
-}
+});
 
 // ── Btn-fill ripple on mouse position ────────────────────────
 document.querySelectorAll('.btn-fill, .nav-pill-cta').forEach(function(btn) {
