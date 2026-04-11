@@ -64,21 +64,23 @@ if (nav) {
 document.querySelectorAll('.btn-fill').forEach(function(btn) {
   var ripple = btn.querySelector('.btn-ripple');
   if (!ripple) return;
-  btn.addEventListener('mouseenter', function(e) {
+
+  function setPos(e) {
     var r = btn.getBoundingClientRect();
-    var size = Math.max(r.width, r.height) * 2;
-    var x = e.clientX - r.left - size / 2;
-    var y = e.clientY - r.top  - size / 2;
+    var size = Math.max(r.width, r.height) * 2.5;
     ripple.style.width  = size + 'px';
     ripple.style.height = size + 'px';
-    ripple.style.left   = x + 'px';
-    ripple.style.top    = y + 'px';
+    ripple.style.left   = (e.clientX - r.left - size / 2) + 'px';
+    ripple.style.top    = (e.clientY - r.top  - size / 2) + 'px';
+  }
+
+  btn.addEventListener('mouseenter', function(e) {
+    setPos(e);
+    btn.classList.add('ripple-active');
   });
-  btn.addEventListener('mousemove', function(e) {
-    var r = btn.getBoundingClientRect();
-    var size = Math.max(r.width, r.height) * 2;
-    ripple.style.left = (e.clientX - r.left - size / 2) + 'px';
-    ripple.style.top  = (e.clientY - r.top  - size / 2) + 'px';
+  btn.addEventListener('mousemove', setPos);
+  btn.addEventListener('mouseleave', function() {
+    btn.classList.remove('ripple-active');
   });
 });
 
