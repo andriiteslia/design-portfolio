@@ -149,10 +149,8 @@
     .proj-card{background:var(--bg-2);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1)}
     .proj-card:hover{transform:translateY(-6px)}
     .proj-thumb{height:260px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .proj-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-    .proj-card:hover .proj-thumb img{transform:scale(1.06)}
-    .proj-thumb[style*="background-image"]{background-size:100%;transition:background-size .5s cubic-bezier(.22,1,.36,1)}
-    .proj-card:hover .proj-thumb[style*="background-image"]{background-size:106%}
+    .proj-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+    .proj-card:hover .proj-bg{transform:scale(1.06)}
     .proj-letters{font-size:100px;font-weight:800;letter-spacing:-.06em;opacity:.2;transition:transform .5s,opacity .5s;color:#fff}
     .proj-card:hover .proj-letters{transform:scale(1.08);opacity:.3}
     .proj-tags{position:absolute;top:18px;left:18px;display:flex;gap:6px;flex-wrap:wrap}
@@ -342,7 +340,7 @@
   <div class="sec-lbl reveal"><span class="sec-num">01 — Work</span><h2 class="sec-title">Selected Projects</h2></div>
   <div class="proj-grid">
     <a href="rentflow.html" class="proj-card reveal">
-      <div class="proj-thumb cb" style="background-image:url('assets/img/rentflow/hero-banner.png');background-size:cover;background-position:center top;"><div class="proj-letters" style="display:none"></div><div class="proj-tags"><span class="proj-tag">PropTech</span><span class="proj-tag">Fintech</span><span class="proj-tag">Web</span></div><span class="proj-yr">Apr – Dec 2023</span></div>
+      <div class="proj-thumb cb"><div class="proj-bg" style="background-image:url('assets/img/rentflow/hero-banner.png');background-position:center top;"></div><div class="proj-tags"><span class="proj-tag">PropTech</span><span class="proj-tag">Fintech</span><span class="proj-tag">Web</span></div><span class="proj-yr">Apr – Dec 2023</span></div>
       <div class="proj-body">
         <div class="proj-name">RentFlow Dubai</div>
         <div class="proj-desc">Multi-role prop-fintech platform for Dubai's rental market. End-to-end flows for 4 user roles, 300+ screens, RTL-ready design system.</div>
@@ -350,7 +348,7 @@
       </div>
     </a>
     <a href="tim.html" class="proj-card reveal d1">
-      <div class="proj-thumb ca"><div class="proj-letters">TIM</div><div class="proj-tags"><span class="proj-tag">Mobile App</span><span class="proj-tag">RTL</span><span class="proj-tag">Israel</span></div><span class="proj-yr">2019</span></div>
+      <div class="proj-thumb ca"><div class="proj-bg" style="background:linear-gradient(140deg,#78350F,#F59E0B)"></div><div class="proj-letters">TIM</div><div class="proj-tags"><span class="proj-tag">Mobile App</span><span class="proj-tag">RTL</span><span class="proj-tag">Israel</span></div><span class="proj-yr">2019</span></div>
       <div class="proj-body">
         <div class="proj-name">TIM — On-Demand Jobs App</div>
         <div class="proj-desc">RTL gig marketplace for urban Israelis. 2-month sprint, 25 concepts, 110+ hi-fi screens, RTL design system. 4.7★ App Store debut.</div>
@@ -358,7 +356,7 @@
       </div>
     </a>
     <a href="medpal.html" class="proj-card reveal d2">
-      <div class="proj-thumb ct"><div class="proj-letters">MP</div><div class="proj-tags"><span class="proj-tag">HealthTech</span><span class="proj-tag">Mobile</span><span class="proj-tag">AI</span><span class="proj-tag">UK</span></div><span class="proj-yr">2025 – Present</span></div>
+      <div class="proj-thumb ct"><div class="proj-bg" style="background:linear-gradient(140deg,#064E3B,#10B981)"></div><div class="proj-letters">MP</div><div class="proj-tags"><span class="proj-tag">HealthTech</span><span class="proj-tag">Mobile</span><span class="proj-tag">AI</span><span class="proj-tag">UK</span></div><span class="proj-yr">2025 – Present</span></div>
       <div class="proj-body">
         <div class="proj-name">MedPal — AI Health App</div>
         <div class="proj-desc">AI-powered health companion for the UK market. Mobile UX, IA, voice-assistant flows. Product raised £500k+ and completed IPO.</div>
@@ -366,7 +364,7 @@
       </div>
     </a>
     <div class="proj-card wip reveal d3">
-      <div class="proj-thumb cp"><div class="proj-letters" style="opacity:.12">EB</div><div class="proj-tags"><span class="proj-tag">Fintech</span><span class="proj-tag">Africa</span></div><span class="proj-yr">2024</span></div>
+      <div class="proj-thumb cp"><div class="proj-bg" style="background:linear-gradient(140deg,#3B0764,#8B5CF6)"></div><div class="proj-letters" style="opacity:.12">EB</div><div class="proj-tags"><span class="proj-tag">Fintech</span><span class="proj-tag">Africa</span></div><span class="proj-yr">2024</span></div>
       <div class="proj-body">
         <div class="proj-name">E-Banking Africa</div>
         <div class="proj-desc">Digital banking platform for the African market. Full design system, onboarding, and core banking flows.</div>
