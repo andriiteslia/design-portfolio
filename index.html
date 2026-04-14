@@ -182,12 +182,21 @@
     .sk{font-size:12px;padding:5px 13px;border:1px solid var(--border);border-radius:100px;color:var(--text-2);transition:background .2s,color .2s,border-color .2s}
     .sk:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
     .exp{display:flex;flex-direction:column}
-    .exp-row{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--border)}
+    .exp-row{border-bottom:1px solid var(--border);cursor:pointer}
     .exp-row:first-child{border-top:1px solid var(--border)}
-    .exp-title{font-size:14px;font-weight:500}
-    .exp-co{font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px}
+    .exp-header{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:18px 0}
+    .exp-title{font-size:14px;font-weight:600}
+    .exp-co{font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px;margin-top:3px}
     .exp-badge{font-size:10px;color:var(--accent);background:rgba(72,101,244,.1);padding:2px 7px;border-radius:100px}
+    .exp-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
     .exp-yr{font-size:12px;color:var(--text-3);white-space:nowrap}
+    .exp-chevron{width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:var(--text-3);transition:transform .3s cubic-bezier(.22,1,.36,1),color .2s;flex-shrink:0}
+    .exp-row.open .exp-chevron{transform:rotate(180deg);color:var(--accent)}
+    .exp-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1)}
+    .exp-row.open .exp-body{max-height:400px}
+    .exp-desc{padding:0 0 20px;display:flex;flex-direction:column;gap:6px}
+    .exp-desc li{font-size:13.5px;color:var(--text-2);line-height:1.65;list-style:none;padding-left:16px;position:relative}
+    .exp-desc li::before{content:'—';position:absolute;left:0;color:var(--text-3)}
 
     /* ── certificates ── */
     .cert-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 0}
@@ -389,12 +398,30 @@
         <span class="sk">Figma</span><span class="sk">Interaction Design</span><span class="sk">UX Research</span><span class="sk">Wireframing</span><span class="sk">Prototyping</span><span class="sk">Data Visualization</span><span class="sk">Design Systems</span><span class="sk">Information Architecture</span><span class="sk">Usability Testing</span><span class="sk">AI-Assisted Design</span><span class="sk">Atomic Design</span><span class="sk">Pixel Perfect Design</span><span class="sk">WCAG 2.2</span><span class="sk">Apple HIG</span><span class="sk">Material Design</span><span class="sk">Design Tokens</span><span class="sk">FigJam</span><span class="sk">Jira</span>
       </div>
       <div class="exp">
-        <div class="exp-row"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft</div></div><div class="exp-yr">Aug 2025 – Present</div></div>
-        <div class="exp-row"><div><div class="exp-title">Senior UX/UI Designer</div><div class="exp-co">Teamvoy</div></div><div class="exp-yr">Mar 2023 – Feb 2025</div></div>
-        <div class="exp-row"><div><div class="exp-title">Lead UX/UI Designer (Product)</div><div class="exp-co">Surprise</div></div><div class="exp-yr">Sep 2020 – Dec 2022</div></div>
-        <div class="exp-row"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">LaSoft</div></div><div class="exp-yr">Feb – Sep 2020</div></div>
-        <div class="exp-row"><div><div class="exp-title">Interaction Designer</div><div class="exp-co">QubStudio · 🏆 Gold Trophy</div></div><div class="exp-yr">Aug 2019 – Feb 2020</div></div>
-        <div class="exp-row"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">Devlight</div></div><div class="exp-yr">Dec 2017 – Jul 2019</div></div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft</div></div><div class="exp-right"><span class="exp-yr">Aug 2025 – Present</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Driving UX and product decisions across the full lifecycle of a fast-growing AI health & wellbeing product for the UK market.</li><li>Contributed to business growth through early-stage solution shaping, helping secure a new enterprise client from the UK.</li><li>Designed and improved a veterans-focused platform for discovering state benefits and support.</li><li>Independently built a fully functional mobile app end-to-end using AI-assisted development tools.</li></ul></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">Senior UX/UI Designer</div><div class="exp-co">Teamvoy</div></div><div class="exp-right"><span class="exp-yr">Mar 2023 – Feb 2025</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Developed and maintained comprehensive design systems in Figma with variables and design tokens.</li><li>Conducted 30+ technical interviews evaluating candidates' capabilities.</li><li>Mentored junior designers, providing guidance to help them grow.</li><li>Designed fintech products (200k+ users), CRM systems, and real estate platforms.</li><li>Worked on an accessibility platform ensuring websites meet WCAG standards.</li></ul></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">Lead UX/UI Designer (Product)</div><div class="exp-co">Surprise</div></div><div class="exp-right"><span class="exp-yr">Sep 2020 – Dec 2022</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Led and mentored a team of designers.</li><li>Created a design system for mobile and web apps from scratch, increasing team efficiency.</li><li>Conceived innovative features and pitched concepts directly to senior leadership.</li><li>Designed intuitive interactions and flows for web and mobile platforms.</li></ul></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">LaSoft</div></div><div class="exp-right"><span class="exp-yr">Feb – Sep 2020</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Delivered projects for clients in the USA and Germany.</li><li>Worked closely with developers, providing all assets and components.</li><li>Created a design system for mobile and web applications from scratch.</li><li>Presented designs and communicated solutions to stakeholders.</li></ul></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">Interaction Designer</div><div class="exp-co">QubStudio · 🏆 Gold Trophy</div></div><div class="exp-right"><span class="exp-yr">Aug 2019 – Feb 2020</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Won a Gold Trophy in Ukrainian Design: The Very Best Of — Interface & UX Design category.</li><li>Developed full UX deliverables: personas, storyboards, IA, wireframes, and visual standards.</li><li>Built interactive prototypes to validate concepts with team and stakeholders.</li></ul></div>
+        </div>
+        <div class="exp-row">
+          <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">Devlight</div></div><div class="exp-right"><span class="exp-yr">Dec 2017 – Jul 2019</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+          <div class="exp-body"><ul class="exp-desc"><li>Participated in Design Sprint: defining problems, generating ideas, prototyping and testing.</li><li>Created user flows, wireframes, prototypes, and micro/macro animations.</li><li>Delivered all assets and components for smooth collaboration with developers.</li></ul></div>
+        </div>
       </div>
     </div>
   </div>
