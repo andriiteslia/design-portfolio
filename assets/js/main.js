@@ -32,6 +32,17 @@ if (menuBtn) {
 }
 
 
+// ── Experience accordion ──────────────────────────────────────
+document.querySelectorAll('.exp-row').forEach(function(row) {
+  var header = row.querySelector('.exp-header');
+  if (!header) return;
+  header.addEventListener('click', function() {
+    var isOpen = row.classList.contains('open');
+    document.querySelectorAll('.exp-row.open').forEach(function(r) { r.classList.remove('open'); });
+    if (!isOpen) row.classList.add('open');
+  });
+});
+
 // ── Contact section reveal on scroll ─────────────────────────
 var contactWrap = document.querySelector('.contact-wrap');
 if (contactWrap && window.innerWidth > 768) {
