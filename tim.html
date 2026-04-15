@@ -110,11 +110,8 @@
     }
     .cs-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
     .cs-section:last-of-type { border-bottom: none; }
-    .cs-label {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(18px, 2vw, 24px); font-weight: 800; letter-spacing: -.02em;
-      color: var(--text); margin-bottom: 20px;
-    }
+    .cs-step{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+    .cs-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2vw,24px);font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:20px}
     .cs-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(24px, 3vw, 40px);
@@ -280,13 +277,13 @@
       background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 8px;
     }
 
-    /* ── Deliverables list ── */
-    .deliverables-list{border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:0}
-    .dl-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);padding:24px 28px;border-bottom:1px solid var(--border);background:var(--bg-2)}
-    .dl-item{display:flex;gap:16px;align-items:flex-start;padding:18px 28px;border-bottom:1px solid var(--border);font-size:14px;line-height:1.65;color:var(--text-2)}
-    .dl-item:last-child{border-bottom:none}
-    .dl-item strong{color:var(--text);font-weight:600}
-    .dl-check{width:20px;height:20px;border-radius:50%;background:rgba(72,101,244,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+    /* ── TIM deliverables ── */
+    .tim-deliverables{background:linear-gradient(140deg,var(--proj),var(--proj-m));border-radius:20px;padding:40px;margin-top:0}
+    .tim-del-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:24px}
+    .tim-del-list{display:flex;flex-direction:column;gap:14px}
+    .tim-del-item{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.65;color:rgba(255,255,255,.85)}
+    .tim-del-item strong{color:#fff;font-weight:600}
+    .tim-del-check{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
 
     /* ── Real images ── */
     .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
@@ -509,7 +506,7 @@
 
   <!-- Overview -->
   <div class="cs-section reveal">
-    <div class="cs-label">Project Overview</div>
+    <div class="cs-step">01 — Overview</div><div class="cs-label">Project Overview</div>
     <p class="cs-text">
       TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs. Our <strong>three-person squad (PM + 2 UX/UI)</strong> had just <strong>two months</strong> to transform the founders' "time = money" vision into a launch-ready MVP, tackling trust, instant booking, and clear pay as core pain points. Through <strong>25+ rapid concept iterations</strong>, user research, IA planning, and usability tests, I led the end-to-end UX/UI effort — shaping a validated product concept, scalable design system, and developer-ready guidelines that set the stage for a <strong>higher job-fill rate and a 4.7-star App Store debut</strong>.
     </p>
@@ -517,7 +514,7 @@
 
   <!-- Problem Statement -->
   <div class="cs-section reveal">
-    <div class="cs-label">Problem Statement:</div>
+    <div class="cs-step">02 — Problem</div><div class="cs-label">Problem Statement</div>
     <p class="cs-text">
       Urban Israelis struggle to reclaim personal time because current gig apps are <strong>slow, unclear on pay, and feel risky</strong>, especially when a stranger must enter the home. Our challenge was to create a service that lets them turn time into money through <strong>instant, trustworthy bookings</strong>.
     </p>
@@ -525,7 +522,7 @@
 
   <!-- Key Challenges -->
   <div class="cs-section reveal">
-    <div class="cs-label">Key Challenges:</div>
+    <div class="cs-step">03 — Challenges</div><div class="cs-label">Key Challenges</div>
     <div class="challenges" style="margin-top:24px;">
       <div class="ch-card"><div class="ch-num">1</div><div><div class="ch-title">Mind-set shift — selling "time = money"</div><div class="ch-text">Early concepts fell flat; 25 iterations before the right hook resonated.</div></div></div>
       <div class="ch-card"><div class="ch-num">2</div><div><div class="ch-title">Trust &amp; safety</div><div class="ch-text">Users will only hire people they'd let into their homes or walk their pets.</div></div></div>
@@ -537,7 +534,7 @@
 
   <!-- Design Process -->
   <div class="cs-section reveal">
-    <div class="cs-label">Design Process:</div>
+    <div class="cs-step">04 — Process</div><div class="cs-label">Design Process</div>
     <p class="cs-text">I used the <strong>Design Thinking approach</strong> to solve the challenges we faced.</p>
     <div class="cs-img-wrap reveal" style="margin-top:32px;">
       <img src="assets/img/tim/design-process.png" alt="Design Thinking process — Discover, Define, Ideation, Prototype, Test, Design, Delivery">
@@ -546,7 +543,7 @@
 
   <!-- Discover Phase -->
   <div class="cs-section reveal">
-    <div class="cs-label">Discover Phase:</div>
+    <div class="cs-step">05 — Discover</div><div class="cs-label">Discover Phase</div>
     <ul class="cs-text" style="padding-left:20px;display:flex;flex-direction:column;gap:8px;list-style:disc;">
       <li>Conducted 10 seeker + 6 provider interviews</li>
       <li>Competitor teardown (TaskRabbit, local apps) to map gaps in booking speed &amp; pay clarity</li>
@@ -561,7 +558,7 @@
 
   <!-- Define Phase -->
   <div class="cs-section reveal">
-    <div class="cs-label">Define Phase:</div>
+    <div class="cs-step">06 — Define</div><div class="cs-label">Define Phase</div>
     <ul class="cs-text" style="padding-left:20px;display:flex;flex-direction:column;gap:8px;list-style:disc;">
       <li>Synthesised insights into a problem statement and three opportunity areas (instant match, transparent pay, trust signals)</li>
       <li>Prioritised success metrics: posting time, task success rate, user trust score.</li>
@@ -574,7 +571,7 @@
 
   <!-- Ideation Phase -->
   <div class="cs-section reveal">
-    <div class="cs-label">Ideation Phase:</div>
+    <div class="cs-step">07 — Ideation</div><div class="cs-label">Ideation Phase</div>
     <p class="cs-text">Ran <strong>crazy-8s and decision matrix workshops</strong> → <strong>25 concepts</strong> → narrowed to <strong>1 "perfect" concept</strong> after iterative user voting.</p>
     <div class="iter-grid reveal">
       <div class="iter-card"><div class="iter-num">25</div><div class="iter-lbl">Concepts generated in ideation</div></div>
@@ -590,7 +587,7 @@
 
   <!-- Prototype & Testing -->
   <div class="cs-section reveal">
-    <div class="cs-label">Prototype &amp; Testing:</div>
+    <div class="cs-step">08 — Prototype &amp; Testing</div><div class="cs-label">Prototype &amp; Testing</div>
     <p class="cs-text">We built <strong>high-fidelity Figma prototypes</strong> and tested them with clients and potential users. Each prototype featured different interactions, allowing us to gather insights that informed better design decisions and feature prioritization.</p>
     <div class="cs-img-row c3 reveal" style="margin-top:40px;">
       <div class="cs-img-wrap"><img src="assets/img/tim/prototype-a.gif" alt="Prototype A"></div>
@@ -601,7 +598,7 @@
 
   <!-- Design Phase -->
   <div class="cs-section reveal">
-    <div class="cs-label">Design Phase:</div>
+    <div class="cs-step">09 — Design</div><div class="cs-label">Design Phase</div>
     <p class="cs-text">Crafted an <strong>RTL-ready lite design system</strong> (8-pt grid, tokens, light/dark themes). Delivered all assets, notes, and annotations to the client's development team. Designed <strong>high-fidelity screens</strong> with micro-interactions for booking, payment breakdown, and trust badges.</p>
 
     <div class="design-gallery reveal" style="margin-top:40px;">
@@ -638,21 +635,23 @@
 
   <!-- Final Results -->
   <div class="cs-section reveal">
-    <div class="cs-label">Final Result — A Polished, Ready-to-Ship Product:</div>
+    <div class="cs-step">10 — Results</div><div class="cs-label">Final Result — A Polished, Ready-to-Ship Product</div>
     <div class="metrics-grid" style="margin-bottom:40px;">
       <div class="metric-card reveal"><div class="metric-val">95%</div><div class="metric-desc">Task-success rate across all key flows in usability testing.</div><div class="metric-note">SUS = 85/100 · n = 15 (Maze + guerrilla)</div></div>
       <div class="metric-card reveal d1"><div class="metric-val">−70%</div><div class="metric-desc">Average "create-order" flow cut — from ~3 min down to &lt;1 min.</div><div class="metric-note">Measured via Maze internal testing</div></div>
       <div class="metric-card reveal d2"><div class="metric-val">4.7★</div><div class="metric-desc">App Store debut rating, driven by intuitive onboarding and trust-first design.</div><div class="metric-note">Launch day · Israeli App Store</div></div>
     </div>
-    <div class="deliverables-list reveal">
-      <div class="dl-title">What was delivered</div>
-      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Created a design system</strong> — delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div><strong>110+ hi-fi, RTL-ready mobile screens</strong> — token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA & user-flow specs.</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div>25 design concepts explored → <strong>1 "perfect" concept</strong> chosen after two research loops (15 + 10 iterations).</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) — Internal Maze & guerrilla tests, n = 15.</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Mini design systems accelerate even MVPs</strong> — tokens + RTL components cut dev time and future-proof scaling.</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Quantify everything early</strong> — lab metrics (SUS, task time) gave stakeholders objective proof, smoothing sign-off and funding pitches.</div></div>
-      <div class="dl-item"><span class="dl-check">✓</span><div>Founders <strong>successfully</strong> used the prototype in investor demos.</div></div>
+    <div class="tim-deliverables reveal">
+      <div class="tim-del-title">What was delivered</div>
+      <div class="tim-del-list">
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Created a design system</strong> — delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>110+ hi-fi, RTL-ready mobile screens</strong> — token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA & user-flow specs.</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div>25 design concepts explored → <strong>1 "perfect" concept</strong> chosen after two research loops (15 + 10 iterations).</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) — Internal Maze & guerrilla tests, n = 15.</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Mini design systems accelerate even MVPs</strong> — tokens + RTL components cut dev time and future-proof scaling.</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Quantify everything early</strong> — lab metrics (SUS, task time) gave stakeholders objective proof, smoothing sign-off and funding pitches.</div></div>
+        <div class="tim-del-item"><span class="tim-del-check">✓</span><div>Founders <strong>successfully</strong> used the prototype in investor demos.</div></div>
+      </div>
     </div>
   </div>
 
