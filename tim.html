@@ -543,20 +543,7 @@
     </div>
     <h3 style="font-size:18px;font-weight:700;letter-spacing:-.02em;margin-top:48px;margin-bottom:16px;">Pain-Gain Map</h3>
     <p class="cs-text" style="margin-bottom:0;">Conducted 10 seeker + 6 provider interviews. Competitor teardown (TaskRabbit, local apps) to map gaps in booking speed &amp; pay clarity.</p>
-    <div class="pg-table reveal" style="margin-top:24px;">
-      <div class="pg-header">
-        <div class="pg-col-head">User Pain (from interviews &amp; competitor audits)</div>
-        <div class="pg-col-head">Underlying Insight</div>
-        <div class="pg-col-head">Design Opportunity / Expected Gain</div>
-      </div>
-      <div class="pg-row"><div class="pg-cell"><strong>Booking takes too long</strong> — users wait hours for a match or must post in multiple apps.</div><div class="pg-cell">Speed is perceived as proof of professionalism and respect for users' time.</div><div class="pg-cell"><span class="opp">One-tap instant match</span> flow that pairs users with the nearest vetted "Timo" in &lt;10 s.</div></div>
-      <div class="pg-row"><div class="pg-cell"><strong>Unclear or changing pay</strong> — hidden fees and cash haggling erode trust.</div><div class="pg-cell">People need cost certainty before committing.</div><div class="pg-cell"><span class="opp">Up-front wage calculator</span> that shows total price (incl. service fee) before confirmation.</div></div>
-      <div class="pg-row"><div class="pg-cell"><strong>"Strangers in my home" anxiety</strong> — lack of safety signals is a deal-breaker.</div><div class="pg-cell">Trust is a prerequisite; bad actors are a deal-breaker.</div><div class="pg-cell"><span class="opp">Verified profiles + ratings + ID badge</span> UI to signal credibility at first glance.</div></div>
-      <div class="pg-row"><div class="pg-cell"><strong>Task lists feel overwhelming</strong> — eight very different categories look like clutter.</div><div class="pg-cell">Cognitive load leads to abandonment.</div><div class="pg-cell"><span class="opp">Smart categorisation &amp; progressive filters</span> (3 taps max) to surface the right task quickly.</div></div>
-      <div class="pg-row"><div class="pg-cell"><strong>Apps ignore RTL norms</strong> — English layouts feel foreign; Hebrew text wraps poorly.</div><div class="pg-cell">Localisation affects perceived quality and usability.</div><div class="pg-cell"><span class="opp">RTL-first design system</span> with mirrored layouts, Hebrew micro-copy, and numeric formats.</div></div>
-      <div class="pg-row"><div class="pg-cell"><strong>Providers' idle time</strong> — "Timos" can't predict job flow; they miss gigs while busy elsewhere.</div><div class="pg-cell">Reliability = revenue; idle gaps equal churn.</div><div class="pg-cell"><span class="opp">Geo-based push alerts &amp; calendar view</span> so providers accept nearby jobs instantly.</div></div>
-    </div>
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
+    <div class="cs-img-wrap reveal" style="margin-top:24px;">
       <img src="assets/img/tim/discover-pain-gain.png" alt="Pain-Gain Map table">
     </div>
   </div>
@@ -660,6 +647,7 @@
 
 </div><!-- /case-body -->
 
+<script>
 // ── Design gallery dots ───────────────────────────────────────
 var gallery = document.getElementById('designGallery');
 var dots = document.querySelectorAll('#designDots .dg-dot');
@@ -690,6 +678,7 @@ if (gallery && dots.length) {
     });
   });
 }
+</script>
 
 <script src="assets/js/main.js"></script>
 </html>
