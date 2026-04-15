@@ -65,45 +65,31 @@
 
     /* ── Hero ── */
     .case-hero {
-      
-      background: linear-gradient(150deg, var(--proj) 0%, var(--proj-m) 55%, var(--proj-l) 100%);
-      min-height: 72vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      position: relative; overflow: hidden;
+      padding: 120px 48px 64px;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
     }
-    .case-hero::before {
-      content: 'TIM';
-      position: absolute; right: -2%; bottom: -8%;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(180px, 26vw, 400px);
-      font-weight: 800; letter-spacing: -.06em;
-      color: rgba(255,255,255,.07); pointer-events: none; line-height: 1;
-    }
-    .case-hero-inner {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 60px 48px; width: 100%; position: relative; z-index: 1;
-    }
-    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; justify-content: center; }
     .case-tag {
       font-size: 11px; font-weight: 600; letter-spacing: .05em;
       padding: 4px 12px; border-radius: 100px;
-      background: rgba(255,255,255,.18); backdrop-filter: blur(8px);
-      color: rgba(255,255,255,.95);
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-2);
     }
     .case-title {
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(36px, 5.5vw, 76px);
+      font-size: clamp(36px, 5vw, 72px);
       font-weight: 800; letter-spacing: -.04em; line-height: .95;
-      color: #fff; margin-bottom: 24px;
+      color: var(--text); margin-bottom: 24px; max-width: 800px;
     }
     .case-subtitle {
-      font-size: 18px; color: rgba(255,255,255,.72);
-      max-width: 600px; line-height: 1.6; font-weight: 300;
+      font-size: 17px; color: var(--text-2);
+      max-width: 580px; line-height: 1.7; font-weight: 300;
     }
 
     /* ── Meta strip ── */
     .meta-strip {
-      background: var(--bg-2); border-bottom: 1px solid var(--border);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
     }
     .meta-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
@@ -461,21 +447,19 @@
 
 <!-- Hero -->
 <div class="case-hero">
-  <div class="case-hero-inner">
-    <div class="case-tags">
-      <span class="case-tag">Mobile Design</span>
-      <span class="case-tag">User Research</span>
-      <span class="case-tag">Information Architecture</span>
-      <span class="case-tag">UI-Kit</span>
-      <span class="case-tag">Presentation</span>
-      <span class="case-tag">User Persona</span>
-      <span class="case-tag">UX/UI Design</span>
-      <span class="case-tag">Figma</span>
-      <span class="case-tag">XMind</span>
-    </div>
-    <h1 class="case-title">TIM (Israel) —<br>On-Demand Jobs App</h1>
-    <p class="case-subtitle">TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs.</p>
+  <div class="case-tags">
+    <span class="case-tag">Mobile Design</span>
+    <span class="case-tag">User Research</span>
+    <span class="case-tag">Information Architecture</span>
+    <span class="case-tag">UI-Kit</span>
+    <span class="case-tag">Presentation</span>
+    <span class="case-tag">User Persona</span>
+    <span class="case-tag">UX/UI Design</span>
+    <span class="case-tag">Figma</span>
+    <span class="case-tag">XMind</span>
   </div>
+  <h1 class="case-title">TIM (Israel) — On-Demand Jobs App</h1>
+  <p class="case-subtitle">TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs.</p>
 </div>
 
 <!-- Meta -->
