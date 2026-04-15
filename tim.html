@@ -294,6 +294,15 @@
       background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 8px;
     }
 
+    /* ── Real images ── */
+    .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
+    .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
+    .cs-img-row.c3 { grid-template-columns: repeat(3,1fr); }
+    .cs-img-row.c4 { grid-template-columns: repeat(4,1fr); }
+    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--border); }
+    .cs-img-wrap img { width: 100%; display: block; }
+    .cs-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 40px; border: 1px solid var(--border); }
+
     /* ── Design phase gallery ── */
     .design-gallery{position:relative;margin-top:40px;}
     .design-gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
