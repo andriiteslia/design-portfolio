@@ -280,6 +280,14 @@
       background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 8px;
     }
 
+    /* ── Deliverables list ── */
+    .deliverables-list{border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:0}
+    .dl-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-3);padding:24px 28px;border-bottom:1px solid var(--border);background:var(--bg-2)}
+    .dl-item{display:flex;gap:16px;align-items:flex-start;padding:18px 28px;border-bottom:1px solid var(--border);font-size:14px;line-height:1.65;color:var(--text-2)}
+    .dl-item:last-child{border-bottom:none}
+    .dl-item strong{color:var(--text);font-weight:600}
+    .dl-check{width:20px;height:20px;border-radius:50%;background:rgba(72,101,244,.1);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+
     /* ── Real images ── */
     .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
     .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
@@ -300,9 +308,10 @@
     .design-gallery-item{flex:0 0 80%;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#fff}
     .design-gallery-item img{width:100%;display:block}
     .design-gallery-nav{display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
-    .design-gallery-arrows{display:flex;gap:8px;}
-    .dg-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s;color:var(--text-2)}
+    .design-gallery-arrows{display:flex;gap:8px;align-items:center;}
+    .dg-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,color .2s;color:var(--text-2);padding:0;outline:none;flex-shrink:0}
     .dg-arrow:hover{background:var(--text);border-color:var(--text);color:#fff}
+    .dg-arrow svg{pointer-events:none}
     .design-gallery-counter{display:flex;align-items:center;gap:6px;}
     .dg-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .2s,transform .2s;cursor:pointer}
     .dg-dot.active{background:var(--accent);transform:scale(1.3)}
@@ -635,17 +644,15 @@
       <div class="metric-card reveal d1"><div class="metric-val">−70%</div><div class="metric-desc">Average "create-order" flow cut — from ~3 min down to &lt;1 min.</div><div class="metric-note">Measured via Maze internal testing</div></div>
       <div class="metric-card reveal d2"><div class="metric-val">4.7★</div><div class="metric-desc">App Store debut rating, driven by intuitive onboarding and trust-first design.</div><div class="metric-note">Launch day · Israeli App Store</div></div>
     </div>
-    <div class="highlight-banner reveal">
-      <div class="hb-title">What was delivered</div>
-      <div class="hb-list">
-        <div class="hb-item"><div class="hb-dot"></div><strong>Created a design system.</strong> Delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div>
-        <div class="hb-item"><div class="hb-dot"></div><strong>110+ hi-fi, RTL-ready mobile screens.</strong> Token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA &amp; user-flow specs.</div>
-        <div class="hb-item"><div class="hb-dot"></div>25 design concepts explored → 1 "perfect" concept chosen after two research loops (15 + 10 iterations).</div>
-        <div class="hb-item"><div class="hb-dot"></div><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) (Internal Maze &amp; guerrilla tests, n = 15).</div>
-        <div class="hb-item"><div class="hb-dot"></div><strong>Mini design systems accelerate even MVPs:</strong> tokens + RTL components cut dev time and future-proof scaling.</div>
-        <div class="hb-item"><div class="hb-dot"></div><strong>Quantify everything early:</strong> lab metrics (SUS, task time) gave stakeholders objective proof, smoothing sign-off and funding pitches.</div>
-        <div class="hb-item"><div class="hb-dot"></div>Founders <strong>successfully</strong> use the prototype in investor demos.</div>
-      </div>
+    <div class="deliverables-list reveal">
+      <div class="dl-title">What was delivered</div>
+      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Created a design system</strong> — delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div><strong>110+ hi-fi, RTL-ready mobile screens</strong> — token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA & user-flow specs.</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div>25 design concepts explored → <strong>1 "perfect" concept</strong> chosen after two research loops (15 + 10 iterations).</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) — Internal Maze & guerrilla tests, n = 15.</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Mini design systems accelerate even MVPs</strong> — tokens + RTL components cut dev time and future-proof scaling.</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div><strong>Quantify everything early</strong> — lab metrics (SUS, task time) gave stakeholders objective proof, smoothing sign-off and funding pitches.</div></div>
+      <div class="dl-item"><span class="dl-check">✓</span><div>Founders <strong>successfully</strong> used the prototype in investor demos.</div></div>
     </div>
   </div>
 
