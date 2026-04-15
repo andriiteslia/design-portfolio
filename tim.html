@@ -27,7 +27,7 @@
       --proj-l:  #FCD34D;
       --border:  rgba(72,101,244,0.12);
       --nav-h:   68px;
-      --max-w:   1280px;
+      --max-w:   1024px;
     }
 
     html { scroll-behavior: smooth; }
@@ -294,7 +294,20 @@
       background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 8px;
     }
 
-    /* ── Design system preview ── */
+    /* ── Design phase gallery ── */
+    .design-gallery{position:relative;margin-top:40px;}
+    .design-gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
+    .design-gallery-track:active{cursor:grabbing}
+    .design-gallery-track::-webkit-scrollbar{height:4px}
+    .design-gallery-track::-webkit-scrollbar-track{background:var(--bg-2);border-radius:100px}
+    .design-gallery-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:100px}
+    .design-gallery-track::-webkit-scrollbar-thumb:hover{background:var(--accent)}
+    .design-gallery-item{flex:0 0 80%;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#fff}
+    .design-gallery-item img{width:100%;display:block}
+    .design-gallery-counter{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:12px}
+    .dg-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .2s,transform .2s;cursor:pointer}
+    .dg-dot.active{background:var(--accent);transform:scale(1.3)}
+    @media(max-width:768px){.design-gallery-item{flex:0 0 90%}}
     .ds-grid {
       display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 40px;
     }
@@ -529,6 +542,9 @@
   <div class="cs-section reveal">
     <div class="cs-label">Design Process:</div>
     <p class="cs-text">I used the Design Thinking approach to solve the challenges we faced.</p>
+    <div class="cs-img-wrap reveal" style="margin-top:32px;">
+      <img src="assets/img/tim/design-process.png" alt="Design Thinking process — Discover, Define, Ideation, Prototype, Test, Design, Delivery">
+    </div>
   </div>
 
   <!-- Discover Phase -->
@@ -603,12 +619,26 @@
   <div class="cs-section reveal">
     <div class="cs-label">Design Phase:</div>
     <p class="cs-text">Crafted an RTL-ready lite design system (8-pt grid, tokens, light/dark themes). Delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</p>
-    <div class="cs-img-row c2 reveal" style="margin-top:40px;">
-      <div class="cs-img-wrap"><img src="assets/img/tim/design-screens-1.png" alt="Authentication and Registration screens"></div>
-      <div class="cs-img-wrap"><img src="assets/img/tim/design-screens-2.png" alt="User Flow and additional screens"></div>
-    </div>
-    <div class="cs-img-wrap reveal" style="margin-top:16px;">
-      <img src="assets/img/tim/design-system.png" alt="Design system — TIM logo, typography, colors">
+
+    <div class="design-gallery reveal" style="margin-top:40px;">
+      <div class="design-gallery-track" id="designGallery">
+        <div class="design-gallery-item"><img src="assets/img/tim/design-authorization.png" alt="Authorization screens"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-registration.png" alt="Registration screens"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-timo-flow.png" alt="Timo flow screens"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-components.png" alt="Components"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-styles-left.png" alt="Styles & icons"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-styles-right.png" alt="Colors & typography"></div>
+        <div class="design-gallery-item"><img src="assets/img/tim/design-system.png" alt="Design system kit"></div>
+      </div>
+      <div class="design-gallery-counter" id="designDots">
+        <div class="dg-dot active" data-i="0"></div>
+        <div class="dg-dot" data-i="1"></div>
+        <div class="dg-dot" data-i="2"></div>
+        <div class="dg-dot" data-i="3"></div>
+        <div class="dg-dot" data-i="4"></div>
+        <div class="dg-dot" data-i="5"></div>
+        <div class="dg-dot" data-i="6"></div>
+      </div>
     </div>
   </div>
 
@@ -646,6 +676,36 @@
 
 </div><!-- /case-body -->
 
+// ── Design gallery dots ───────────────────────────────────────
+var gallery = document.getElementById('designGallery');
+var dots = document.querySelectorAll('#designDots .dg-dot');
+if (gallery && dots.length) {
+  // drag to scroll
+  var isDragging = false, startX, scrollLeft;
+  gallery.addEventListener('mousedown', function(e) {
+    isDragging = true; startX = e.pageX - gallery.offsetLeft; scrollLeft = gallery.scrollLeft;
+    gallery.style.userSelect = 'none';
+  });
+  document.addEventListener('mouseup', function() { isDragging = false; gallery.style.userSelect = ''; });
+  gallery.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    var x = e.pageX - gallery.offsetLeft;
+    gallery.scrollLeft = scrollLeft - (x - startX);
+  });
+  // dots update
+  gallery.addEventListener('scroll', function() {
+    var itemW = gallery.querySelector('.design-gallery-item').offsetWidth + 16;
+    var idx = Math.round(gallery.scrollLeft / itemW);
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+  });
+  // click dots
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var itemW = gallery.querySelector('.design-gallery-item').offsetWidth + 16;
+      gallery.scrollTo({ left: +dot.dataset.i * itemW, behavior: 'smooth' });
+    });
+  });
+}
+
 <script src="assets/js/main.js"></script>
-</body>
 </html>
