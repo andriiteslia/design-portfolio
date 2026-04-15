@@ -668,44 +668,55 @@
 </div><!-- /case-body -->
 
 <script>
-// ── Design gallery dots ───────────────────────────────────────
-var gallery = document.getElementById('designGallery');
-var dots = document.querySelectorAll('#designDots .dg-dot');
-if (gallery && dots.length) {
-  // drag to scroll
-  var isDragging = false, startX, scrollLeft;
+(function() {
+  var gallery = document.getElementById('designGallery');
+  var dots = document.querySelectorAll('#designDots .dg-dot');
+  var prevBtn = document.getElementById('dgPrev');
+  var nextBtn = document.getElementById('dgNext');
+  if (!gallery) return;
+
+  function getItemWidth() {
+    var item = gallery.querySelector('.design-gallery-item');
+    return item ? item.getBoundingClientRect().width + 16 : 0;
+  }
+
+  function getActiveIndex() {
+    return Math.round(gallery.scrollLeft / getItemWidth());
+  }
+
+  function updateDots() {
+    var idx = getActiveIndex();
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+  }
+
+  function scrollTo(idx) {
+    gallery.scrollTo({ left: idx * getItemWidth(), behavior: 'smooth' });
+  }
+
+  gallery.addEventListener('scroll', updateDots, { passive: true });
+
+  dots.forEach(function(dot, i) {
+    dot.addEventListener('click', function() { scrollTo(i); });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', function() {
+    scrollTo(Math.max(0, getActiveIndex() - 1));
+  });
+  if (nextBtn) nextBtn.addEventListener('click', function() {
+    scrollTo(Math.min(dots.length - 1, getActiveIndex() + 1));
+  });
+
+  var isDragging = false, startX, startScroll;
   gallery.addEventListener('mousedown', function(e) {
-    isDragging = true; startX = e.pageX - gallery.offsetLeft; scrollLeft = gallery.scrollLeft;
+    isDragging = true; startX = e.pageX; startScroll = gallery.scrollLeft;
     gallery.style.userSelect = 'none';
   });
   document.addEventListener('mouseup', function() { isDragging = false; gallery.style.userSelect = ''; });
   gallery.addEventListener('mousemove', function(e) {
     if (!isDragging) return;
-    var x = e.pageX - gallery.offsetLeft;
-    gallery.scrollLeft = scrollLeft - (x - startX);
+    gallery.scrollLeft = startScroll - (e.pageX - startX);
   });
-  // dots update
-  gallery.addEventListener('scroll', function() {
-    var itemW = gallery.querySelector('.design-gallery-item').offsetWidth + 16;
-    var idx = Math.round(gallery.scrollLeft / itemW);
-    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
-  });
-  // click dots
-  dots.forEach(function(dot) {
-    dot.addEventListener('click', function() {
-      var itemW = gallery.querySelector('.design-gallery-item').offsetWidth + 16;
-      gallery.scrollTo({ left: +dot.dataset.i * itemW, behavior: 'smooth' });
-    });
-  // arrow buttons
-  var prevBtn = document.getElementById('dgPrev');
-  var nextBtn = document.getElementById('dgNext');
-  function scrollByOne(dir) {
-    var itemW = gallery.querySelector('.design-gallery-item').offsetWidth + 16;
-    gallery.scrollBy({ left: dir * itemW, behavior: 'smooth' });
-  }
-  if (prevBtn) prevBtn.addEventListener('click', function() { scrollByOne(-1); });
-  if (nextBtn) nextBtn.addEventListener('click', function() { scrollByOne(1); });
-}
+})();
 </script>
 
 <script src="assets/js/main.js"></script>
