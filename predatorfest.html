@@ -4,124 +4,100 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Predator Fest League App — Andrii Teslia</title>
-  <meta name="description" content="Telegram Mini App for a fishing competition league. Real-time results, leaderboards & season rankings. Case study by Andrii Teslia.">
+  <meta name="description" content="Personal project — Telegram Mini App & PWA for a competitive fishing league. Real-time results, leaderboards, season rankings. Case study by Andrii Teslia.">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:      #F7F8FF;
-      --bg-2:    #ECEFFE;
-      --bg-3:    #DEE2FB;
+      --bg:      #FFFFFF;
+      --bg-2:    #F5F6FF;
+      --bg-3:    #ECEFFE;
       --text:    #12110E;
       --text-2:  #6B6880;
       --text-3:  #9C9AAE;
       --accent:  #4865F4;
-      --proj:    #0D3D1A;   /* deep forest green */
+      --proj:    #0D3D1A;
       --proj-m:  #1A5C28;
       --proj-l:  #2D8A42;
-      --proj-gold: #F0C844;
+      --proj-gold: #D4A017;
       --border:  rgba(72,101,244,0.12);
       --nav-h:   68px;
-      --max-w:   1280px;
+      --max-w:   1024px;
     }
 
     html { scroll-behavior: smooth; }
     body {
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg); color: var(--text);
       overflow-x: hidden;
     }
 
-    /* ── Nav ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      height: var(--nav-h);
-      background: var(--bg); border-bottom: 1px solid var(--border);
-    }
-    .nav-inner {
+    /* ── Glass back button ── */
+    .glass-back-wrap {
+      position: fixed; top: 20px; left: 0; right: 0; z-index: 100;
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px; width: 100%; height: 100%;
-      display: flex; align-items: center; gap: 24px;
+      padding: 0 48px; pointer-events: none;
     }
-    .nav-back {
+    .glass-back {
+      pointer-events: auto;
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; color: var(--text-2); text-decoration: none;
-      transition: color .2s; white-space: nowrap;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px; font-weight: 600; color: var(--text);
+      text-decoration: none;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid var(--accent);
+      padding: 8px 16px 8px 12px;
+      border-radius: 100px;
+      transition: background .2s, transform .2s;
     }
-    .nav-back:hover { color: var(--text); }
-    .nav-back:hover svg { transform: translateX(-3px); }
-    .nav-back svg { transition: transform .2s; }
-    .nav-logo {
-      font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 17px;
-      letter-spacing: -.03em; color: var(--text); text-decoration: none; flex: 1;
-    }
-    .nav-logo span { color: var(--accent); }
+    .glass-back:hover { background: rgba(255,255,255,0.82); transform: translateX(-2px); }
+    .glass-back svg { transition: transform .2s; }
+    .glass-back:hover svg { transform: translateX(-3px); }
+    @media(max-width:768px){ .glass-back-wrap { padding: 0 24px; } }
 
     /* ── Hero ── */
     .case-hero {
-      padding-top: var(--nav-h);
-      background: linear-gradient(150deg, var(--proj) 0%, var(--proj-m) 55%, var(--proj-l) 100%);
-      min-height: 72vh;
-      display: flex; flex-direction: column; justify-content: flex-end;
-      position: relative; overflow: hidden;
+      padding: 120px 48px 64px;
+      text-align: center;
+      display: flex; flex-direction: column; align-items: center;
     }
-    .case-hero::before {
-      content: 'PFL';
-      position: absolute; right: -2%; bottom: -8%;
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(180px, 26vw, 400px);
-      font-weight: 800; letter-spacing: -.06em;
-      color: rgba(255,255,255,.06); pointer-events: none; line-height: 1;
-    }
-    /* subtle fishing-line texture overlay */
-    .case-hero::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 120px,
-        rgba(255,255,255,.02) 120px,
-        rgba(255,255,255,.02) 121px
-      );
-      pointer-events: none;
-    }
-    .case-hero-inner {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 60px 48px; width: 100%; position: relative; z-index: 1;
-    }
-    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; justify-content: center; }
     .case-tag {
       font-size: 11px; font-weight: 600; letter-spacing: .05em;
       padding: 4px 12px; border-radius: 100px;
-      background: rgba(255,255,255,.15); backdrop-filter: blur(8px);
-      color: rgba(255,255,255,.95);
+      background: var(--bg-2); border: 1px solid var(--border);
+      color: var(--text-2);
     }
-    .case-tag.gold {
-      background: var(--proj-gold);
-      color: var(--proj);
+    .case-tag.green {
+      background: rgba(13,61,26,.08); border-color: rgba(13,61,26,.2); color: var(--proj);
     }
     .case-title {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(36px, 5.5vw, 76px);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(36px, 5vw, 72px);
       font-weight: 800; letter-spacing: -.04em; line-height: .95;
-      color: #fff; margin-bottom: 24px;
+      color: var(--text); margin-bottom: 24px; max-width: 800px;
     }
-    .case-title em { font-style: normal; color: var(--proj-gold); }
     .case-subtitle {
-      font-size: 18px; color: rgba(255,255,255,.72);
-      max-width: 600px; line-height: 1.6; font-weight: 300;
+      font-size: 17px; color: var(--text-2);
+      max-width: 580px; line-height: 1.7; font-weight: 300;
     }
 
     /* ── Meta strip ── */
-    .meta-strip { background: var(--bg-2); border-bottom: 1px solid var(--border); }
+    .meta-strip {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
     .meta-inner {
       max-width: calc(var(--max-w) + 96px); margin: 0 auto;
       padding: 32px 48px; width: 100%;
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 24px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
     }
     .meta-label {
       font-size: 11px; font-weight: 600; letter-spacing: .1em;
@@ -137,41 +113,65 @@
     }
     .cs-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
     .cs-section:last-of-type { border-bottom: none; }
-    .cs-label {
-      font-family: 'Manrope', sans-serif;
+    .cs-section-label {
       font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
     }
-    .cs-title {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(24px, 3vw, 40px);
-      font-weight: 700; letter-spacing: -.03em; margin-bottom: 28px;
+    .cs-section-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 800; letter-spacing: -.02em; margin-bottom: 24px;
     }
     .cs-text {
       font-size: 16px; line-height: 1.8; color: var(--text-2);
       font-weight: 300; max-width: 760px;
     }
-    .cs-text + .cs-text { margin-top: 18px; }
+    .cs-text + .cs-text { margin-top: 20px; }
     .cs-text strong { color: var(--text); font-weight: 500; }
+
+    /* ── Image rows ── */
+    .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
+    .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
+    .cs-img-row.c3 { grid-template-columns: repeat(3,1fr); }
+    .cs-img-row.c4 { grid-template-columns: repeat(4,1fr); }
+    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: var(--bg-2); border: 1px solid var(--border); }
+    .cs-img-wrap img { width: 100%; display: block; }
+    .cs-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 40px; border: 1px solid var(--border); }
+
+    /* ── Placeholder blocks (until real screenshots) ── */
+    .ph {
+      aspect-ratio: var(--ar, 9/16);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      background: linear-gradient(150deg, var(--proj) 0%, var(--proj-l) 100%);
+    }
+    .ph.wide { --ar: 16/9; }
+    .ph.sq   { --ar: 1; }
+    .ph-label {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px;
+      font-weight: 700; color: rgba(255,255,255,.5);
+      letter-spacing: .1em; text-transform: uppercase;
+    }
+    .ph-title {
+      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
+      font-weight: 700; color: rgba(255,255,255,.9);
+    }
 
     /* ── Two col ── */
     .two-col {
-      display: grid; grid-template-columns: 3fr 2fr;
-      gap: 56px; align-items: start; margin-top: 40px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      align-items: start; margin-top: 48px;
     }
-    .two-col-eq {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 40px; align-items: start; margin-top: 40px;
+    .two-col-3-2 {
+      display: grid; grid-template-columns: 3fr 2fr; gap: 64px;
+      align-items: start; margin-top: 48px;
     }
 
     /* ── Pain cards ── */
-    .pain-grid {
-      display: flex; flex-direction: column; gap: 10px; margin-top: 32px;
-    }
+    .pain-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; }
     .pain-card {
-      display: grid; grid-template-columns: 28px 1fr;
-      gap: 14px; align-items: flex-start;
-      background: var(--bg-2); border: 1px solid var(--border);
+      display: grid; grid-template-columns: 28px 1fr; gap: 14px;
+      align-items: flex-start; background: var(--bg-2); border: 1px solid var(--border);
       border-radius: 12px; padding: 18px 20px;
     }
     .pain-icon { font-size: 16px; padding-top: 1px; }
@@ -182,47 +182,31 @@
     .insight-box {
       background: var(--bg-2); border: 1px solid var(--border);
       border-left: 3px solid var(--accent);
-      border-radius: 14px; padding: 24px;
+      border-radius: 14px; padding: 24px; margin-top: 32px;
     }
     .insight-label {
       font-size: 11px; font-weight: 700; letter-spacing: .1em;
       text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
     }
-    .insight-text {
-      font-size: 15px; color: var(--text); line-height: 1.65;
-    }
+    .insight-text { font-size: 15px; color: var(--text); line-height: 1.65; }
 
     /* ── Process steps ── */
     .process-steps {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 40px;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
+      margin-top: 40px; background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
     }
     .process-step {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px; position: relative;
+      padding: 24px 20px; background: var(--bg);
+      border-right: 1px solid var(--border);
     }
-    .process-step::after {
-      content: '→'; position: absolute; right: -12px; top: 50%;
-      transform: translateY(-50%); color: var(--text-3); font-size: 16px; z-index: 1;
-    }
-    .process-step:last-child::after { display: none; }
+    .process-step:last-child { border-right: none; }
     .step-num {
-      font-family: 'Manrope', sans-serif; font-size: 11px; font-weight: 700;
-      color: var(--accent); letter-spacing: .1em; margin-bottom: 10px;
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      letter-spacing: .1em; margin-bottom: 10px;
     }
-    .step-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+    .step-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
     .step-text  { font-size: 12px; color: var(--text-2); line-height: 1.6; }
-
-    /* ── Tech stack ── */
-    .stack-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px;
-    }
-    .stack-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px;
-    }
-    .stack-icon { font-size: 22px; margin-bottom: 10px; }
-    .stack-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .stack-role  { font-size: 12px; color: var(--text-2); line-height: 1.5; }
 
     /* ── Architecture diagram ── */
     .arch-diagram {
@@ -236,68 +220,46 @@
     }
     .arch-flow {
       display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center; gap: 12px; max-width: 680px; margin: 0 auto;
+      align-items: center; gap: 12px; max-width: 640px; margin: 0 auto;
     }
-    .arch-node {
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-    }
+    .arch-node { display: flex; flex-direction: column; align-items: center; gap: 8px; }
     .arch-box {
       width: 100%; padding: 14px 16px; border-radius: 12px;
-      text-align: center;
-      font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700;
-      line-height: 1.3;
+      text-align: center; font-size: 13px; font-weight: 700; line-height: 1.3;
     }
-    .arch-box.sheets { background: rgba(52,168,83,.15); color: #1e7e34; border: 1.5px solid rgba(52,168,83,.3); }
-    .arch-box.script { background: rgba(66,133,244,.12); color: #1a56c4; border: 1.5px solid rgba(66,133,244,.25); }
-    .arch-box.app    { background: rgba(13,61,26,.1); color: var(--proj); border: 1.5px solid rgba(13,61,26,.2); }
+    .arch-box.sheets { background: rgba(52,168,83,.12); color: #1e7e34; border: 1.5px solid rgba(52,168,83,.25); }
+    .arch-box.script { background: rgba(66,133,244,.1);  color: #1a56c4; border: 1.5px solid rgba(66,133,244,.2); }
+    .arch-box.app    { background: rgba(13,61,26,.08);   color: var(--proj); border: 1.5px solid rgba(13,61,26,.18); }
     .arch-node-label { font-size: 11px; color: var(--text-3); text-align: center; }
-    .arch-arrow { font-size: 22px; color: var(--text-3); text-align: center; padding-bottom: 20px; }
+    .arch-arrow { font-size: 20px; color: var(--text-3); padding-bottom: 20px; }
 
-    /* ── Screen blocks (green themed) ── */
-    .screen-row { display: grid; gap: 16px; margin-top: 36px; }
-    .screen-row.c2 { grid-template-columns: repeat(2,1fr); }
-    .screen-row.c3 { grid-template-columns: repeat(3,1fr); }
-    .screen-row.c4 { grid-template-columns: repeat(4,1fr); }
-    .screen-block {
-      border-radius: 16px; overflow: hidden; position: relative;
-      display: flex; align-items: center; justify-content: center;
+    /* ── Stack grid ── */
+    .stack-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px;
     }
-    .screen-block.phone { aspect-ratio: 9/18; }
-    .screen-block.tall  { aspect-ratio: 9/16; }
-    .screen-block.wide  { aspect-ratio: 16/9; }
-    .screen-block.sq    { aspect-ratio: 1; }
-    .sb-ghost {
-      font-family: 'Manrope', sans-serif; font-weight: 800;
-      color: rgba(255,255,255,.1); letter-spacing: -.04em;
-      font-size: clamp(28px, 5vw, 56px);
+    .stack-card {
+      background: var(--bg-2); border: 1px solid var(--border);
+      border-radius: 14px; padding: 22px;
     }
-    .sb-label {
-      position: absolute; bottom: 14px; left: 14px; right: 14px;
-    }
-    .sb-title { font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.9); }
-    .sb-sub   { font-size: 11px; color: rgba(255,255,255,.5); margin-top: 2px; }
-
-    .g-forest-d  { background: linear-gradient(150deg,#0D3D1A,#1A5C28); }
-    .g-forest-m  { background: linear-gradient(150deg,#1A5C28,#2D8A42); }
-    .g-forest-l  { background: linear-gradient(150deg,#2D8A42,#3DAD57); }
-    .g-forest-xl { background: linear-gradient(150deg,#1A5C28,#4aba64); }
-    .g-gold      { background: linear-gradient(150deg,#92680A,#D4A017); }
+    .stack-icon  { font-size: 22px; margin-bottom: 10px; }
+    .stack-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .stack-role  { font-size: 12px; color: var(--text-2); line-height: 1.5; }
 
     /* ── Feature cards ── */
     .features-grid {
-      display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 40px;
+      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 40px;
     }
     .feature-card {
-      border: 1px solid var(--border); border-radius: 16px; padding: 26px;
-      background: var(--bg);
+      border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+      background: var(--bg-2);
     }
     .feature-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
     .feature-icon {
-      width: 40px; height: 40px; border-radius: 10px;
+      width: 38px; height: 38px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px; flex-shrink: 0;
+      font-size: 17px; flex-shrink: 0;
     }
-    .feature-name { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; }
+    .feature-name { font-size: 15px; font-weight: 700; }
     .feature-items { display: flex; flex-direction: column; gap: 6px; }
     .feature-item {
       display: flex; gap: 10px; align-items: flex-start;
@@ -306,82 +268,72 @@
     .feature-item::before { content: '—'; color: var(--text-3); flex-shrink: 0; margin-top: 1px; }
 
     /* ── Scoring table ── */
-    .scoring-table { margin-top: 40px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-    .st-header {
-      display: grid; grid-template-columns: 1fr auto;
-      background: var(--bg-2); padding: 14px 24px;
-    }
+    .scoring-table { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 0; }
+    .st-header { display: grid; grid-template-columns: 1fr auto; background: var(--bg-2); padding: 12px 20px; }
     .st-head { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
-    .st-row {
-      display: grid; grid-template-columns: 1fr auto;
-      border-top: 1px solid var(--border); padding: 14px 24px;
-      align-items: center;
-    }
+    .st-row { display: grid; grid-template-columns: 1fr auto; border-top: 1px solid var(--border); padding: 13px 20px; align-items: center; }
     .st-row:nth-child(even) { background: rgba(72,101,244,.025); }
     .st-action { font-size: 14px; color: var(--text); }
-    .st-points {
-      font-family: 'Manrope', sans-serif; font-size: 16px; font-weight: 700;
-      color: var(--accent); letter-spacing: -.02em; white-space: nowrap;
-    }
+    .st-points { font-size: 15px; font-weight: 700; color: var(--accent); white-space: nowrap; }
 
-    /* ── Results metrics ── */
-    .metrics-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px;
+    /* ── Results grid ── */
+    .results-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px;
     }
-    .metric-card {
+    .result-card {
       background: var(--bg-2); border: 1px solid var(--border);
       border-radius: 16px; padding: 28px;
     }
-    .metric-val {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(32px, 3.5vw, 48px);
-      font-weight: 800; letter-spacing: -.04em;
-      color: var(--accent); line-height: 1; margin-bottom: 10px;
+    .result-val {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(30px, 3.5vw, 44px);
+      font-weight: 700; letter-spacing: -.035em;
+      color: var(--accent); line-height: 1; margin-bottom: 8px;
     }
-    .metric-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
-    .metric-note { font-size: 12px; color: var(--text-3); margin-top: 6px; }
+    .result-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
+    .result-note { font-size: 12px; color: var(--text-3); margin-top: 6px; }
 
-    /* ── Highlight banner ── */
-    .highlight-banner {
+    /* ── Quote / highlight block ── */
+    .quote-block {
       background: linear-gradient(140deg, var(--proj), var(--proj-m));
       border-radius: 20px; padding: 48px; margin-top: 48px;
     }
-    .hb-title {
-      font-family: 'Manrope', sans-serif;
-      font-size: clamp(18px, 2.5vw, 26px);
-      font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 20px;
+    .quote-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(17px, 2.2vw, 24px);
+      font-weight: 600; color: #fff; line-height: 1.45; margin-bottom: 28px;
     }
-    .hb-title em { font-style: normal; color: var(--proj-gold); }
-    .hb-list { display: flex; flex-direction: column; gap: 12px; }
-    .hb-item {
+    .quote-text em { font-style: normal; color: var(--proj-gold); }
+    .quote-list { display: flex; flex-direction: column; gap: 12px; }
+    .quote-item {
       display: flex; align-items: flex-start; gap: 12px;
       font-size: 15px; color: rgba(255,255,255,.8); line-height: 1.5;
     }
-    .hb-dot {
+    .q-dot {
       width: 6px; height: 6px; border-radius: 50%;
-      background: var(--proj-gold); flex-shrink: 0; margin-top: 8px;
-    }
-
-    /* ── Ukraine badge ── */
-    .ukraine-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,214,0,.12); border: 1px solid rgba(255,214,0,.3);
-      border-radius: 100px; padding: 8px 16px;
-      font-size: 13px; color: var(--text); margin-top: 24px;
+      background: rgba(255,255,255,.4); flex-shrink: 0; margin-top: 8px;
     }
 
     /* ── Live badge ── */
     .live-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(34,197,94,.1); border: 1px solid rgba(34,197,94,.25);
+      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.22);
       border-radius: 100px; padding: 6px 14px;
-      font-size: 13px; color: #16a34a; margin-bottom: 24px;
+      font-size: 13px; color: #16a34a; margin-bottom: 28px;
     }
     .live-dot {
       width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
       animation: pulse 2s infinite;
     }
     @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
+
+    /* ── Ukraine badge ── */
+    .ua-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,214,0,.1); border: 1px solid rgba(255,214,0,.28);
+      border-radius: 100px; padding: 7px 16px;
+      font-size: 13px; color: var(--text); margin-top: 24px;
+    }
 
     /* ── Next project ── */
     .next-project { border-top: 1px solid var(--border); padding: 80px 0; }
@@ -391,11 +343,11 @@
     }
     .next-link {
       display: inline-flex; align-items: center; gap: 16px;
-      text-decoration: none; color: var(--text); transition: gap .25s;
+      text-decoration: none; color: var(--text); transition: gap .2s;
     }
-    .next-link:hover { gap: 28px; }
+    .next-link:hover { gap: 24px; }
     .next-title {
-      font-family: 'Manrope', sans-serif;
+      font-family: 'Plus Jakarta Sans', sans-serif;
       font-size: clamp(28px, 4vw, 56px);
       font-weight: 800; letter-spacing: -.04em;
     }
@@ -417,58 +369,55 @@
 
     /* ── Responsive ── */
     @media(max-width:1024px) {
-      .two-col, .two-col-eq { grid-template-columns: 1fr; gap: 32px; }
+      .two-col, .two-col-3-2 { grid-template-columns: 1fr; gap: 32px; }
       .process-steps { grid-template-columns: repeat(2,1fr); }
-      .process-step::after { display: none; }
-      .metrics-grid { grid-template-columns: repeat(2,1fr); }
+      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
+      .process-step:nth-child(2n) { border-right: none; }
+      .results-grid { grid-template-columns: repeat(2,1fr); }
       .stack-grid { grid-template-columns: repeat(2,1fr); }
-      .screen-row.c4 { grid-template-columns: repeat(2,1fr); }
       .arch-flow { grid-template-columns: 1fr; }
       .arch-arrow { transform: rotate(90deg); padding-bottom: 0; }
+      .cs-img-row.c4 { grid-template-columns: repeat(2,1fr); }
     }
     @media(max-width:768px) {
-      .nav-inner { padding: 0 24px; }
-      .case-hero-inner { padding: 40px 24px; }
+      .glass-back-wrap { padding: 0 24px; }
+      .case-hero { padding: 100px 24px 48px; }
       .meta-inner { grid-template-columns: repeat(2,1fr); padding: 24px; }
       .case-body { padding: 0 24px; }
       .cs-section { padding: 56px 0; }
-      .screen-row.c3, .screen-row.c2 { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
-      .metrics-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr; }
       .stack-grid { grid-template-columns: 1fr; }
-      .highlight-banner { padding: 28px 24px; }
+      .cs-img-row.c2, .cs-img-row.c3 { grid-template-columns: 1fr; }
+      .quote-block { padding: 32px 24px; }
+      .two-col { gap: 28px; }
     }
-
-    @media(hover:none),(max-width:768px){ body{ cursor:auto } }
+    @media(hover:none),(max-width:768px){ body{ cursor: auto; } }
   </style>
 </head>
 <body>
 
-<!-- Nav -->
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-back">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      All work
-    </a>
-    <a href="index.html" class="nav-logo">AT. <span>DESIGN.</span></a>
-  </div>
-</nav>
+<!-- Back button -->
+<div class="glass-back-wrap">
+  <a href="index.html" class="glass-back">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All work
+  </a>
+</div>
 
 <!-- Hero -->
 <div class="case-hero">
-  <div class="case-hero-inner">
-    <div class="case-tags">
-      <span class="case-tag gold">Personal Project</span>
-      <span class="case-tag">Telegram Mini App</span>
-      <span class="case-tag">Mobile-first</span>
-      <span class="case-tag">Sport · Ukraine</span>
-      <span class="case-tag">2024 – Present</span>
-    </div>
-    <h1 class="case-title">Predator Fest<br><em>League App</em></h1>
-    <p class="case-subtitle">From a notepad on someone's knee to a real-time Telegram Mini App — a solo passion project that digitised an entire fishing competition league.</p>
+  <h1 class="case-title">Predator Fest League App</h1>
+  <p class="case-subtitle">From a notepad on someone's knee to a real-time Telegram Mini App — a solo passion project that digitised an entire fishing competition league.</p>
+  <div class="case-tags">
+    <span class="case-tag green">Personal Project</span>
+    <span class="case-tag">Telegram Mini App</span>
+    <span class="case-tag">Progressive Web App</span>
+    <span class="case-tag">Mobile-first</span>
+    <span class="case-tag">Sport · Ukraine</span>
+    <span class="case-tag">2024 – Present</span>
   </div>
 </div>
 
@@ -476,8 +425,8 @@
 <div class="meta-strip">
   <div class="meta-inner">
     <div>
-      <div class="meta-label">My role</div>
-      <div class="meta-value">Solo Designer<br><span class="hl">+ Developer + Founder</span></div>
+      <div class="meta-label">Role</div>
+      <div class="meta-value">Solo Designer <span class="hl">+ Developer</span><br>+ Founder</div>
     </div>
     <div>
       <div class="meta-label">Timeline</div>
@@ -489,7 +438,7 @@
     </div>
     <div>
       <div class="meta-label">Stack</div>
-      <div class="meta-value">Google Sheets · Apps Script<br>Vanilla JS · GitHub · CI/CD</div>
+      <div class="meta-value">Google Sheets · Apps Script<br>Vanilla JS · GitHub</div>
     </div>
   </div>
 </div>
@@ -497,122 +446,136 @@
 <!-- Body -->
 <div class="case-body">
 
-  <!-- Overview -->
+  <!-- Hero banner -->
+  <div class="cs-section reveal" style="padding-bottom:0;border-bottom:none;">
+    <div class="cs-img-wrap">
+      <img src="assets/img/pfl/hero-banner.png" alt="Predator Fest League App — overview">
+    </div>
+  </div>
+
+  <!-- 01 Overview -->
   <div class="cs-section reveal">
-    <div class="cs-label">01 — Overview</div>
-    <h2 class="cs-title">Project Overview</h2>
+    <div class="cs-section-label">01 — Overview</div>
+    <h2 class="cs-section-title">Project Overview</h2>
 
     <div class="live-badge">
       <div class="live-dot"></div>
-      Live at predatorfest.com
+      Live at predatorfest.com · tg: @predatorfest
     </div>
 
     <p class="cs-text">
-      <strong>Predator Fest League (PFL)</strong> is a fishing competition league I co-founded in Lviv. Every second tournament had the same problem — results scribbled on a piece of paper during the event, photos shared in chats, scores miscounted, standings nowhere to be found a week later.
+      <strong>Predator Fest League (PFL)</strong> is a competitive fishing league I co-founded in Lviv. As someone who organises and participates in tournaments, I noticed the same problem at almost every event — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.
     </p>
     <p class="cs-text">
-      I built the PFL App from scratch — a <strong>Telegram Mini App (and PWA)</strong> that gives every participant instant access to live results, tournament standings, a season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.
+      I designed and built the PFL App from scratch — a <strong>Telegram Mini App and PWA</strong> that gives every participant instant access to live results, tournament standings, a full season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.
     </p>
     <p class="cs-text">
-      The app has been live across multiple seasons, tracked <strong>80+ participants</strong> across tournaments, and helped the community raise <strong>64,375 UAH</strong> for Ukraine's armed forces through competition entry fees.
+      The app has been live across multiple seasons, tracked <strong>80+ participants</strong>, and helped the community raise <strong>64,375 UAH</strong> for Ukraine's armed forces through competition entry fees.
     </p>
-
-    <div class="ukraine-badge">🇺🇦 64,375 UAH raised for the Armed Forces of Ukraine across all events</div>
+    <div class="ua-badge">🇺🇦 64,375 UAH raised for the Armed Forces of Ukraine across all PFL events</div>
   </div>
 
-  <!-- Problem -->
+  <!-- 02 Problem -->
   <div class="cs-section reveal">
-    <div class="cs-label">02 — Problem</div>
-    <h2 class="cs-title">The Problem I Kept Running Into</h2>
+    <div class="cs-section-label">02 — Problem</div>
+    <h2 class="cs-section-title">The Problem I Kept Running Into</h2>
 
-    <div class="two-col">
+    <div class="two-col-3-2">
       <div>
         <p class="cs-text">
-          After moving to Lviv and getting seriously into competitive spin fishing, I noticed the same friction at almost every tournament. The system "worked" — but just barely, and only for the organiser who scribbled it all down.
+          After moving to Lviv and getting seriously into competitive spin fishing, I noticed the same friction at practically every second tournament. The system technically worked — but only for the organiser holding the pen.
         </p>
-        <p class="cs-text" style="margin-top:18px;">
-          Scores were written by hand on paper at the weigh-in, then photographed and dropped into a Telegram chat. If you missed the photo or the chat was busy, you'd never find your result. Rankings were calculated manually in Google Sheets — which was better than paper, but still invisible to anyone except the organiser.
+        <p class="cs-text">
+          Scores were written by hand on paper during the weigh-in, then photographed and dropped into a Telegram group. If you missed the message or the chat was busy, your result was gone. Season standings lived in a Google Sheet that only one person had access to. Finding a quick summary or checking your position in the rankings was a separate task that required hunting through message history.
         </p>
-        <p class="cs-text" style="margin-top:18px;">
-          This is the kind of problem that's very familiar to anyone who works in product: <strong>the system technically works, but using it is genuinely uncomfortable.</strong>
+        <p class="cs-text">
+          This is exactly the kind of problem familiar to anyone who works in product: <strong>the system technically works, but using it is genuinely uncomfortable.</strong>
         </p>
-      </div>
-      <div>
         <div class="insight-box">
           <div class="insight-label">Root insight</div>
-          <div class="insight-text">Results existed — they just lived in the wrong place. The fix wasn't a new data model, it was a better interface over the data that already existed.</div>
+          <div class="insight-text">The data already existed — it just lived in the wrong place. The fix wasn't a new data model, it was a better interface over data that was already there.</div>
         </div>
-        <div class="pain-grid" style="margin-top:16px;">
+      </div>
+      <div>
+        <div class="pain-grid">
           <div class="pain-card">
             <div class="pain-icon">📄</div>
             <div>
               <div class="pain-title">Results on paper</div>
-              <div class="pain-text">Scores written at weigh-in, photographed, shared once in a group chat — then lost forever.</div>
+              <div class="pain-text">Scores written at weigh-in, photographed once, shared in chat — then effectively impossible to find.</div>
             </div>
           </div>
           <div class="pain-card">
             <div class="pain-icon">💬</div>
             <div>
               <div class="pain-title">Data scattered in chats</div>
-              <div class="pain-text">Part of the info lived in Telegram messages, part in photo albums, part in someone's spreadsheet.</div>
+              <div class="pain-text">Part of the info in Telegram messages, part in photo albums, part in someone's private spreadsheet.</div>
             </div>
           </div>
           <div class="pain-card">
             <div class="pain-icon">🔍</div>
             <div>
               <div class="pain-title">No quick lookup</div>
-              <div class="pain-text">Finding a specific result or checking season standings required digging through message history.</div>
+              <div class="pain-text">Checking your season standing required scrolling through weeks of chat history.</div>
             </div>
           </div>
           <div class="pain-card">
             <div class="pain-icon">❌</div>
             <div>
-              <div class="pain-title">Counting errors</div>
-              <div class="pain-text">Complex scoring rules (place points + bonus points) led to frequent miscalculations by hand.</div>
+              <div class="pain-title">Manual counting errors</div>
+              <div class="pain-text">Complex scoring rules — place points + bonus points — led to frequent miscalculations by hand.</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="cs-img-row c2 reveal" style="margin-top:40px;">
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/problem-before-1.png" alt="Before — paper results at weigh-in">
+      </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/problem-before-2.png" alt="Before — results in Telegram chat">
+      </div>
+    </div>
   </div>
 
-  <!-- Solution -->
+  <!-- 03 Solution -->
   <div class="cs-section reveal">
-    <div class="cs-label">03 — Solution</div>
-    <h2 class="cs-title">Why a Telegram Mini App?</h2>
+    <div class="cs-section-label">03 — Solution</div>
+    <h2 class="cs-section-title">Why a Telegram Mini App?</h2>
     <p class="cs-text">
-      The audience — local fishing community — lives in Telegram. A native iOS/Android app would mean an App Store submission, installs, updates, and a completely separate context. A Telegram Mini App opens with <strong>one tap inside a chat they already use every day</strong>, and feels native on mobile without any installation friction.
+      The fishing community lives in Telegram. A native iOS/Android app would mean App Store submissions, installs, updates, and a completely separate context from where people already communicate. A Telegram Mini App opens with <strong>one tap inside the chat they use every day</strong> — no install, no friction, native on mobile by default.
     </p>
-    <p class="cs-text" style="margin-top:18px;">
-      The choice was about meeting users where they already are — a core UX principle — while keeping the architecture dead simple so I could build and maintain it solo.
+    <p class="cs-text">
+      My choice was about meeting users exactly where they already are — a core UX principle — while keeping the architecture simple enough to build and maintain solo.
     </p>
 
-    <div class="process-steps reveal" style="margin-top:40px;">
+    <div class="process-steps reveal">
       <div class="process-step">
         <div class="step-num">01</div>
         <div class="step-title">Google Sheets as DB</div>
-        <div class="step-text">Organisers enter results in a familiar spreadsheet. Zero learning curve, zero new tools.</div>
+        <div class="step-text">Organisers enter results in a familiar spreadsheet. Zero learning curve, zero new tools to adopt.</div>
       </div>
       <div class="process-step">
         <div class="step-num">02</div>
         <div class="step-title">Apps Script API</div>
-        <div class="step-text">A thin Google Apps Script layer reads the sheet and exposes a JSON endpoint — instant backend.</div>
+        <div class="step-text">A thin Google Apps Script layer reads the sheet and exposes a clean JSON endpoint — an instant backend.</div>
       </div>
       <div class="process-step">
         <div class="step-num">03</div>
         <div class="step-title">Vanilla JS front-end</div>
-        <div class="step-text">Lightweight, fast-loading interface. No framework overhead — critical for Mini App performance.</div>
+        <div class="step-text">No framework overhead. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</div>
       </div>
       <div class="process-step">
         <div class="step-num">04</div>
         <div class="step-title">GitHub + CI/CD</div>
-        <div class="step-text">Staging and production environments. Changes deploy automatically on push — no manual uploads.</div>
+        <div class="step-text">Staging and production environments. Changes deploy automatically on push — the same workflow as professional engineering teams.</div>
       </div>
     </div>
 
-    <!-- Architecture -->
     <div class="arch-diagram reveal">
-      <div class="arch-label">Data flow — from spreadsheet to user's phone</div>
+      <div class="arch-label">Data flow — from spreadsheet to participant's phone</div>
       <div class="arch-flow">
         <div class="arch-node">
           <div class="arch-box sheets">Google<br>Sheets</div>
@@ -632,16 +595,22 @@
     </div>
   </div>
 
-  <!-- Design & UX -->
+  <!-- 04 Design & UX -->
   <div class="cs-section reveal">
-    <div class="cs-label">04 — Design &amp; UX</div>
-    <h2 class="cs-title">Design Decisions</h2>
+    <div class="cs-section-label">04 — Design &amp; UX</div>
+    <h2 class="cs-section-title">Interface Design</h2>
     <p class="cs-text">
-      The visual identity — deep forest green with gold — comes directly from the brand materials I designed for Predator Fest events. It immediately signals "outdoors, sport, serious competition" without a single word.
+      The visual identity — deep forest green with gold — comes directly from the brand materials I designed for Predator Fest events. It signals "outdoors, sport, serious competition" without a word. The interface is built around five core tabs, each solving a specific job-to-be-done for a participant standing at the water's edge on their phone.
     </p>
-    <p class="cs-text" style="margin-top:18px;">
-      The interface is organised around five core tabs, each solving a specific job-to-be-done for a participant standing at the water's edge on their phone.
-    </p>
+
+    <div class="cs-img-row c2 reveal" style="margin-top:40px;">
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screens-fests.png" alt="PFL App — Fests tab, tournament list">
+      </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screens-leaderboard.png" alt="PFL App — Leaderboard, season rankings">
+      </div>
+    </div>
 
     <div class="features-grid reveal">
       <div class="feature-card">
@@ -652,13 +621,13 @@
         <div class="feature-items">
           <div class="feature-item">Live individual &amp; team standings per round</div>
           <div class="feature-item">Multi-year archive — 2025 and 2026 seasons</div>
-          <div class="feature-item">Per-tournament breakdown: round results, catches, placements</div>
-          <div class="feature-item">Updates in real time as organisers enter weigh-in data</div>
+          <div class="feature-item">Per-tournament breakdown: results, catches, placements</div>
+          <div class="feature-item">Updates in real time as organiser enters weigh-in data</div>
         </div>
       </div>
       <div class="feature-card">
         <div class="feature-header">
-          <div class="feature-icon" style="background:rgba(240,200,68,.15);">🏆</div>
+          <div class="feature-icon" style="background:rgba(212,160,23,.15);">🏆</div>
           <div class="feature-name">Leaderboard — Season Rankings</div>
         </div>
         <div class="feature-items">
@@ -676,7 +645,7 @@
         <div class="feature-items">
           <div class="feature-item">Cross-format standings across different competition types</div>
           <div class="feature-item">Perch, Pike, and multi-species event tracking</div>
-          <div class="feature-item">Separate tabs for individual vs team formats</div>
+          <div class="feature-item">Separate views for individual vs team formats</div>
         </div>
       </div>
       <div class="feature-card">
@@ -687,82 +656,38 @@
         <div class="feature-items">
           <div class="feature-item">Dedicated section for Ozero Didyliv venue results</div>
           <div class="feature-item">Local rankings and historical catches</div>
-          <div class="feature-item">Real-time updates tied to the same sheet infrastructure</div>
+          <div class="feature-item">Real-time updates from the same sheet infrastructure</div>
         </div>
       </div>
     </div>
 
-    <!-- Screen showcase -->
-    <h3 style="font-family:'Manrope',sans-serif;font-size:18px;font-weight:700;letter-spacing:-.02em;margin-top:52px;margin-bottom:8px;">Key screens — mobile-first, one-thumb navigation</h3>
-    <p class="cs-text" style="margin-bottom:0;">Designed for a participant standing at a lake checking results between rounds.</p>
-
-    <div class="screen-row c4 reveal">
-      <div class="screen-block phone g-forest-d">
-        <div class="sb-ghost">Fests</div>
-        <div class="sb-label">
-          <div class="sb-title">Tournament List</div>
-          <div class="sb-sub">All events · filter by year</div>
-        </div>
+    <div class="cs-img-row c4 reveal" style="margin-top:24px;">
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screen-tab-fests.png" alt="Fests tab">
       </div>
-      <div class="screen-block phone g-forest-m">
-        <div class="sb-ghost">🏆</div>
-        <div class="sb-label">
-          <div class="sb-title">Leaderboard</div>
-          <div class="sb-sub">Season rankings · points</div>
-        </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screen-tab-leaderboard.png" alt="Leaderboard tab">
       </div>
-      <div class="screen-block phone g-forest-l">
-        <div class="sb-ghost">Live</div>
-        <div class="sb-label">
-          <div class="sb-title">Live Results</div>
-          <div class="sb-sub">Round-by-round · real-time</div>
-        </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screen-tab-arena.png" alt="Arena tab">
       </div>
-      <div class="screen-block phone g-forest-xl">
-        <div class="sb-ghost">🤝</div>
-        <div class="sb-label">
-          <div class="sb-title">Partners</div>
-          <div class="sb-sub">Sponsors · promo codes</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="screen-row c3 reveal" style="margin-top:16px;">
-      <div class="screen-block wide g-forest-d">
-        <div class="sb-ghost">Dark</div>
-        <div class="sb-label">
-          <div class="sb-title">Dark mode support</div>
-          <div class="sb-sub">Follows Telegram theme token</div>
-        </div>
-      </div>
-      <div class="screen-block wide g-gold">
-        <div class="sb-ghost">PFL</div>
-        <div class="sb-label">
-          <div class="sb-title">Brand identity</div>
-          <div class="sb-sub">Forest green × gold — event posters, app, merch</div>
-        </div>
-      </div>
-      <div class="screen-block wide g-forest-m">
-        <div class="sb-ghost">About</div>
-        <div class="sb-label">
-          <div class="sb-title">About + Contact</div>
-          <div class="sb-sub">Project story · Telegram · Instagram</div>
-        </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screen-tab-partners.png" alt="Partners tab">
       </div>
     </div>
   </div>
 
-  <!-- Scoring system -->
+  <!-- 05 Scoring system -->
   <div class="cs-section reveal">
-    <div class="cs-label">05 — Product Complexity</div>
-    <h2 class="cs-title">The Scoring System Behind the App</h2>
+    <div class="cs-section-label">05 — Product Complexity</div>
+    <h2 class="cs-section-title">The Scoring System Behind the App</h2>
     <p class="cs-text">
-      One of the real UX challenges was making a genuinely complex scoring model feel transparent and simple. The PFL season uses <strong>placement-based points across 6 events</strong>, with multiple bonus point categories and a tiebreaker chain. Getting this wrong in the UI — or the underlying formulas — destroys trust with competitors.
+      One of the real design challenges was making a genuinely complex scoring model feel transparent and simple to understand. The PFL season uses placement-based points across 6 events, with multiple bonus point categories and a tiebreaker chain. Getting this wrong — in the UI or the underlying formulas — destroys trust with competitors.
     </p>
 
-    <div class="two-col-eq reveal">
+    <div class="two-col reveal" style="margin-top:40px;">
       <div>
-        <div style="font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Placement points</div>
+        <p style="font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Placement points per event</p>
         <div class="scoring-table">
           <div class="st-header">
             <div class="st-head">Finish</div>
@@ -773,38 +698,36 @@
           <div class="st-row"><div class="st-action">🥉 3rd place</div><div class="st-points">15 pts</div></div>
           <div class="st-row"><div class="st-action">4th place</div><div class="st-points">12 pts</div></div>
           <div class="st-row"><div class="st-action">5th place</div><div class="st-points">10 pts</div></div>
-          <div class="st-row"><div class="st-action">6th–8th place</div><div class="st-points">8–4 pts</div></div>
-          <div class="st-row"><div class="st-action">9th–15th place</div><div class="st-points">3–1 pts</div></div>
+          <div class="st-row"><div class="st-action">6th–8th place</div><div class="st-points">8 – 4 pts</div></div>
+          <div class="st-row"><div class="st-action">9th–15th place</div><div class="st-points">3 – 1 pts</div></div>
         </div>
       </div>
       <div>
-        <div style="font-size:13px;font-weight:600;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Bonus points (per event)</div>
+        <p style="font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Bonus points (per event)</p>
         <div class="scoring-table">
           <div class="st-header">
             <div class="st-head">Action</div>
             <div class="st-head">Bonus</div>
           </div>
-          <div class="st-row"><div class="st-action">Participation in event</div><div class="st-points">+10 pts</div></div>
-          <div class="st-row"><div class="st-action">BigFish nomination</div><div class="st-points">+5 pts</div></div>
-          <div class="st-row"><div class="st-action">Instagram story w/ sponsor tag</div><div class="st-points">+3 pts</div></div>
-          <div class="st-row"><div class="st-action">Inviting a new participant</div><div class="st-points">+2 pts</div></div>
-          <div class="st-row"><div class="st-action">1st place in a round</div><div class="st-points">+2 pts</div></div>
+          <div class="st-row"><div class="st-action">Participation in event</div><div class="st-points">+10</div></div>
+          <div class="st-row"><div class="st-action">BigFish nomination</div><div class="st-points">+5</div></div>
+          <div class="st-row"><div class="st-action">Instagram story w/ sponsor tag</div><div class="st-points">+3</div></div>
+          <div class="st-row"><div class="st-action">Inviting a new participant</div><div class="st-points">+2</div></div>
+          <div class="st-row"><div class="st-action">1st place in a round</div><div class="st-points">+2</div></div>
         </div>
-        <div style="margin-top:14px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;">
-          <div style="font-size:12px;color:var(--text-2);line-height:1.6;">
-            <strong style="color:var(--text);">Grand prize condition:</strong> minimum 5 of 6 events attended. Top-scoring participant with ≥ 5 fests wins the <strong style="color:var(--text);">Shimano Vanquish 2500S</strong> (or premium rod up to 20k UAH).
-          </div>
+        <div style="margin-top:14px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-2);line-height:1.6;">
+          <strong style="color:var(--text);">Grand prize condition:</strong> minimum 5 of 6 events attended. Top scorer with ≥ 5 fests wins the <strong style="color:var(--text);">Shimano Vanquish 2500S</strong> or premium rod up to 20k UAH.
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Tech section -->
+  <!-- 06 Technology -->
   <div class="cs-section reveal">
-    <div class="cs-label">06 — Technology</div>
-    <h2 class="cs-title">Built Solo, Built to Last</h2>
+    <div class="cs-section-label">06 — Technology</div>
+    <h2 class="cs-section-title">Built Solo, Built to Last</h2>
     <p class="cs-text">
-      The entire app was designed, built, and deployed by me — a product designer who used <strong>AI-assisted development tools</strong> to go from idea to production without a dedicated engineering team. This was a deliberate experiment in what a designer can ship independently in 2024.
+      The entire app was designed, built, and deployed by me — a product designer who used <strong>AI-assisted development</strong> to go from idea to production without a dedicated engineering team. This was a deliberate experiment in what a designer can ship independently in 2024–2025.
     </p>
 
     <div class="stack-grid reveal">
@@ -816,7 +739,7 @@
       <div class="stack-card">
         <div class="stack-icon">⚙️</div>
         <div class="stack-title">Google Apps Script</div>
-        <div class="stack-role">Acts as a lightweight API layer. Reads the sheet, applies scoring formulas, returns clean JSON to the front-end.</div>
+        <div class="stack-role">Acts as a lightweight API layer. Reads the sheet, applies scoring logic, returns clean JSON to the front-end.</div>
       </div>
       <div class="stack-card">
         <div class="stack-icon">⚡️</div>
@@ -826,54 +749,62 @@
       <div class="stack-card">
         <div class="stack-icon">🐙</div>
         <div class="stack-title">GitHub + CI/CD</div>
-        <div class="stack-role">Staging and production branches. Automated deploys on push — the same workflow used in professional product teams.</div>
+        <div class="stack-role">Staging and production branches. Automated deploys on push — the same workflow used by professional engineering teams.</div>
       </div>
       <div class="stack-card">
         <div class="stack-icon">✈️</div>
         <div class="stack-title">Telegram Mini App</div>
-        <div class="stack-role">Native Telegram integration. Opens in one tap from the community channel — no install, no app store, no friction.</div>
+        <div class="stack-role">Native Telegram integration. Opens in one tap from the community channel — no install, no app store, no friction at all.</div>
       </div>
       <div class="stack-card">
         <div class="stack-icon">🌐</div>
         <div class="stack-title">Progressive Web App</div>
-        <div class="stack-role">Also accessible as a full web app at predatorfest.com — same codebase, works on any device or browser.</div>
+        <div class="stack-role">Also accessible at predatorfest.com — same codebase, works on any device or browser.</div>
+      </div>
+    </div>
+
+    <div class="cs-img-row c2 reveal" style="margin-top:40px;">
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screens-web-desktop.png" alt="PFL — web desktop view">
+      </div>
+      <div class="cs-img-wrap">
+        <img src="assets/img/pfl/screens-tg-mini-app.png" alt="PFL — Telegram Mini App">
       </div>
     </div>
   </div>
 
-  <!-- Results -->
+  <!-- 07 Results -->
   <div class="cs-section reveal">
-    <div class="cs-label">07 — Impact</div>
-    <h2 class="cs-title">Results &amp; Impact</h2>
+    <div class="cs-section-label">07 — Results</div>
+    <h2 class="cs-section-title">Impact</h2>
     <p class="cs-text">A real product, used by a real community, built by one person with a passion for fishing and product design.</p>
 
-    <div class="metrics-grid">
-      <div class="metric-card reveal">
-        <div class="metric-val">80+</div>
-        <div class="metric-desc">Participants tracked across tournaments in 2025–2026 seasons.</div>
-        <div class="metric-note">Growing community · Lviv &amp; region</div>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-val">80+</div>
+        <div class="result-desc">Participants tracked across tournaments in the 2025–2026 seasons.</div>
+        <div class="result-note">Growing community · Lviv &amp; region</div>
       </div>
-      <div class="metric-card reveal d1">
-        <div class="metric-val">64k UAH</div>
-        <div class="metric-desc">Raised for Ukraine's Armed Forces from competition entry fees across all events.</div>
-        <div class="metric-note">🇺🇦 Sport for a cause</div>
+      <div class="result-card reveal d1">
+        <div class="result-val">64k UAH</div>
+        <div class="result-desc">Raised for Ukraine's Armed Forces from competition entry fees across all events.</div>
+        <div class="result-note">🇺🇦 Sport with a purpose</div>
       </div>
-      <div class="metric-card reveal d2">
-        <div class="metric-val">1 tap</div>
-        <div class="metric-desc">That's all it takes for any participant to check live results during a tournament — from any device.</div>
-        <div class="metric-note">vs scrolling through chat history before</div>
+      <div class="result-card reveal d2">
+        <div class="result-val">1 tap</div>
+        <div class="result-desc">That's all it takes to check live results during a tournament — from any device, any time.</div>
+        <div class="result-note">vs. digging through chat history before</div>
       </div>
     </div>
 
-    <div class="highlight-banner reveal">
-      <div class="hb-title">What this project actually proves: a designer can <em>ship</em>.</div>
-      <div class="hb-list">
-        <div class="hb-item"><div class="hb-dot"></div>Identified a real problem from personal experience — then built the solution end-to-end</div>
-        <div class="hb-item"><div class="hb-dot"></div>Designed the full product: IA, visual identity, UI system, brand materials — all consistent</div>
-        <div class="hb-item"><div class="hb-dot"></div>Shipped a working Telegram Mini App + PWA using AI-assisted development</div>
-        <div class="hb-item"><div class="hb-dot"></div>Maintained staging/production CI/CD — the same workflow as professional engineering teams</div>
-        <div class="hb-item"><div class="hb-dot"></div>Iterated based on real user feedback from an active community</div>
-        <div class="hb-item"><div class="hb-dot"></div>Live at <a href="https://predatorfest.com" target="_blank" style="color:var(--proj-gold);text-decoration:none;">predatorfest.com</a> · Telegram: @predatorfest</div>
+    <div class="quote-block reveal">
+      <div class="quote-text">What this project actually proves: <em>a designer can ship.</em></div>
+      <div class="quote-list">
+        <div class="quote-item"><div class="q-dot"></div>Identified a real problem from personal experience — then built the solution end-to-end</div>
+        <div class="quote-item"><div class="q-dot"></div>Designed the full product: IA, visual identity, UI system, event brand materials — all consistent</div>
+        <div class="quote-item"><div class="q-dot"></div>Shipped a working Telegram Mini App + PWA using AI-assisted development</div>
+        <div class="quote-item"><div class="q-dot"></div>Maintained staging / production CI/CD — the same workflow as professional engineering teams</div>
+        <div class="quote-item"><div class="q-dot"></div>Iterated based on real feedback from an active community across multiple seasons</div>
       </div>
     </div>
   </div>
@@ -882,7 +813,7 @@
   <div class="next-project reveal">
     <div class="next-label">Next project</div>
     <a href="rentflow.html" class="next-link">
-      <div class="next-title">RentFlow Dubai →</div>
+      <div class="next-title">RentFlow Dubai</div>
       <div class="next-arrow">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
           <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -899,15 +830,8 @@
     es.forEach(function(e) {
       if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
     });
-  }, { threshold: 0.1 });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(function(el) { ro.observe(el); });
-
-  var nav = document.querySelector('nav');
-  if (nav) {
-    window.addEventListener('scroll', function() {
-      nav.style.borderBottomColor = window.scrollY > 30 ? 'var(--border)' : 'transparent';
-    }, { passive: true });
-  }
 </script>
 </body>
 </html>
