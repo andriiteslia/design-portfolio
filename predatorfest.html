@@ -314,6 +314,16 @@
       background: rgba(255,255,255,.4); flex-shrink: 0; margin-top: 8px;
     }
 
+    /* ── Buttons ── */
+    .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:transform .2s;position:relative;overflow:hidden}
+    .btn-fill:hover{transform:translateY(-2px)}
+    .btn-fill .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
+    .btn-fill.ripple-active .btn-ripple{transform:scale(1);opacity:1}
+    .btn-fill span.btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px}
+    .btn-out{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;border:1px solid var(--border);transition:background .2s,border-color .2s,color .2s}
+    .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
+    .proj-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
+
     /* ── Live badge ── */
     .live-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -462,9 +472,13 @@
       <div class="live-dot"></div>
       Live at predatorfest.com · tg: @predatorfest
     </div>
+    <div class="proj-btns">
+      <a href="https://predatorfest.com" target="_blank" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">predatorfest.com ↗</span></a>
+      <a href="https://t.me/predatorfest" target="_blank" class="btn-out" style="background:#229ED9;color:#fff;border-color:#229ED9;">@predatorfest on Telegram ↗</a>
+    </div>
 
     <p class="cs-text">
-      <strong>Predator Fest League (PFL)</strong> is a competitive fishing league I co-founded in Lviv. As someone who organises and participates in tournaments, I noticed the same problem at almost every event — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.
+      <strong>Predator Fest League (PFL)</strong> is a competitive fishing league I founded in Lviv — solo, from scratch, as CEO and the only person behind the entire project. I noticed the same problem at almost every tournament — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.
     </p>
     <p class="cs-text">
       I designed and built the PFL App from scratch — a <strong>Telegram Mini App and PWA</strong> that gives every participant instant access to live results, tournament standings, a full season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.
@@ -803,6 +817,20 @@
 </div><!-- /case-body -->
 
 <script>
+  document.querySelectorAll('.btn-fill').forEach(function(btn){
+    btn.addEventListener('click',function(e){
+      var r=btn.querySelector('.btn-ripple');
+      if(!r)return;
+      var rect=btn.getBoundingClientRect();
+      var size=Math.max(rect.width,rect.height)*2;
+      r.style.width=r.style.height=size+'px';
+      r.style.left=(e.clientX-rect.left-size/2)+'px';
+      r.style.top=(e.clientY-rect.top-size/2)+'px';
+      btn.classList.add('ripple-active');
+      setTimeout(function(){btn.classList.remove('ripple-active');},600);
+    });
+  });
+
   var ro = new IntersectionObserver(function(es) {
     es.forEach(function(e) {
       if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
