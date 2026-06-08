@@ -304,6 +304,14 @@
     .foot-links a:hover { color:#fff; }
     @media(max-width:768px){ .foot-in{padding:20px 24px} }
 
+    /* ── MARQUEE ── */
+    .mq-wrap { overflow:hidden; }
+    .mq-track { display:flex; width:max-content; animation:mq 52s linear infinite; }
+    .mq-item { display:inline-flex; align-items:center; gap:32px; padding:0 32px; font-size:12px; font-weight:400; color:var(--text-2); white-space:nowrap; }
+    .mq-item::after { content:'✦'; font-size:7px; opacity:.3; margin-left:32px; }
+    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
     /* ── STATS ── */
     #statsGrid {
       max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto;
