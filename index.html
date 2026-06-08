@@ -45,9 +45,10 @@
       max-width: calc(var(--max-w) + var(--pad)*2); margin: 0 auto;
       padding: 0 var(--pad); height: 100%;
       display: flex; align-items: center; justify-content: space-between;
+      position: relative;
     }
     .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.02em; color:var(--text); text-decoration:none; }
-    .nav-links { display:flex; align-items:center; gap:32px; }
+    .nav-links { display:flex; align-items:center; gap:32px; position:absolute; left:50%; transform:translateX(-50%); }
     .nav-links a { font-size:13px; color:var(--text-2); text-decoration:none; transition:color .2s; }
     .nav-links a:hover { color:var(--text); }
     .nav-cta { font-size:12px; font-weight:500; color:var(--text); text-decoration:none; border:1px solid var(--border); padding:7px 18px; border-radius:100px; transition:border-color .2s, background .2s, color .2s; }
