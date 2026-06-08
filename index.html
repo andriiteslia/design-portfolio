@@ -5,298 +5,350 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Andrii Teslia — Senior Product & UX/UI Designer</title>
   <meta name="description" content="Senior Product & UX/UI Designer, 8 years, fintech/proptech/healthtech. Lviv, Ukraine.">
-  <link rel="icon" href="favicon.png" type="image/png">
-  
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#F7F8FF; --bg-2:#F3F4FD; --bg-3:#DEE2FB;
-      --text:#12110E; --text-2:#6B6880; --text-3:#9C9AAE;
-      --accent:#4865F4; --border:rgba(72,101,244,0.12);
-      --nav-h:68px; --max-w:1280px;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F7F7F7;
+      --white: #FFFFFF;
+      --text: #111111;
+      --text-2: #666666;
+      --text-3: #AAAAAA;
+      --border: #E4E4E4;
+      --nav-h: 56px;
+      --max-w: 1200px;
+      --pad: 48px;
+      --mob-pad: 24px;
     }
-    html{scroll-behavior:smooth}
-    body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden}
-    @media(hover:none),(max-width:768px){body{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
-    @media(max-width:768px){.scroll-hint{display:none}}
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
 
-    /* ── nav ── */
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--nav-h);background:transparent;transition:background .4s,backdrop-filter .4s}
-    /* floating pill state */
-    nav.scrolled{background:transparent!important;backdrop-filter:none!important;top:16px}
-    .nav-pill{
-      display:flex;
-      position:fixed;top:16px;left:50%;
-      transform:translateX(-50%) translateY(-16px);
-      z-index:101;
-      background:rgba(255,255,255,0.6);
-      backdrop-filter:blur(24px) saturate(180%);
-      -webkit-backdrop-filter:blur(24px) saturate(180%);
-      border:1px solid rgba(255,255,255,0.7);
-      border-bottom:1px solid rgba(200,205,255,0.3);
-      border-radius:100px;
-      padding:4px 6px;
-      align-items:center;gap:4px;
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-      transition:opacity .4s cubic-bezier(.22,1,.36,1), transform .4s cubic-bezier(.22,1,.36,1), visibility .4s;
-      white-space:nowrap;
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h); background: transparent;
+      transition: background .3s, border-color .3s;
+      border-bottom: 1px solid transparent;
     }
-    .nav-pill.visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
-    .nav-pill-logo{width:32px;height:32px;border-radius:50%;overflow:hidden;flex-shrink:0;margin-right:4px}
-    .nav-pill-logo img{width:100%;height:100%;object-fit:cover}
-    .nav-pill-links{display:flex;align-items:center;gap:4px}
-    .nav-pill-links a{font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:100px;transition:background .2s,color .2s}
-    .nav-pill-links a:hover{background:var(--bg-2);color:var(--text)}
-    .nav-pill-cta{display:inline-flex;align-items:center;font-size:13px;font-weight:600;background:var(--text);color:var(--bg);padding:8px 18px;border-radius:100px;text-decoration:none;margin-left:6px;transition:transform .2s;position:relative;overflow:hidden}
-    .nav-pill-cta:hover{transform:translateY(-1px)}
-    .nav-pill-cta .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
-    .nav-pill-cta.ripple-active .btn-ripple{transform:scale(1);opacity:1}
-    .nav-pill-cta .btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:6px}
-    .nav-pill-contact-mob{display:none;font-size:13px;font-weight:500;color:var(--text-2);text-decoration:none;padding:6px 12px;border-radius:100px;transition:background .2s,color .2s}
-    .nav-pill-contact-mob:hover{background:var(--bg-2);color:var(--text)}
+    nav.scrolled-light {
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom-color: var(--border);
+    }
+    .nav-in {
+      max-width: calc(var(--max-w) + var(--pad)*2); margin: 0 auto;
+      padding: 0 var(--pad); height: 100%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family:'Syne',sans-serif; font-weight:800; font-size:15px; letter-spacing:-.02em; color:var(--text); text-decoration:none; }
+    .nav-links { display:flex; align-items:center; gap:32px; }
+    .nav-links a { font-size:13px; color:var(--text-2); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-cta { font-size:12px; font-weight:500; color:var(--text); text-decoration:none; border:1px solid var(--border); padding:7px 18px; border-radius:100px; transition:border-color .2s, background .2s, color .2s; }
+    .nav-cta:hover { border-color:var(--text); }
+    .nav-burger { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; padding:4px; }
+    .nav-burger span { display:block; width:20px; height:1.5px; background:var(--text); transition:transform .25s, opacity .2s; }
+    .nav-burger.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .nav-burger.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
     @media(max-width:768px){
-      .nav-pill{top:12px}
-      .nav-pill-links{display:none}
-      .nav-pill-contact-mob{display:inline-flex}
+      .nav-in { padding:0 var(--mob-pad); }
+      .nav-links{display:none} .nav-cta{display:none} .nav-burger{display:flex}
     }
-    .mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:#F7F8FF;z-index:99;padding:40px 24px;flex-direction:column;overflow-y:auto}
-    .mobile-menu.open{display:flex}
-    .mobile-menu a{font-size:22px;font-weight:600;color:var(--text);text-decoration:none;padding:18px 0;border-bottom:1px solid var(--border);text-align:center;justify-content:center}
-    .mobile-menu a:last-child{border-bottom:none}
-    .mobile-menu a[style*="color:var(--accent)"]{color:var(--accent)!important}
-    .nav-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;height:100%;display:flex;align-items:center}
-    .nav-logo{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.03em;color:var(--text);text-decoration:none;flex:1}
-    .nav-logo span{color:var(--accent)}
-    .nav-links{display:flex;gap:36px;align-items:center}
-    .nav-links a{font-size:14px;color:var(--text-2);text-decoration:none;transition:color .2s}
-    .nav-links a:hover{color:var(--text)}
-    .nav-burger{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:4px;margin-left:20px}
-    .nav-burger span{display:block;width:22px;height:1.5px;background:var(--text);transition:transform .25s,opacity .2s}
-    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-    .nav-burger.open span:nth-child(2){opacity:0}
-    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 
-    /* ── buttons ── */
-    .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;transition:transform .2s;position:relative;overflow:hidden}
-    .btn-fill:hover{transform:translateY(-2px)}
-    .btn-fill .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
-    .btn-fill.ripple-active .btn-ripple{transform:scale(1);opacity:1}
-    .btn-fill span.btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px}
-    .btn-out{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;border:1px solid var(--border);transition:background .2s,border-color .2s,color .2s}
-    .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
+    /* ── FLOATING PILL ── */
+    .nav-pill {
+      display:flex; position:fixed; top:12px; left:50%;
+      transform:translateX(-50%) translateY(-10px);
+      z-index:201;
+      background:rgba(255,255,255,0.88);
+      backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%);
+      border:1px solid var(--border); border-radius:100px;
+      padding:3px 4px; align-items:center; gap:2px;
+      opacity:0; visibility:hidden; pointer-events:none;
+      transition:opacity .4s cubic-bezier(.22,1,.36,1), transform .4s cubic-bezier(.22,1,.36,1), visibility .4s;
+      box-shadow:0 2px 16px rgba(0,0,0,0.06);
+    }
+    .nav-pill.visible { opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .nav-pill-logo { width:28px; height:28px; border-radius:50%; overflow:hidden; flex-shrink:0; margin-right:2px; }
+    .nav-pill-logo img { width:100%; height:100%; object-fit:cover; }
+    .nav-pill-links { display:flex; align-items:center; gap:0; }
+    .nav-pill-links a { font-size:12px; color:var(--text-2); text-decoration:none; padding:5px 11px; border-radius:100px; transition:background .2s, color .2s; }
+    .nav-pill-links a:hover { background:var(--bg); color:var(--text); }
+    .nav-pill-cta { display:inline-flex; align-items:center; font-size:12px; font-weight:500; background:var(--text); color:#fff; padding:6px 16px; border-radius:100px; text-decoration:none; margin-left:2px; transition:opacity .2s; }
+    .nav-pill-cta:hover { opacity:.75; }
+    .nav-pill-contact-mob { display:none; font-size:12px; color:var(--text-2); text-decoration:none; padding:5px 11px; border-radius:100px; }
+    @media(max-width:768px){
+      .nav-pill-links { display:none; }
+      .nav-pill-contact-mob { display:inline-flex; }
+      .nav-pill-cta { white-space:nowrap; }
+      .pill-cta-desk { display:none; }
+      .pill-cta-mob { display:inline !important; }
+    }
 
-    /* ── hero ── */
-    .hero-sticky-wrap{position:sticky;top:0;z-index:0;height:100vh}
-    .hero{min-height:100vh;padding:var(--nav-h) 0 80px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;overflow:hidden;height:100vh}
-    .hero::before{content:'';position:absolute;top:-20%;left:-10%;width:70vw;height:70vw;max-width:900px;max-height:900px;background:radial-gradient(ellipse at center,rgba(72,101,244,.06) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
-    .hero::after{content:'';position:absolute;bottom:-20%;right:-10%;width:50vw;height:50vw;max-width:700px;max-height:700px;background:radial-gradient(ellipse at center,rgba(72,101,244,.04) 0%,transparent 65%);border-radius:50%;pointer-events:none;z-index:0}
-    .hero-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;width:100%;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center}
-    /* content over hero */
-    .hero-overlay-content{position:relative;z-index:1;background:var(--bg);border-radius:24px 24px 0 0;margin-top:-24px;}
-    /* badge */
-    .badge{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);padding:6px 14px;border-radius:100px;margin-bottom:40px;width:fit-content;opacity:0;animation:fadeUp .6s .1s forwards}
-    .badge-dot{width:7px;height:7px;background:#22C55E;border-radius:50%;animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.85)}}
-    .h1{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(44px,7vw,108px);font-weight:800;line-height:.95;letter-spacing:-.03em;margin-bottom:48px}
-    .h1 .line{overflow:hidden;padding-bottom:.22em;margin-bottom:-.22em}
-    .h1 .word{display:inline-block;opacity:0;transform:translateY(100%);animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards}
-    .h1 .w1{animation-delay:.15s}.h1 .w2{animation-delay:.25s}.h1 .w3{animation-delay:.35s}.h1 .w4{animation-delay:.45s}.h1 .w5{animation-delay:.55s}
-    @keyframes wordUp{to{opacity:1;transform:translateY(0)}}
-    .hero-bot{display:flex;flex-direction:column;align-items:center;gap:16px;opacity:0;animation:fadeUp .6s .7s forwards}
-    .hero-desc{font-size:16px;line-height:1.75;color:var(--text-2);font-weight:300;max-width:560px;text-align:center}
-    .hero-desc strong{color:var(--text);font-weight:500}
-    .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px;justify-content:center}
-    .hero-loc{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-3);justify-self:end;align-self:center}
-    .scroll-hint{position:absolute;bottom:36px;left:0;right:0;margin:0 auto;width:fit-content;display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:fadeUp .6s 1.2s forwards}
-    @media(max-width:1024px){.scroll-hint{display:none}}
-    .scroll-hint span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3)}
-    .sh-line{width:1px;height:44px;background:var(--text-3);opacity:.4;animation:shLine 1.8s ease-in-out infinite;transform-origin:top}
-    @keyframes shLine{0%,100%{transform:scaleY(0);opacity:0}30%,70%{transform:scaleY(1);opacity:.4}}
-    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    /* ── MOBILE MENU ── */
+    .mobile-menu { display:none; position:fixed; top:var(--nav-h); left:0; right:0; bottom:0; background:#fff; z-index:199; padding:32px 24px; flex-direction:column; }
+    .mobile-menu.open { display:flex; }
+    .mobile-menu a { font-family:'Syne',sans-serif; font-size:22px; font-weight:700; color:var(--text); text-decoration:none; padding:18px 0; border-bottom:1px solid var(--border); }
+    .mobile-menu a:last-child { border-bottom:none; }
 
-    /* ── stats ── */
-    .stats{background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:60px 0}
-    .stats-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
-    .stat{display:flex;flex-direction:column;gap:6px;padding:0 28px;border-right:1px solid var(--border)}
-    .stat:first-child{padding-left:0}.stat:last-child{border-right:none;padding-right:0}
-    .stat-n{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(26px,2.6vw,42px);font-weight:700;letter-spacing:-.03em;line-height:1}
-    .stat-n .sfx,.stat-n .pfx{font-size:.55em;color:var(--accent);vertical-align:middle;letter-spacing:0}
-    .stat-l{font-size:12px;color:var(--text-2);line-height:1.5}
+    /* ── HERO ── */
+    /* Hero takes ~78vh so the work grid peeks from below */
+    .hero {
+      height: 78vh;
+      min-height: 480px;
+      max-height: 760px;
+      padding-top: var(--nav-h);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-in {
+      max-width: calc(var(--max-w) + var(--pad)*2); margin: 0 auto;
+      padding: 0 var(--pad); width: 100%;
+    }
 
-    /* ── marquee ── */
-    .mq{overflow:hidden;border-bottom:1px solid var(--border);padding:18px 0}
-    .mq-track{display:flex;width:max-content;animation:mq 40s linear infinite}
-    .mq-item{display:flex;align-items:center;gap:40px;padding:0 40px;font-family:'Plus Jakarta Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);white-space:nowrap}
-    .mq-item::after{content:'✦';color:var(--accent);font-size:9px}
-    .mq-rev .mq-track{animation-direction:reverse;animation-duration:48s}
+    /* top row */
+    .hero-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 28px;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:7px;
+      font-size:11px; color:var(--text-2);
+      border:1px solid var(--border); padding:5px 12px; border-radius:100px;
+      margin-bottom:24px;
+      opacity:0; animation:fadeIn .5s .2s forwards;
+    }
+    .badge-dot { width:6px; height:6px; background:#22C55E; border-radius:50%; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
 
-    @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* big title — only name in Syne */
+    .hero-title {
+      margin-bottom: 12px;
+    }
+    .hero-name {
+      font-family:'Syne',sans-serif;
+      font-size: clamp(44px, 6.5vw, 96px);
+      font-weight:800; line-height:.92; letter-spacing:-.04em;
+      color:var(--text); display:block;
+    }
+    .hero-name .line { overflow:hidden; padding-bottom:.08em; margin-bottom:-.08em; }
+    .hero-role {
+      font-family:'DM Sans',sans-serif;
+      font-size: clamp(17px, 2vw, 26px);
+      font-weight:300; line-height:1.2; letter-spacing:0;
+      color:var(--text-2); display:block;
+      margin-top:14px; margin-bottom:28px;
+      opacity:0; animation:fadeIn .6s .4s forwards;
+    }
+    .word { display:inline-block; opacity:0; transform:translateY(105%); animation:wordUp .7s cubic-bezier(.22,1,.36,1) forwards; }
+    .w1{animation-delay:.1s}.w2{animation-delay:.18s}.w3{animation-delay:.26s}
+    @keyframes wordUp { to { opacity:1; transform:translateY(0); } }
 
-    /* ── sections ── */
-    section{padding:120px 48px;max-width:calc(var(--max-w) + 96px);margin:0 auto}
-    .sec-lbl{display:flex;flex-direction:column;gap:10px;margin-bottom:56px;align-items:center;text-align:center}
-    .sec-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.12em;text-transform:uppercase}
-    .sec-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(28px,3.5vw,46px);font-weight:700;letter-spacing:-.03em}
+    /* bottom row */
+    .hero-bottom {
+      display:flex; justify-content:space-between; align-items:center; gap:32px;
+      padding-top:20px; border-top:1px solid var(--border);
+      opacity:0; animation:fadeIn .6s .55s forwards;
+    }
+    .hero-desc { font-size:13.5px; line-height:1.75; color:var(--text-2); font-weight:300; max-width:440px; }
+    .hero-desc strong { color:var(--text); font-weight:500; }
+    .hero-actions { display:flex; gap:10px; flex-shrink:0; }
 
-    /* ── project cards ── */
-    .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .proj-card{background:var(--bg-2);border:1px solid var(--border);border-radius:20px;overflow:hidden;text-decoration:none;color:var(--text);display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,1,.36,1)}
-    .proj-card:hover{transform:translateY(-6px)}
-    .proj-thumb{height:340px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-    .proj-bg{position:absolute;inset:0;background-size:cover;background-position:center;transition:transform .5s cubic-bezier(.22,1,.36,1)}
-    .proj-card:hover .proj-bg{transform:scale(1.06)}
-    .proj-letters{font-size:100px;font-weight:800;letter-spacing:-.06em;opacity:.2;transition:transform .5s,opacity .5s;color:#fff}
-    .proj-card:hover .proj-letters{transform:scale(1.08);opacity:.3}
-    .proj-tags{position:absolute;top:18px;left:18px;display:flex;gap:6px;flex-wrap:wrap;z-index:2}
-    .proj-tag{font-size:10px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:100px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;border:1px solid rgba(255,255,255,.15)}
-    .proj-yr{position:absolute;bottom:18px;right:18px;font-size:10px;font-weight:600;letter-spacing:.04em;padding:4px 10px;border-radius:100px;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;border:1px solid rgba(255,255,255,.15);z-index:2}
-    .proj-body{padding:26px;flex:1;display:flex;flex-direction:column}
-    .proj-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
-    .proj-desc{font-size:13.5px;color:var(--text-2);line-height:1.65;margin-bottom:22px;flex:1}
-    .proj-foot{display:flex;justify-content:space-between;align-items:center}
-    .proj-kpi{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:var(--accent);letter-spacing:-.02em}
-    .proj-kpi-l{font-size:11px;color:var(--text-3);margin-top:2px}
-    .proj-arr{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;transition:background .2s,border-color .2s,transform .2s}
-    .proj-card:hover .proj-arr{background:var(--text);border-color:var(--text);transform:rotate(-45deg)}
-    .proj-card:hover .proj-arr path{stroke:var(--bg)}
-    .proj-card.wip{cursor:default}.proj-card.wip:hover{transform:none}
+    .btn-fill { display:inline-flex; align-items:center; gap:6px; background:var(--text); color:#fff; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; padding:10px 22px; border-radius:100px; text-decoration:none; border:1px solid var(--text); transition:background .2s, color .2s; }
+    .btn-fill:hover { background:transparent; color:var(--text); }
+    .btn-out { display:inline-flex; align-items:center; background:transparent; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13px; padding:10px 22px; border-radius:100px; text-decoration:none; border:1px solid var(--border); transition:border-color .2s; }
+    .btn-out:hover { border-color:var(--text); }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+    @media(max-width:768px){
+      .hero { height:auto; min-height:0; max-height:none; padding: var(--nav-h) 0 0; }
+      .hero-in { padding: 40px var(--mob-pad) 48px; }
+      .hero-name { font-size:clamp(38px,11vw,72px); }
+      .hero-role { font-size:clamp(16px,5vw,24px); }
+      .hero-bottom { flex-direction:column; align-items:flex-start; }
+    }
+
+    /* ── WORK SECTION ── */
+    .work-section { border-bottom:1px solid var(--border); }
+    .work-inner {
+      max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto;
+      padding:0 var(--pad) 40px;
+    }
+    @media(max-width:768px){
+      .work-inner { padding:0 var(--mob-pad) 24px; }
+      .work-header { padding:32px 0 20px; }
+    }
+    .work-header {
+      padding:40px 0 32px;
+      display:flex; justify-content:space-between; align-items:baseline;
+      margin-bottom:24px;
+    }
+    .sec-label { font-size:10px; font-weight:500; letter-spacing:.13em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px; }
+    .sec-title { font-family:'Syne',sans-serif; font-size:clamp(22px,2.4vw,34px); font-weight:800; letter-spacing:-.03em; }
+    .sec-meta { font-size:12px; color:var(--text-3); }
+
+    .proj-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; background:transparent; }
+    .proj-card { background:var(--white); text-decoration:none; color:var(--text); display:flex; flex-direction:column; transition:background .18s; border-radius:4px; overflow:hidden; border:1px solid var(--border); }
+    .proj-card:hover { background:var(--bg); }
+    .proj-card.wip { cursor:default; } .proj-card.wip:hover { background:var(--white); }
+    .proj-cell-empty { background:transparent; }
+    .proj-thumb { height:280px; overflow:hidden; position:relative; display:flex; align-items:center; justify-content:center; }
+    .proj-bg { position:absolute; inset:0; background-size:cover; background-position:center; transition:transform .55s cubic-bezier(.22,1,.36,1); }
+    .proj-card:hover .proj-bg { transform:scale(1.04); }
+    .proj-tags { position:absolute; top:16px; left:16px; display:flex; gap:5px; flex-wrap:wrap; z-index:2; }
+    .proj-tag { font-size:9px; font-weight:600; letter-spacing:.04em; padding:3px 9px; border-radius:100px; background:rgba(255,255,255,.92); color:var(--text); border:1px solid rgba(0,0,0,.07); }
+    .proj-yr { position:absolute; bottom:16px; right:16px; font-size:9px; font-weight:500; letter-spacing:.04em; padding:3px 9px; border-radius:100px; background:rgba(255,255,255,.92); color:var(--text-2); border:1px solid rgba(0,0,0,.07); z-index:2; }
+    .proj-body { padding:24px; flex:1; display:flex; flex-direction:column; }
+    .proj-name { font-family:'Syne',sans-serif; font-size:17px; font-weight:700; letter-spacing:-.02em; margin-bottom:8px; }
+    .proj-desc { font-size:13px; line-height:1.65; color:var(--text-2); font-weight:300; flex:1; margin-bottom:20px; }
+    .proj-foot { display:flex; justify-content:space-between; align-items:center; }
+    .proj-kpi { font-family:'Syne',sans-serif; font-size:19px; font-weight:700; letter-spacing:-.02em; }
+    .proj-kpi-l { font-size:10px; color:var(--text-3); margin-top:2px; }
+    .proj-arr { width:34px; height:34px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s, transform .2s; flex-shrink:0; }
+    .proj-card:hover .proj-arr { background:var(--text); border-color:var(--text); transform:rotate(-45deg); }
+    .proj-card:hover .proj-arr path { stroke:#fff; }
     .cb{background:linear-gradient(140deg,#1E3A8A,#3B82F6)}
     .ca{background:linear-gradient(140deg,#78350F,#F59E0B)}
     .ct{background:linear-gradient(140deg,#064E3B,#10B981)}
     .cp{background:linear-gradient(140deg,#3B0764,#8B5CF6)}
     .cpfl{background:linear-gradient(140deg,#0D3D1A,#2D8A42)}
+    @media(max-width:768px){ .proj-grid{grid-template-columns:1fr} .proj-thumb{height:220px} }
+    @media(max-width:768px){ .proj-card[style*="flex-direction:row"]{flex-direction:column!important} .proj-card[style*="flex-direction:row"] .proj-thumb{width:100%!important;height:220px} }
 
-    /* ── about ── */
-    .about-grid{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:start}
-    .photo-wrap{position:sticky;top:calc(var(--nav-h) + 32px)}
-    .photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:16px}
-    .photo-cap{font-size:12px;color:var(--text-3);margin-top:14px;text-align:center}
-    .ab-text{font-size:16px;line-height:1.8;color:var(--text-2);font-weight:300;margin-bottom:28px}
-    .ab-text strong{color:var(--text);font-weight:500}
-    .skills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:52px}
-    .sk{font-size:12px;padding:5px 13px;border:1px solid var(--border);border-radius:100px;color:var(--text-2);transition:background .2s,color .2s,border-color .2s}
-    .sk:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
-    .exp{display:flex;flex-direction:column}
-    .exp-row{border-bottom:1px solid var(--border);cursor:pointer}
-    .exp-row:first-child{border-top:1px solid var(--border)}
-    .exp-header{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:18px 0}
-    .exp-title{font-size:14px;font-weight:600}
-    .exp-co{font-size:13px;color:var(--text-2);display:flex;align-items:center;gap:6px;margin-top:3px}
-    .exp-badge{font-size:10px;color:var(--accent);background:rgba(72,101,244,.1);padding:2px 7px;border-radius:100px}
-    .exp-right{display:flex;align-items:center;gap:12px;flex-shrink:0}
-    .exp-yr{font-size:12px;color:var(--text-3);white-space:nowrap}
-    .exp-chevron{width:20px;height:20px;display:flex;align-items:center;justify-content:center;color:var(--text-3);transition:transform .3s cubic-bezier(.22,1,.36,1),color .2s;flex-shrink:0}
-    .exp-row.open .exp-chevron{transform:rotate(180deg);color:var(--accent)}
-    .exp-body{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.22,1,.36,1)}
-    .exp-row.open .exp-body{max-height:600px}
-    .exp-desc{padding:0 0 20px;display:flex;flex-direction:column;gap:6px}
-    .exp-desc li{font-size:13.5px;color:var(--text-2);line-height:1.65;list-style:none;padding-left:16px;position:relative}
-    .exp-desc li::before{content:'—';position:absolute;left:0;color:var(--text-3)}
+    /* ── ABOUT ── */
+    .about-section { border-bottom:1px solid var(--border); }
+    .section-inner { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:64px var(--pad); }
+    .about-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:48px; padding-bottom:20px; }
+    .about-grid { display:grid; grid-template-columns:3fr 5fr; gap:64px; align-items:start; }
+    .photo-wrap { position:sticky; top:calc(var(--nav-h) + 24px); }
+    .photo { width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:8px; display:block; }
+    .photo-cap { font-size:11px; color:var(--text-3); margin-top:10px; text-align:center; }
+    .ab-text { font-size:14px; line-height:1.8; color:var(--text-2); font-weight:300; margin-bottom:20px; }
+    .ab-text strong { color:var(--text); font-weight:500; }
+    .skills { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:40px; }
+    .sk { font-size:11px; padding:4px 11px; border:1px solid var(--border); border-radius:100px; color:var(--text-2); transition:border-color .2s, color .2s; cursor:default; }
+    .sk:hover { border-color:var(--text); color:var(--text); }
 
-    /* ── certificates ── */
-    .cert-wrap{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:56px 0}
-    .cert-header{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:0 48px 32px;display:flex;align-items:center;justify-content:center;gap:14px}
-    .cert-icon{width:36px;height:36px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-    .cert-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.02em;color:var(--text)}
-    .cert-count{font-size:12px;font-weight:600;color:var(--accent);background:rgba(72,101,244,.08);padding:4px 10px;border-radius:100px;margin-left:4px}
-    .cert-wrap .mq{border-bottom:none}
-    @media(max-width:768px){.cert-header{padding:0 24px 24px;flex-direction:column;align-items:center;text-align:center}.cert-label{font-size:18px}}
+    /* Experience */
+    .exp { border-top:1px solid var(--border); }
+    .exp-row { border-bottom:1px solid var(--border); }
+    .exp-header { display:flex; justify-content:space-between; align-items:center; padding:18px 0; cursor:pointer; transition:opacity .2s; }
+    .exp-header:hover { opacity:.65; }
+    .exp-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; }
+    .exp-co { font-size:12px; color:var(--text-3); margin-top:2px; }
+    .exp-right { display:flex; align-items:center; gap:14px; text-align:right; }
+    .exp-yr { font-size:11px; color:var(--text-3); }
+    .exp-chevron { color:var(--text-3); transition:transform .3s; flex-shrink:0; }
+    .exp-row.open .exp-chevron { transform:rotate(180deg); }
+    .exp-body { display:none; padding:0 0 20px; }
+    .exp-row.open .exp-body { display:block; }
+    .exp-desc { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .exp-desc li { font-size:13px; color:var(--text-2); line-height:1.65; font-weight:300; padding-left:14px; position:relative; }
+    .exp-desc li::before { content:'—'; position:absolute; left:0; color:var(--text-3); }
 
-    /* ── testimonials ── */
-    .testi-wrap{background:var(--bg-2);padding:120px 48px;border-top:1px solid var(--border)}
-    .testi-in{max-width:calc(var(--max-w) + 96px);margin:0 auto}
-    .testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-    .testi-card{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:34px}
-    .t-stars{margin-bottom:18px;font-size:14px;color:var(--accent);letter-spacing:2px}
-    .t-quote{font-size:14.5px;line-height:1.78;color:var(--text-2);font-weight:300;margin-bottom:28px}
-    .t-author{display:flex;align-items:center;gap:13px}
-    .t-av{width:42px;height:42px;border-radius:50%;background:var(--bg-3);display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--text-2);flex-shrink:0;overflow:hidden;}
-    .t-av img{width:100%;height:100%;object-fit:cover;border-radius:50%;}
-    .t-name{font-size:14px;font-weight:500}
-    .t-role{font-size:12px;color:var(--text-3)}
+    @media(max-width:1024px){ .about-grid{grid-template-columns:1fr} .photo-wrap{position:static} .photo{aspect-ratio:16/9;max-height:360px} }
+    @media(max-width:768px){ .section-inner{padding:48px var(--mob-pad)} .about-header{flex-direction:column;gap:10px} .photo{aspect-ratio:1;max-height:none} }
 
-    /* ── contact sticky reveal ── */
-    .contact-wrap{will-change:transform;transform-origin:center bottom}
+    /* ── CERTS ── */
+    .cert-wrap { border-bottom:1px solid var(--border); padding:44px 0; }
+    .cert-header { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:0 var(--pad) 24px; display:flex; align-items:center; gap:12px; }
+    .cert-icon { font-size:16px; }
+    .cert-label { font-family:'Syne',sans-serif; font-size:18px; font-weight:800; letter-spacing:-.02em; }
+    .cert-count { font-size:10px; font-weight:500; color:var(--text-3); background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:100px; margin-left:2px; }
+    @media(max-width:768px){ .cert-header{padding:0 var(--mob-pad) 20px;flex-direction:column;align-items:flex-start} }
 
-    /* ── contact ── */
-    .contact-wrap{text-align:center;padding:160px 48px;max-width:860px;margin:0 auto}
-    .contact-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(38px,6vw,84px);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:28px}
-    .contact-title em{font-style:normal;color:var(--accent)}
-    .contact-sub{font-size:16px;color:var(--text-2);max-width:500px;margin:0 auto 48px;font-weight:300;line-height:1.7}
-    .contact-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    /* ── TESTIMONIALS ── */
+    .testi-section { background:var(--bg); border-bottom:1px solid var(--border); }
+    .testi-in { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:64px var(--pad); }
+    .testi-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:40px; padding-bottom:20px; }
+    .testi-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); }
+    .testi-card { background:var(--white); padding:28px; display:flex; flex-direction:column; gap:16px; }
+    .t-stars { font-size:11px; color:var(--text); letter-spacing:2px; }
+    .t-quote { font-size:13.5px; line-height:1.78; color:var(--text-2); font-weight:300; flex:1; }
+    .t-author { display:flex; align-items:center; gap:11px; }
+    .t-av { width:36px; height:36px; border-radius:50%; background:var(--border); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--text-2); flex-shrink:0; overflow:hidden; }
+    .t-av img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+    .t-name { font-size:13px; font-weight:500; }
+    .t-role { font-size:11px; color:var(--text-3); }
+    @media(max-width:768px){ .testi-grid{grid-template-columns:1fr} .testi-in{padding:48px var(--mob-pad)} .testi-header{flex-direction:column;gap:8px} }
 
-    /* ── footer ── */
-    footer{border-top:1px solid var(--border)}
-    .foot-in{max-width:calc(var(--max-w) + 96px);margin:0 auto;padding:28px 48px;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-    .foot-copy{font-size:13px;color:var(--text-3)}
-    .foot-links{display:flex;gap:28px;flex-wrap:wrap}
-    .foot-links a{font-size:13px;color:var(--text-3);text-decoration:none;transition:color .2s}
-    .foot-links a:hover{color:var(--text)}
+    /* ── CONTACT ── */
+    .contact-section { background:var(--text); }
+    .contact-in { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:100px var(--pad); display:flex; justify-content:space-between; align-items:flex-end; gap:48px; }
+    .contact-eyebrow { font-size:10px; letter-spacing:.13em; text-transform:uppercase; color:rgba(255,255,255,.3); margin-bottom:16px; }
+    .contact-title { font-family:'Syne',sans-serif; font-size:clamp(36px,5.5vw,76px); font-weight:800; letter-spacing:-.04em; line-height:.92; color:#fff; }
+    .contact-title em { font-style:italic; font-weight:300; }
+    .contact-right { flex-shrink:0; display:flex; flex-direction:column; gap:10px; align-items:flex-end; }
+    .contact-sub { font-size:13px; color:rgba(255,255,255,.4); max-width:280px; line-height:1.65; text-align:right; margin-bottom:6px; }
+    .btn-fill-inv { display:inline-flex; align-items:center; background:#fff; color:var(--text); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; padding:10px 24px; border-radius:100px; text-decoration:none; border:1px solid #fff; transition:background .2s, color .2s; }
+    .btn-fill-inv:hover { background:transparent; color:#fff; }
+    .btn-out-inv { display:inline-flex; align-items:center; background:transparent; color:rgba(255,255,255,.6); font-family:'DM Sans',sans-serif; font-size:13px; padding:10px 22px; border-radius:100px; text-decoration:none; border:1px solid rgba(255,255,255,.18); transition:border-color .2s, color .2s; }
+    .btn-out-inv:hover { border-color:#fff; color:#fff; }
+    .contact-btns-row { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    @media(max-width:900px){ .contact-in{flex-direction:column;align-items:flex-start;padding:64px 24px} .contact-right{align-items:flex-start} .contact-sub{text-align:left} .contact-btns-row{justify-content:flex-start} }
 
-    /* ── reveal ── */
-    .reveal{opacity:0;transform:translateY(28px);transition:opacity .75s,transform .75s}
-    .reveal.in{opacity:1;transform:translateY(0)}
-    .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+    /* ── FOOTER ── */
+    footer { border-top:1px solid rgba(255,255,255,.07); background:var(--text); }
+    .foot-in { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:22px var(--pad); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .foot-copy { font-size:11px; color:rgba(255,255,255,.25); }
+    .foot-links { display:flex; gap:20px; flex-wrap:wrap; }
+    .foot-links a { font-size:11px; color:rgba(255,255,255,.25); text-decoration:none; transition:color .2s; }
+    .foot-links a:hover { color:#fff; }
+    @media(max-width:768px){ .foot-in{padding:20px 24px} }
 
-    /* ── responsive ── */
-    @media(max-width:1024px){
-      .stats-in{grid-template-columns:repeat(3,1fr)}
-      .about-grid{grid-template-columns:1fr}
-      .photo-wrap{position:static}
-      .photo{aspect-ratio:16/9;max-height:400px}
-      @media(max-width:480px){.photo{aspect-ratio:1;max-height:none}}
+    /* ── STATS ── */
+    #statsGrid {
+      max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto;
+      padding:0 var(--pad);
+      display:grid; grid-template-columns:repeat(5,1fr);
+      border-bottom:1px solid var(--border);
+      background:var(--bg);
     }
-    .nav-links.open{display:flex!important;flex-direction:column;position:absolute;top:var(--nav-h);left:0;right:0;bottom:0;background:transparent;padding:40px 24px;gap:0;z-index:1;border-top:1px solid var(--border)}
-    .nav-links.open a{font-size:22px;font-weight:600;color:var(--text);padding:18px 0;border-bottom:1px solid var(--border)}
-    .nav-links.open a:last-child{border-bottom:none}
-    .nav-burger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-    .nav-burger.open span:nth-child(2){opacity:0}
-    .nav-burger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-    .nav-burger span{transition:transform .25s,opacity .2s}
+    .stat { padding:36px 24px; border-right:1px solid var(--border); display:flex; flex-direction:column; gap:6px; }
+    .stat:last-child { border-right:none; }
+    .stat-n { font-family:'Syne',sans-serif; font-size:clamp(24px,2.4vw,38px); font-weight:700; letter-spacing:-.03em; line-height:1; }
+    .stat-l { font-size:11px; color:var(--text-2); line-height:1.5; }
+    .sfx, .pfx { font-size:.58em; color:var(--text-3); }
+    @media(max-width:1024px){ #statsGrid { grid-template-columns:repeat(3,1fr); } .stat:nth-child(3){ border-right:none; } }
     @media(max-width:768px){
-      .nav-in{padding:0 24px}.nav-links{display:none}.nav-burger{display:flex}
-      .hero-in{padding:0 24px}.hero{padding-bottom:80px}
-      .hero-bot{grid-template-columns:1fr;gap:24px}.hero-loc{justify-self:start}
-      .stats{padding:48px 0}.stats-in{padding:0 24px;grid-template-columns:repeat(2,1fr)}
-      .stat{padding:16px;border-right:none;border-bottom:1px solid var(--border)}
-      .stat:first-child{padding-left:16px}.stat:nth-child(odd){border-right:1px solid var(--border)}.stat:last-child{border-bottom:none}
-      .mq{display:none}
-      section{padding:80px 24px}
-      .proj-grid{grid-template-columns:1fr}
-      .testi-grid{grid-template-columns:1fr}
-      .testi-wrap{padding:80px 24px}
-      .contact-wrap{padding:100px 24px}
-      .foot-in{padding:24px}
+      #statsGrid { grid-template-columns:repeat(2,1fr); padding:0 var(--mob-pad); }
+      .stat { padding:24px var(--mob-pad) 24px 0; border-right:none; border-bottom:1px solid var(--border); }
+      .stat:nth-child(odd) { border-right:1px solid var(--border); padding-right:16px; }
+      .stat:nth-child(even) { padding-left:16px; }
+      .stat:nth-last-child(-n+2) { border-bottom:none; }
     }
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .65s, transform .65s; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
   </style>
 </head>
 <body>
-<nav>
+
+<!-- NAV -->
+<nav id="mainNav">
   <div class="nav-in">
-    <a href="#" class="nav-logo"><span>AT.</span><span style="color:var(--text)">DP.</span></a>
+    <a href="#" class="nav-logo">AT.</a>
     <div class="nav-links">
       <a href="#work">Work</a>
       <a href="#about">About</a>
       <a href="#say">Testimonials</a>
       <a href="#contact">Contact</a>
-      <a href="https://t.me/andriiteslia" target="_blank" style="color:var(--accent)">Telegram ↗</a>
-      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" style="color:var(--accent)">Resume ↗</a>
     </div>
+    <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-cta">Resume ↗</a>
     <button class="nav-burger" id="menuBtn"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- Floating pill navbar -->
+<!-- FLOATING PILL -->
 <div class="nav-pill" id="navPill">
-  <div class="nav-pill-logo">
-    <img src="logo-pill.svg" alt="AT">
-  </div>
   <div class="nav-pill-links">
     <a href="#work">Work</a>
     <a href="#about">About</a>
@@ -304,215 +356,234 @@
     <a href="#contact">Contact</a>
   </div>
   <a href="#contact" class="nav-pill-contact-mob">Contact</a>
-  <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-pill-cta"><div class="btn-ripple"></div><span class="btn-label">Download Resume ↗</span></a>
+  <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" class="nav-pill-cta">
+    <span class="pill-cta-desk">Resume ↗</span>
+    <span class="pill-cta-mob" style="display:none">Download Resume ↗</span>
+  </a>
 </div>
 
-<div class="hero-sticky-wrap">
+<!-- HERO -->
 <div class="hero">
   <div class="hero-in">
-    <div class="badge"><span class="badge-dot"></span>Open to Lead/Senior product design roles</div>
-    <h1 class="h1">
-      <div class="line"><span class="word w1">Andrii</span>&nbsp;<span class="word w2">Teslia</span><span class="word w3" style="color:var(--accent)">&nbsp;—</span></div>
-      <div class="line"><span class="word w4">Product &amp;</span></div>
-      <div class="line"><span class="word w5"><em style="font-style:normal;color:var(--accent)">UX/UI</em>&nbsp;Designer</span></div>
-    </h1>
-    <div class="hero-bot">
-      <p class="hero-desc"><strong>8 years</strong> crafting pixel-perfect experiences for <strong>fintech, proptech, health-tech, B2B SaaS</strong> and <strong>CRM</strong> products. Figma expert, design systems architect, AI-workflow practitioner, and <strong>no-code AI builder</strong>. Based in Lviv, Ukraine — working worldwide.</p>
-      <div class="hero-cta">
-        <a href="#work" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">View my work →</span></a>
+    <div class="hero-badge">
+        <span class="badge-dot"></span>Open to Lead / Senior product design roles
+      </div>
+
+    <div class="hero-title">
+      <span class="hero-name">
+        <div class="line"><span class="word w1">Andrii</span>&nbsp;<span class="word w2">Teslia</span></div>
+      </span>
+      <span class="hero-role">Product, UX/UI Designer, AI Experience Designer</span>
+    </div>
+
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        <strong>8 years</strong> crafting experiences for <strong>fintech, proptech, health-tech, B2B SaaS</strong> and <strong>CRM</strong> products.
+        Figma expert, design systems architect, AI-workflow practitioner.
+        Based in Lviv, Ukraine — working worldwide.
+      </p>
+      <div class="hero-actions">
+        <a href="#work" class="btn-fill">View my work →</a>
         <a href="#contact" class="btn-out">Get in touch</a>
       </div>
     </div>
   </div>
-  <div class="scroll-hint"><span>Scroll</span><div class="sh-line"></div></div>
 </div>
-</div><!-- /hero-sticky-wrap -->
 
-<div class="hero-overlay-content">
-<div class="stats">
-  <div class="stats-in">
+<!-- WORK -->
+<div class="work-section" id="work">
+  <div class="work-inner">
+  <div class="work-header reveal">
+    <div>
+      <div class="sec-label">Work</div>
+      <h2 class="sec-title">Selected Projects</h2>
+    </div>
+  </div>
+  <div class="proj-grid">
+    <a href="medpal.html" class="proj-card reveal">
+      <div class="proj-thumb ct">
+        <div class="proj-bg" style="background-image:url('assets/img/medpal/hero-banner.png')"></div>
+        <div class="proj-tags"><span class="proj-tag">HealthTech</span><span class="proj-tag">Mobile</span><span class="proj-tag">AI</span><span class="proj-tag">UK</span></div>
+        <span class="proj-yr">2025–2026</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">MedPal — AI Health App</div>
+        <div class="proj-desc">AI-powered health companion for the UK market. Mobile UX, IA, voice-assistant flows. Product raised £500k+ and completed IPO on London Stock Exchange.</div>
+        <div class="proj-foot">
+          <div><div class="proj-kpi">£500k+</div><div class="proj-kpi-l">funding raised · IPO completed</div></div>
+          <div class="proj-arr"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </a>
+    <a href="predatorfest.html" class="proj-card reveal d1">
+      <div class="proj-thumb cpfl">
+        <div class="proj-bg" style="background-image:url('assets/img/pfl/hero-banner.png')"></div>
+        <div class="proj-tags"><span class="proj-tag">Personal Project</span><span class="proj-tag">Telegram Mini App</span><span class="proj-tag">Sport · Ukraine</span></div>
+        <span class="proj-yr">2026</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">Predator Fest League App</div>
+        <div class="proj-desc">Solo passion project — Telegram Mini App & PWA for a competitive fishing league. Real-time results, season leaderboard, live standings. Designed, built & shipped end-to-end.</div>
+        <div class="proj-foot">
+          <div><div class="proj-kpi">64,375 UAH</div><div class="proj-kpi-l">raised for 🇺🇦 Armed Forces</div></div>
+          <div class="proj-arr"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </a>
+    <a href="rentflow.html" class="proj-card reveal d2">
+      <div class="proj-thumb cb">
+        <div class="proj-bg" style="background-image:url('assets/img/rentflow/hero-banner.png');background-position:center top"></div>
+        <div class="proj-tags"><span class="proj-tag">PropTech</span><span class="proj-tag">Fintech</span><span class="proj-tag">Web</span></div>
+        <span class="proj-yr">Apr – Dec 2023</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">RentFlow — PropTech Platform</div>
+        <div class="proj-desc">End-to-end property management platform — from listing to rent collection. Full design system, 300+ screens, and a 2× efficiency gain for property managers.</div>
+        <div class="proj-foot">
+          <div><div class="proj-kpi">300+</div><div class="proj-kpi-l">pixel-perfect screens</div></div>
+          <div class="proj-arr"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </a>
+    <a href="tim.html" class="proj-card reveal d3">
+      <div class="proj-thumb ca">
+        <div class="proj-bg" style="background-image:url('assets/img/tim/hero-banner.png')"></div>
+        <div class="proj-tags"><span class="proj-tag">Mobile</span><span class="proj-tag">RTL</span><span class="proj-tag">Israel</span></div>
+        <span class="proj-yr">2019</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-name">TIM — On-Demand Jobs App</div>
+        <div class="proj-desc">RTL on-demand jobs marketplace for the Israeli market. Vetted "Timos" for everyday tasks. Led UX/UI end-to-end — product concept, design system, and developer-ready guidelines.</div>
+        <div class="proj-foot">
+          <div><div class="proj-kpi">4.7★</div><div class="proj-kpi-l">App Store debut · 95% task success</div></div>
+          <div class="proj-arr"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+      </div>
+    </a>
+  </div><!-- /proj-grid -->
+  </div><!-- /work-inner -->
+</div><!-- /work-section -->
+<div style="border-bottom:1px solid var(--border);background:var(--bg)">
+  <div id="statsGrid">
     <div class="stat reveal"><div class="stat-n"><span class="counter" data-to="8">0</span><span class="sfx">+ yrs</span></div><div class="stat-l">Professional UX/UI<br>& product experience</div></div>
     <div class="stat reveal d1"><div class="stat-n"><span class="counter" data-to="30">0</span><span class="sfx">+</span></div><div class="stat-l">Technical interviews<br>conducted & led</div></div>
     <div class="stat reveal d2"><div class="stat-n"><span class="counter" data-to="200">0</span><span class="sfx">k+</span></div><div class="stat-l">Users on fintech<br>products I designed</div></div>
     <div class="stat reveal d3"><div class="stat-n"><span class="pfx">£</span><span class="counter" data-to="500">0</span><span class="sfx">k+</span></div><div class="stat-l">Raised by a product<br>I helped design & ship</div></div>
-    <div class="stat reveal" style="transition-delay:.4s"><div class="stat-n"><span class="counter" data-to="300">0</span><span class="sfx">+</span></div><div class="stat-l">Pixel-perfect screens<br>on a single project</div></div>
+    <div class="stat reveal" style="transition-delay:.28s"><div class="stat-n"><span class="counter" data-to="300">0</span><span class="sfx">+</span></div><div class="stat-l">Pixel-perfect screens<br>on a single project</div></div>
   </div>
 </div>
 
-<div class="mq">
-  <div class="mq-track">
-    <span class="mq-item">Figma</span><span class="mq-item">Design Systems</span><span class="mq-item">UX Research</span><span class="mq-item">Interaction Design</span><span class="mq-item">Apple HIG</span><span class="mq-item">Material Design</span><span class="mq-item">WCAG 2.2</span><span class="mq-item">AI-Assisted Design</span><span class="mq-item">Atomic Design</span><span class="mq-item">Prototyping</span><span class="mq-item">Fintech</span><span class="mq-item">PropTech</span><span class="mq-item">HealthTech</span><span class="mq-item">Data Viz</span><span class="mq-item">RTL Design</span>
-    <span class="mq-item">Figma</span><span class="mq-item">Design Systems</span><span class="mq-item">UX Research</span><span class="mq-item">Interaction Design</span><span class="mq-item">Apple HIG</span><span class="mq-item">Material Design</span><span class="mq-item">WCAG 2.2</span><span class="mq-item">AI-Assisted Design</span><span class="mq-item">Atomic Design</span><span class="mq-item">Prototyping</span><span class="mq-item">Fintech</span><span class="mq-item">PropTech</span><span class="mq-item">HealthTech</span><span class="mq-item">Data Viz</span><span class="mq-item">RTL Design</span>
+<!-- ABOUT -->
+<div class="about-section" id="about">
+  <div class="section-inner">
+    <div class="about-header reveal">
+      <div>
+        <div class="sec-label">About</div>
+        <h2 class="sec-title">Who I am</h2>
+      </div>
+    </div>
+    <div class="about-grid">
+      <div class="photo-wrap reveal">
+        <img class="photo" src="assets/img/avatar.jpeg" alt="Andrii Teslia" loading="lazy"
+          onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&crop=faces&auto=format&q=80'">
+        <p class="photo-cap">Andrii Teslia · Lviv, Ukraine</p>
+      </div>
+      <div class="reveal d1">
+        <p class="ab-text">I'm <strong>Andrii Teslia</strong> — a Senior Product & UX/UI Designer with <strong>8 years</strong> of experience building products that real people enjoy using. I currently work at Newsoft as a <strong>Product / AI Experience Designer</strong> on a fast-growing health & wellbeing platform for the UK market.</p>
+        <p class="ab-text">My work spans <strong>fintech, proptech, health-tech, B2B SaaS, and CRM</strong> products. I pair Figma mastery — team libraries, design tokens, auto-layout — with deep fluency in <strong>Apple HIG, Material Design,</strong> and <strong>WCAG 2.2</strong>. Recently I've been leveraging <strong>AI-assisted workflows</strong> to ship faster without cutting corners.</p>
+        <p class="ab-text">I've conducted <strong>30+ technical interviews</strong>, won a <strong>Gold Trophy at Ukrainian Design: The Very Best Of</strong>, and independently built a fully functional mobile app end-to-end using AI-assisted development tools.</p>
+        <div class="skills">
+          <span class="sk">Figma</span><span class="sk">Interaction Design</span><span class="sk">UX Research</span><span class="sk">Wireframing</span><span class="sk">Prototyping</span><span class="sk">Data Visualization</span><span class="sk">Design Systems</span><span class="sk">Information Architecture</span><span class="sk">Usability Testing</span><span class="sk">AI-Assisted Design</span><span class="sk">Atomic Design</span><span class="sk">Pixel Perfect Design</span><span class="sk">WCAG 2.2</span><span class="sk">Apple HIG</span><span class="sk">Material Design</span><span class="sk">Design Tokens</span><span class="sk">FigJam</span><span class="sk">Jira</span>
+        </div>
+        <div class="exp">
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft</div></div><div class="exp-right"><span class="exp-yr">Aug 2025 – Present</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Driving UX and product decisions across the full lifecycle of a fast-growing AI-related health & wellbeing product for the UK market — from discovery and ideation to prototyping, UI design, and implementation with engineers.</li><li>Contributed to business growth through early-stage solution shaping and sales activities, directly helping secure and onboard a new enterprise client from the UK.</li><li>Designed and improved a veterans-focused platform, enabling veterans and their families to discover and access state benefits, offers, and support.</li><li>Independently built a fully functional mobile application end-to-end using AI-assisted development tools.</li></ul></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">Senior UX/UI Designer</div><div class="exp-co">Teamvoy</div></div><div class="exp-right"><span class="exp-yr">Mar 2023 – Feb 2025</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Developed and maintained comprehensive design systems in Figma, leveraging variables and design tokens to enhance efficiency and consistency.</li><li>Conducted over 30 technical interviews, evaluating candidates' technical capabilities.</li><li>Mentored junior designers, providing guidance and support.</li><li>Designed projects including fintech (200,000+ users), CRM systems, and real estate platforms.</li></ul></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">Lead UX/UI Designer (Product)</div><div class="exp-co">Surprise</div></div><div class="exp-right"><span class="exp-yr">Sep 2020 – Dec 2022</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Provided guidance, instruction, direction, and leadership to a team of designers.</li><li>Created a design system for mobile and web applications from scratch.</li><li>Conceived innovative new features and pitched concepts directly to senior leadership.</li></ul></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">LaSoft</div></div><div class="exp-right"><span class="exp-yr">Feb – Sep 2020</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Delivered projects for clients in the USA and Germany.</li><li>Created a design system for mobile and web applications from scratch.</li></ul></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">Interaction Designer</div><div class="exp-co">QubStudio · 🏆 Gold Trophy</div></div><div class="exp-right"><span class="exp-yr">Aug 2019 – Feb 2020</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Won a Gold Trophy in Ukrainian Design: The Very Best Of in the "Interface & User Experience Design" category.</li><li>Developed a full stack of UX deliverables including personas, storyboards, IA, interaction design, and visual standards.</li></ul></div>
+          </div>
+          <div class="exp-row">
+            <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">Devlight</div></div><div class="exp-right"><span class="exp-yr">Dec 2017 – Jul 2019</span><span class="exp-chevron"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
+            <div class="exp-body"><ul class="exp-desc"><li>Participated in Design Sprint process — defining problems, generating ideas, prototyping and testing.</li><li>Created user flows, wireframes, prototypes, and animations.</li></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<section id="work">
-  <div class="sec-lbl reveal"><span class="sec-num">01 — Work</span><h2 class="sec-title">Selected Projects</h2></div>
-  <div class="proj-grid">
-    <a href="medpal.html" class="proj-card reveal">
-      <div class="proj-thumb ct"><div class="proj-bg" style="background-image:url('assets/img/medpal/hero-banner.png');background-size:cover;background-position:center;"></div><div class="proj-tags"><span class="proj-tag">HealthTech</span><span class="proj-tag">Mobile</span><span class="proj-tag">AI</span><span class="proj-tag">UK</span></div><span class="proj-yr">2025–2026</span></div>
-      <div class="proj-body">
-        <div class="proj-name">MedPal — AI Health App</div>
-        <div class="proj-desc">AI-powered health companion for the UK market. Mobile UX, IA, voice-assistant flows. Product raised £500k+ and completed IPO on London Stock Exchange.</div>
-        <div class="proj-foot"><div><div class="proj-kpi">£500k+</div><div class="proj-kpi-l">funding raised · IPO completed</div></div><div class="proj-arr"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      </div>
-    </a>
-    <a href="predatorfest.html" class="proj-card reveal d1">
-      <div class="proj-thumb cpfl"><div class="proj-bg" style="background-image:url('assets/img/pfl/hero-banner.png');background-size:cover;background-position:center;"></div><div class="proj-tags"><span class="proj-tag">Personal Project</span><span class="proj-tag">Telegram Mini App</span><span class="proj-tag">Sport · Ukraine</span></div><span class="proj-yr">2026</span></div>
-      <div class="proj-body">
-        <div class="proj-name">Predator Fest League App</div>
-        <div class="proj-desc">Solo passion project — Telegram Mini App & PWA for a competitive fishing league. Real-time results, season leaderboard, live standings. Designed, built & shipped end-to-end by one designer.</div>
-        <div class="proj-foot"><div><div class="proj-kpi">64,375 UAH</div><div class="proj-kpi-l">raised for 🇺🇦 Armed Forces</div></div><div class="proj-arr"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      </div>
-    </a>
-    <a href="rentflow.html" class="proj-card reveal d2">
-      <div class="proj-thumb cb"><div class="proj-bg" style="background-image:url('assets/img/rentflow/hero-banner.png');background-position:center top;"></div><div class="proj-tags"><span class="proj-tag">PropTech</span><span class="proj-tag">Fintech</span><span class="proj-tag">Web</span></div><span class="proj-yr">Apr – Dec 2023</span></div>
-      <div class="proj-body">
-        <div class="proj-name">RentFlow Dubai</div>
-        <div class="proj-desc">Multi-role prop-fintech platform for Dubai's rental market. End-to-end flows for 4 user roles, 300+ screens, RTL-ready design system.</div>
-        <div class="proj-foot"><div><div class="proj-kpi">+57%</div><div class="proj-kpi-l">lead-to-lease conversion</div></div><div class="proj-arr"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      </div>
-    </a>
-    <a href="tim.html" class="proj-card reveal d2">
-      <div class="proj-thumb ca"><div class="proj-bg" style="background-image:url('assets/img/tim/hero-banner.png');background-position:center;"></div><div class="proj-tags"><span class="proj-tag">Mobile App</span><span class="proj-tag">RTL</span><span class="proj-tag">Israel</span></div><span class="proj-yr">2019</span></div>
-      <div class="proj-body">
-        <div class="proj-name">TIM — On-Demand Jobs App</div>
-        <div class="proj-desc">RTL gig marketplace for urban Israelis. 2-month sprint, 25 concepts, 110+ hi-fi screens, RTL design system. 4.7★ App Store debut.</div>
-        <div class="proj-foot"><div><div class="proj-kpi">95%</div><div class="proj-kpi-l">task-success rate · SUS 85/100</div></div><div class="proj-arr"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      </div>
-    </a>
-    <div class="proj-card wip reveal d3">
-      <div class="proj-thumb cp"><div class="proj-bg" style="background-image:url('assets/img/ebanking/hero-banner.png');background-size:cover;background-position:center;"></div><div class="proj-tags"><span class="proj-tag">Fintech</span><span class="proj-tag">Africa</span></div><span class="proj-yr">2024</span></div>
-      <div class="proj-body">
-        <div class="proj-name">E-Banking Africa</div>
-        <div class="proj-desc">Digital banking platform for the African market. Full design system, onboarding, and core banking flows.</div>
-        <div class="proj-foot"><div><div class="proj-kpi" style="font-size:16px;color:var(--text-3)">Coming Soon</div><div class="proj-kpi-l">case study in progress</div></div><div class="proj-arr" style="opacity:.25"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="about" style="border-top:1px solid var(--border)">
-  <div class="sec-lbl reveal"><span class="sec-num">02 — About</span><h2 class="sec-title">Who I am</h2></div>
-  <div class="about-grid">
-    <div class="photo-wrap reveal">
-      <img class="photo" src="assets/img/avatar.jpeg" alt="Andrii Teslia" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=750&fit=crop&crop=faces&auto=format&q=80'">
-      <p class="photo-cap">Andrii Teslia · Lviv, Ukraine</p>
-    </div>
-    <div class="reveal d1">
-      <p class="ab-text">I'm <strong>Andrii Teslia</strong> — a Senior Product & UX/UI Designer with <strong>8 years</strong> of experience building products that real people enjoy using. I currently work at Newsoft as a <strong>Product / AI Experience Designer</strong> on a fast-growing health & wellbeing platform for the UK market.</p>
-      <p class="ab-text">My work spans <strong>fintech, proptech, health-tech, B2B SaaS, and CRM</strong> products. I pair Figma mastery — team libraries, design tokens, auto-layout — with deep fluency in <strong>Apple HIG, Material Design,</strong> and <strong>WCAG 2.2</strong>. Recently I've been leveraging <strong>AI-assisted workflows</strong> to ship faster without cutting corners.</p>
-      <p class="ab-text">I've conducted <strong>30+ technical interviews</strong>, won a <strong>Gold Trophy at Ukrainian Design: The Very Best Of</strong>, and independently built a fully functional mobile app end-to-end using AI-assisted development tools.</p>
-      <div class="skills">
-        <span class="sk">Figma</span><span class="sk">Interaction Design</span><span class="sk">UX Research</span><span class="sk">Wireframing</span><span class="sk">Prototyping</span><span class="sk">Data Visualization</span><span class="sk">Design Systems</span><span class="sk">Information Architecture</span><span class="sk">Usability Testing</span><span class="sk">AI-Assisted Design</span><span class="sk">Atomic Design</span><span class="sk">Pixel Perfect Design</span><span class="sk">WCAG 2.2</span><span class="sk">Apple HIG</span><span class="sk">Material Design</span><span class="sk">Design Tokens</span><span class="sk">FigJam</span><span class="sk">Jira</span>
-      </div>
-      <div class="exp">
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">Senior Product Designer / AI Experience Designer</div><div class="exp-co">Newsoft</div></div><div class="exp-right"><span class="exp-yr">Aug 2025 – Present</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Driving UX and product decisions across the full lifecycle of a fast-growing AI-related health & wellbeing product for the UK market — from discovery and ideation to prototyping, UI design, and implementation with engineers. The product has raised £500k+ in funding, completed an IPO, and continues to scale rapidly in the UK.</li>
-            <li>Contributed to business growth through early-stage solution shaping and sales activities, directly helping secure and onboard a new enterprise client from the UK.</li>
-            <li>Designed and improved a veterans-focused platform, enabling veterans and their families to discover and access state benefits, offers, and support through clearer journeys and more inclusive UX patterns.</li>
-            <li>Independently built a fully functional mobile application end-to-end using AI-assisted development tools, bridging the gap between design and engineering.</li>
-          </ul></div>
-        </div>
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">Senior UX/UI Designer</div><div class="exp-co">Teamvoy</div></div><div class="exp-right"><span class="exp-yr">Mar 2023 – Feb 2025</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Developed and maintained comprehensive design systems and templates in Figma, leveraging variables and design tokens to enhance efficiency and consistency, saving significant time for the entire team.</li>
-            <li>Conducted over 30 technical interviews, evaluating candidates' technical capabilities.</li>
-            <li>Mentored junior designers, providing guidance and support to help them grow and succeed in their roles.</li>
-            <li>Designed and contributed to a variety of projects, including fintech (with over 200,000 users), CRM systems, and real estate platforms.</li>
-            <li>Worked on an accessibility platform to evaluate and ensure websites and client platforms meet accessibility standards, helping attract new clients to our team.</li>
-          </ul></div>
-        </div>
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">Lead UX/UI Designer (Product)</div><div class="exp-co">Surprise</div></div><div class="exp-right"><span class="exp-yr">Sep 2020 – Dec 2022</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Provided guidance, instruction, direction, and leadership to a team of designers.</li>
-            <li>Created a design system for mobile and web applications from scratch, increasing the team's design efficiency and speed.</li>
-            <li>Designed and conducted testing for quality control throughout development.</li>
-            <li>Conceived innovative new features and pitched concepts directly to the senior leadership team.</li>
-            <li>Designed beautiful, simple, innovative, and intuitive interactions and flows for both web and mobile platforms.</li>
-            <li>Ensured that the product experience remained engaging, intuitive, and enjoyable for users.</li>
-          </ul></div>
-        </div>
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">LaSoft</div></div><div class="exp-right"><span class="exp-yr">Feb – Sep 2020</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Successfully delivered various projects for clients in the USA and Germany.</li>
-            <li>Worked closely with developers, providing all assets and components for the development process.</li>
-            <li>Created a design system for mobile and web applications from scratch.</li>
-            <li>Presented designs and effectively communicated solutions to internal and external stakeholders.</li>
-          </ul></div>
-        </div>
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">Interaction Designer</div><div class="exp-co">QubStudio · 🏆 Gold Trophy</div></div><div class="exp-right"><span class="exp-yr">Aug 2019 – Feb 2020</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Won a Gold Trophy for the company in Ukrainian Design: The Very Best Of in the "Interface & User Experience Design" category.</li>
-            <li>Designed user interfaces and worked on UX aspects for various projects.</li>
-            <li>Developed a full stack of UX deliverables, including personas, storyboards, information architecture, interaction design, UI design, wireframes, and visual standards.</li>
-            <li>Created and refined wireframes, prototypes, and user flows.</li>
-            <li>Built interactive prototypes to quickly validate concepts with the team and stakeholders.</li>
-          </ul></div>
-        </div>
-        <div class="exp-row">
-          <div class="exp-header"><div><div class="exp-title">UX/UI Designer</div><div class="exp-co">Devlight</div></div><div class="exp-right"><span class="exp-yr">Dec 2017 – Jul 2019</span><span class="exp-chevron"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div>
-          <div class="exp-body"><ul class="exp-desc">
-            <li>Successfully completed projects while working at the company.</li>
-            <li>Participated in the Design Sprint process, defining problems, generating ideas, identifying innovative solutions, prototyping, and testing.</li>
-            <li>Created user flows, wireframes, prototypes, and micro/macro animations.</li>
-            <li>Collaborated closely with developers, delivering all assets and components for a smooth development process.</li>
-            <li>Conducted testing and quality control after development.</li>
-          </ul></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- CERTS -->
 <div class="cert-wrap">
   <div class="cert-header">
-    <div class="cert-icon">🎓</div>
+    <span class="cert-icon">🎓</span>
     <span class="cert-label">Design Certificates</span>
     <span class="cert-count">18 courses completed</span>
   </div>
-  <div class="mq mq-rev">
-    <div class="mq-track">
+  <div class="mq-wrap" style="border-bottom:none;padding:0">
+    <div class="mq-track" style="animation-direction:reverse;animation-duration:52s">
       <span class="mq-item">Product Designer</span><span class="mq-item">Design Mentorship Mastery with ADPList</span><span class="mq-item">UX Design Foundations</span><span class="mq-item">Design Terminology</span><span class="mq-item">Color Psychology</span><span class="mq-item">UI Components I: Basic</span><span class="mq-item">Wireframing</span><span class="mq-item">UI Components II: Advanced</span><span class="mq-item">Common Design Patterns</span><span class="mq-item">Design Accessibility</span><span class="mq-item">UX Writing</span><span class="mq-item">Typography</span><span class="mq-item">Design Composition</span><span class="mq-item">3D Design Foundations</span><span class="mq-item">HTML for Designers</span><span class="mq-item">CSS for Designers</span><span class="mq-item">Mobile Design</span><span class="mq-item">Design Flows by Checklist Design</span>
       <span class="mq-item">Product Designer</span><span class="mq-item">Design Mentorship Mastery with ADPList</span><span class="mq-item">UX Design Foundations</span><span class="mq-item">Design Terminology</span><span class="mq-item">Color Psychology</span><span class="mq-item">UI Components I: Basic</span><span class="mq-item">Wireframing</span><span class="mq-item">UI Components II: Advanced</span><span class="mq-item">Common Design Patterns</span><span class="mq-item">Design Accessibility</span><span class="mq-item">UX Writing</span><span class="mq-item">Typography</span><span class="mq-item">Design Composition</span><span class="mq-item">3D Design Foundations</span><span class="mq-item">HTML for Designers</span><span class="mq-item">CSS for Designers</span><span class="mq-item">Mobile Design</span><span class="mq-item">Design Flows by Checklist Design</span>
     </div>
   </div>
 </div>
 
-<div class="testi-wrap" id="say">
+<!-- TESTIMONIALS -->
+<div class="testi-section" id="say">
   <div class="testi-in">
-    <div class="sec-lbl reveal"><span class="sec-num">03 — Testimonials</span><h2 class="sec-title">What teammates say</h2></div>
+    <div class="testi-header reveal">
+      <div>
+        <div class="sec-label">Testimonials</div>
+        <h2 class="sec-title">What teammates say</h2>
+      </div>
+    </div>
     <div class="testi-grid">
       <div class="testi-card reveal"><div class="t-stars">★★★★★</div><p class="t-quote">"Andrii is an amazing product designer, with a keen intuition for UI/UX design. His designs are clean, highly functional, well-documented, and graphically attractive. Moreover, Andrii understands the product at a deep level — I trust him to be able to answer product and design questions from our analysts and engineers independently."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/jeff-chen.jpg" alt="Jeff Chen" onerror="this.parentElement.textContent='JC'"></div><div><div class="t-name">Jeff Chen</div><div class="t-role">Creative Director at Activision</div></div></div></div>
-      <div class="testi-card reveal d1"><div class="t-stars">★★★★★</div><p class="t-quote">"I loved working with Andrii. He is one of the very best UX/UI Product designers I have had the pleasure of working with. He is humble, he's a good listener, he totally understands how UX impacts a business, and he's a great problem solver — those are just a few of his many attributes and talents, and without question, I would recommend Andrii. I hope very much that I will continue to work with him over the years to come."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/annabel-jamieson.jpg" alt="Annabel Jamieson" onerror="this.parentElement.textContent='AJ'"></div><div><div class="t-name">Annabel Jamieson</div><div class="t-role">CEO, Co-founder</div></div></div></div>
-      <div class="testi-card reveal d2"><div class="t-stars">★★★★★</div><p class="t-quote">"For the better part of over two years I've had the immense pleasure of working with Andrii on multiple products ranging from websites to mobile software. He has such a sharp skillset and a strong sense of design that he can apply himself anywhere and achieve successful results. As a key member of our Product team he's taken the initiative in creating design systems that have benefited our design processes, and always had a positive attitude the entire way."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/jackson-ellis.jpg" alt="Jackson Ellis" onerror="this.parentElement.textContent='JE'"></div><div><div class="t-name">Jackson Ellis</div><div class="t-role">Senior Product Designer at Surprise</div></div></div></div>
-      <div class="testi-card reveal d3"><div class="t-stars">★★★★★</div><p class="t-quote">"I'm working with Andrii and happy to recommend him! We work well together, he communicates openly, hits his deadlines, and consistently delivers solid work. Andrii thinks about design from a user perspective, not just a visual one, which makes our conversations more productive and our decisions better. He cares about the outcome, not just the deliverable. Really glad to have him on the team."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/ann-bayda.jpg" alt="Ann Bayda" onerror="this.parentElement.textContent='AB'"></div><div><div class="t-name">Ann Bayda</div><div class="t-role">Head of Delivery at Newsoft</div></div></div></div>
-      <div class="testi-card reveal"><div class="t-stars">★★★★★</div><p class="t-quote">"Andrii is a highly talented UI/UX designer with a good eye for detail and getting things done attitude. Together with the frontend team, he worked on a new web design system that paid off later in the development lifecycle — he was able to do designs faster; we were building the UI more quickly using existing components from the design system."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/andrew-korin.jpg" alt="Andrew Korin" onerror="this.parentElement.textContent='AK'"></div><div><div class="t-name">Andrew Korin</div><div class="t-role">Frontend Engineer at Settle</div></div></div></div>
-      <div class="testi-card reveal d1"><div class="t-stars">★★★★★</div><p class="t-quote">"Andrii's ability to create intuitive, visually appealing designs that align with both user needs and business goals has been valuable. His collaboration with the team, along with his proactive approach and clear communication, makes working with him a great experience. I also would like to recognise Andrii's attention to detail and his leadership in guiding junior designers."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/alona-kakora.jpg" alt="Alona Kakora" onerror="this.parentElement.textContent='AK'"></div><div><div class="t-name">Alona Kakora</div><div class="t-role">Project Manager at Teamvoy</div></div></div></div>
+      <div class="testi-card reveal d1"><div class="t-stars">★★★★★</div><p class="t-quote">"I loved working with Andrii. He is one of the very best UX/UI Product designers I have had the pleasure of working with. He is humble, he's a good listener, he totally understands how UX impacts a business, and he's a great problem solver — those are just a few of his many attributes and talents, and without question, I would recommend Andrii."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/annabel-jamieson.jpg" alt="Annabel Jamieson" onerror="this.parentElement.textContent='AJ'"></div><div><div class="t-name">Annabel Jamieson</div><div class="t-role">CEO, Co-founder</div></div></div></div>
+      <div class="testi-card reveal d2"><div class="t-stars">★★★★★</div><p class="t-quote">"For the better part of over two years I've had the immense pleasure of working with Andrii on multiple products ranging from websites to mobile software. He has such a sharp skillset and a strong sense of design that he can apply himself anywhere and achieve successful results."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/jackson-ellis.jpg" alt="Jackson Ellis" onerror="this.parentElement.textContent='JE'"></div><div><div class="t-name">Jackson Ellis</div><div class="t-role">Senior Product Designer at Surprise</div></div></div></div>
+      <div class="testi-card reveal d3"><div class="t-stars">★★★★★</div><p class="t-quote">"I'm working with Andrii and happy to recommend him! We work well together, he communicates openly, hits his deadlines, and consistently delivers solid work. Andrii thinks about design from a user perspective, not just a visual one, which makes our conversations more productive and our decisions better."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/ann-bayda.jpg" alt="Ann Bayda" onerror="this.parentElement.textContent='AB'"></div><div><div class="t-name">Ann Bayda</div><div class="t-role">Head of Delivery at Newsoft</div></div></div></div>
+      <div class="testi-card reveal"><div class="t-stars">★★★★★</div><p class="t-quote">"Andrii is a highly talented UI/UX designer with a good eye for detail and getting things done attitude. Together with the frontend team, he worked on a new web design system that paid off later in the development lifecycle — he was able to do designs faster; we were building the UI more quickly using existing components."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/andrew-korin.jpg" alt="Andrew Korin" onerror="this.parentElement.textContent='AK'"></div><div><div class="t-name">Andrew Korin</div><div class="t-role">Frontend Engineer at Settle</div></div></div></div>
+      <div class="testi-card reveal d1"><div class="t-stars">★★★★★</div><p class="t-quote">"Andrii's ability to create intuitive, visually appealing designs that align with both user needs and business goals has been valuable. His collaboration with the team, along with his proactive approach and clear communication, makes working with him a great experience."</p><div class="t-author"><div class="t-av"><img src="assets/img/testimonials/alona-kakora.jpg" alt="Alona Kakora" onerror="this.parentElement.textContent='AK'"></div><div><div class="t-name">Alona Kakora</div><div class="t-role">Project Manager at Teamvoy</div></div></div></div>
     </div>
   </div>
 </div>
 
-<div id="contact">
-  <div class="contact-wrap reveal">
-    <h2 class="contact-title">Let's build something<br><em>great</em> together</h2>
-    <p class="contact-sub">Open to Lead/Senior product design roles and meaningful projects. Currently based in Lviv, Ukraine — working worldwide.</p>
-    <div class="contact-btns">
-      <a href="mailto:tesliaandrii@gmail.com" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">tesliaandrii@gmail.com →</span></a>
-      <a href="tel:+380955085475" class="btn-out">+380 95 508 54 75</a>
-      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" class="btn-out">LinkedIn ↗</a>
-      <a href="https://t.me/andriiteslia" target="_blank" class="btn-out">Telegram ↗</a>
-      <a href="https://dribbble.com/andriiteslia" target="_blank" class="btn-out">Dribbble ↗</a>
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-in">
+    <div class="reveal">
+      <div class="contact-eyebrow">Contact</div>
+      <h2 class="contact-title">Let's build<br>something<br><em>great</em> together</h2>
+    </div>
+    <div class="contact-right reveal d1">
+      <p class="contact-sub">Open to Lead/Senior product design roles and meaningful projects. Based in Lviv, Ukraine — working worldwide.</p>
+      <div class="contact-btns-row">
+        <a href="mailto:tesliaandrii@gmail.com" class="btn-fill-inv">tesliaandrii@gmail.com →</a>
+      </div>
+      <div class="contact-btns-row">
+        <a href="tel:+380955085475" class="btn-out-inv">+380 95 508 54 75</a>
+        <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" class="btn-out-inv">LinkedIn ↗</a>
+        <a href="https://t.me/andriiteslia" target="_blank" class="btn-out-inv">Telegram ↗</a>
+        <a href="https://dribbble.com/andriiteslia" target="_blank" class="btn-out-inv">Dribbble ↗</a>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div class="foot-in">
     <span class="foot-copy">© 2026 Andrii Teslia — Lviv, Ukraine</span>
@@ -527,8 +598,53 @@
   </div>
 </footer>
 
-</div><!-- /hero-overlay-content -->
+<script>
+// ── Burger menu
+var menuBtn = document.getElementById('menuBtn');
+var navEl = document.getElementById('mainNav');
+var mobileMenu = document.createElement('div');
+mobileMenu.className = 'mobile-menu';
+[['#work','Work'],['#about','About'],['#say','Testimonials'],['#contact','Contact'],['assets/cv/andrii-teslia-cv.pdf','Resume ↗']].forEach(function(l){
+  var a = document.createElement('a'); a.href=l[0]; a.textContent=l[1];
+  if(l[0].endsWith('.pdf')) a.target='_blank';
+  mobileMenu.appendChild(a);
+});
+document.body.appendChild(mobileMenu);
+function closeMenu(){ menuBtn.classList.remove('open'); mobileMenu.classList.remove('open'); document.body.style.overflow=''; }
+if(menuBtn){
+  menuBtn.addEventListener('click',function(){ var o=mobileMenu.classList.toggle('open'); menuBtn.classList.toggle('open',o); document.body.style.overflow=o?'hidden':''; });
+  mobileMenu.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',closeMenu); });
+}
 
-<script src="assets/js/main.js"></script>
+// ── Nav scroll
+var navPill = document.getElementById('navPill');
+function updateNav(){
+  if(window.scrollY>90){ navEl.style.opacity='0'; navEl.style.pointerEvents='none'; if(navPill) navPill.classList.add('visible'); }
+  else { navEl.style.opacity='1'; navEl.style.pointerEvents=''; navEl.classList.toggle('scrolled-light',window.scrollY>20); if(navPill) navPill.classList.remove('visible'); }
+}
+updateNav();
+window.addEventListener('scroll',updateNav,{passive:true});
+
+// ── Experience accordion
+document.querySelectorAll('.exp-row').forEach(function(row){
+  var header=row.querySelector('.exp-header');
+  if(!header) return;
+  header.addEventListener('click',function(){
+    var isOpen=row.classList.contains('open');
+    document.querySelectorAll('.exp-row.open').forEach(function(r){ r.classList.remove('open'); });
+    if(!isOpen) row.classList.add('open');
+  });
+});
+
+// ── Scroll reveal
+var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } }); },{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
+
+// ── Counters
+function runCounter(el){ var target=+el.dataset.to, inc=target/(1300/16), v=0; var s=setInterval(function(){ v=Math.min(v+inc,target); el.textContent=Math.round(v); if(v>=target) clearInterval(s); },16); }
+var co=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ runCounter(e.target); co.unobserve(e.target); } }); },{threshold:0.5});
+document.querySelectorAll('.counter').forEach(function(el){ co.observe(el); });
+
+</script>
 </body>
 </html>

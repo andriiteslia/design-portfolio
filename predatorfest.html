@@ -4,507 +4,273 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Predator Fest League App — Andrii Teslia</title>
-  <meta name="description" content="Personal project — Telegram Mini App & PWA for a competitive fishing league. Real-time results, leaderboards, season rankings. Case study by Andrii Teslia.">
-  <link rel="icon" href="favicon.png" type="image/png">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description" content="Personal project — Telegram Mini App & PWA for a competitive fishing league. Case study by Andrii Teslia.">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:      #FFFFFF;
-      --bg-2:    #F5F6FF;
-      --bg-3:    #ECEFFE;
-      --text:    #12110E;
-      --text-2:  #6B6880;
-      --text-3:  #9C9AAE;
-      --accent:  #00785F;
-      --proj:    #0D3D1A;
-      --proj-m:  #1A5C28;
-      --proj-l:  #2D8A42;
-      --proj-gold: #D4A017;
-      --border:  rgba(0,120,95,0.12);
-      --nav-h:   68px;
-      --max-w:   1024px;
+      --bg: #F7F7F7;
+      --white: #FFFFFF;
+      --text: #111111;
+      --text-2: #666666;
+      --text-3: #AAAAAA;
+      --border: #E4E4E4;
+      --pad: 48px;
+      --mob-pad: 24px;
+      --body-w: 960px;
+      --max-w: 1200px;
     }
-
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg); color: var(--text);
-      overflow-x: hidden;
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+    /* ── FLOATING BACK ── */
+    .float-back { position:fixed; top:20px; left:28px; z-index:200; display:inline-flex; align-items:center; gap:7px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text); text-decoration:none; background:rgba(255,255,255,0.88); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border:1px solid var(--border); padding:8px 16px 8px 12px; border-radius:100px; box-shadow:0 2px 16px rgba(0,0,0,0.06); transition:background .2s, border-color .2s; }
+    .float-back:hover { background:rgba(255,255,255,1); border-color:var(--text); }
+    .float-back svg { transition:transform .2s; }
+    .float-back:hover svg { transform:translateX(-3px); }
+    @media(max-width:768px){ .float-back { top:14px; left:16px; font-size:12px; padding:7px 14px 7px 10px; } }
+
+    /* ── INNER CONTAINER ── */
+    .inner { max-width:calc(var(--body-w) + var(--pad)*2); margin:0 auto; padding:0 var(--pad); }
+    @media(max-width:768px){ .inner { padding:0 var(--mob-pad); } }
+
+    /* ── HERO ── */
+    .case-hero { padding:80px 0 56px; }
+    .case-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:24px; }
+    .case-tag { font-size:10px; font-weight:500; letter-spacing:.04em; padding:4px 10px; border-radius:100px; background:var(--bg); border:1px solid var(--border); color:var(--text-2); }
+    .case-title { font-family:'Syne',sans-serif; font-size:clamp(32px,5vw,64px); font-weight:800; letter-spacing:-.04em; line-height:.95; color:var(--text); margin-bottom:20px; }
+    .case-subtitle { font-size:16px; line-height:1.75; color:var(--text-2); font-weight:300; max-width:600px; }
+
+    /* ── META ── */
+    .meta-strip { margin:0; }
+    .meta-inner { max-width:calc(var(--body-w) + var(--pad)*2); margin:0 auto; padding:0 var(--pad); display:grid; grid-template-columns:repeat(4,1fr); }
+    .meta-cell { padding:28px 0; border-right:1px solid var(--border); padding-right:24px; }
+    .meta-cell:first-child { padding-left:0; }
+    .meta-cell:last-child { border-right:none; }
+    .meta-label { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px; }
+    .meta-value { font-size:13px; line-height:1.55; color:var(--text); }
+    @media(max-width:768px){
+      .meta-inner { grid-template-columns:repeat(2,1fr); padding:0 var(--mob-pad); gap:0; }
+      .meta-cell { padding:20px 0; border-right:none !important; border-bottom:1px solid var(--border); padding-left:0 !important; }
+      .meta-cell:nth-child(even) { padding-left:16px !important; border-left:1px solid var(--border); }
+      .meta-cell:nth-last-child(-n+2) { border-bottom:none; }
     }
 
-    /* ── Glass back button ── */
-    .glass-back-wrap {
-      position: fixed; top: 20px; left: 0; right: 0; z-index: 100;
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px; pointer-events: none;
-    }
-    .glass-back {
-      pointer-events: auto;
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px; font-weight: 600; color: var(--text);
-      text-decoration: none;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--accent);
-      padding: 8px 16px 8px 12px;
-      border-radius: 100px;
-      transition: background .2s, transform .2s;
-    }
-    .glass-back:hover { background: rgba(255,255,255,0.82); transform: translateX(-2px); }
-    .glass-back svg { transition: transform .2s; }
-    .glass-back:hover svg { transform: translateX(-3px); }
-    @media(max-width:768px){ .glass-back-wrap { padding: 0 24px; } }
+    /* ── BODY ── */
+    .case-body { padding:72px 0; }
+    .cs-section { padding:56px 0; border-top:1px solid var(--border); }
+    .cs-section:first-child { border-top:none; padding-top:0; }
+    .cs-label { font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; }
+    .cs-title { font-family:'Syne',sans-serif; font-size:clamp(22px,2.8vw,34px); font-weight:800; letter-spacing:-.03em; line-height:1; margin-bottom:20px; }
+    .cs-text { font-size:14.5px; line-height:1.8; color:var(--text-2); font-weight:300; margin-bottom:16px; }
+    .cs-text strong { color:var(--text); font-weight:500; }
+    .cs-img { width:100%; display:block; border-radius:4px; border:1px solid var(--border); margin:32px 0; }
 
-    /* ── Hero ── */
-    .case-hero {
-      padding: 120px 48px 64px;
-      text-align: center;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; justify-content: center; }
-    .case-tag {
-      font-size: 11px; font-weight: 600; letter-spacing: .05em;
-      padding: 4px 12px; border-radius: 100px;
-      background: var(--bg-2); border: 1px solid var(--border);
-      color: var(--text-2);
-    }
-    .case-tag.green {
-      background: rgba(13,61,26,.08); border-color: rgba(13,61,26,.2); color: var(--proj);
-    }
-    .case-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(36px, 5vw, 72px);
-      font-weight: 800; letter-spacing: -.04em; line-height: .95;
-      color: var(--text); margin-bottom: 24px; max-width: 800px;
-    }
-    .case-subtitle {
-      font-size: 17px; color: var(--text-2);
-      max-width: 580px; line-height: 1.7; font-weight: 300;
-    }
+    /* live badge + btns */
+    .live-badge { display:inline-flex; align-items:center; gap:8px; font-size:12px; color:var(--text-2); border:1px solid var(--border); padding:5px 12px; border-radius:100px; margin-bottom:20px; }
+    .live-dot { width:7px; height:7px; background:#22C55E; border-radius:50%; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .proj-btns { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+    .btn-fill { display:inline-flex; align-items:center; background:var(--text); color:#fff; font-size:13px; font-weight:500; padding:10px 20px; border-radius:100px; text-decoration:none; transition:opacity .2s; }
+    .btn-fill:hover { opacity:.8; }
+    .btn-tg { display:inline-flex; align-items:center; background:#229ED9; color:#fff; font-size:13px; font-weight:500; padding:10px 20px; border-radius:100px; text-decoration:none; transition:opacity .2s; }
+    .btn-tg:hover { opacity:.8; }
 
-    /* ── Meta strip ── */
-    .meta-strip {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .meta-inner {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 32px 48px; width: 100%;
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
-    }
-    .meta-label {
-      font-size: 11px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--text-3); margin-bottom: 6px;
-    }
-    .meta-value { font-size: 14px; color: var(--text); line-height: 1.5; }
-    .meta-value .hl { color: var(--accent); font-weight: 600; }
+    /* ua badge */
+    .ua-badge { margin-top:20px; padding:14px 18px; background:var(--bg); border:1px solid var(--border); border-radius:4px; font-size:13px; color:var(--text-2); font-weight:300; }
 
-    /* ── Body ── */
-    .case-body {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px;
-    }
-    .cs-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
-    .cs-section:last-of-type { border-bottom: none; }
-    .cs-section-label {
-      font-size: 11px; font-weight: 700; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
-    }
-    .cs-section-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(18px, 2vw, 24px);
-      font-weight: 800; letter-spacing: -.02em; margin-bottom: 24px;
-    }
-    .cs-text {
-      font-size: 16px; line-height: 1.8; color: var(--text-2);
-      font-weight: 300; max-width: 760px;
-    }
-    .cs-text + .cs-text { margin-top: 20px; }
-    .cs-text strong { color: var(--text); font-weight: 500; }
+    /* two-col */
+    .two-col { display:grid; grid-template-columns:3fr 2fr; gap:40px; margin-top:32px; }
+    @media(max-width:768px){ .two-col{grid-template-columns:1fr} }
 
-    /* ── Image rows ── */
-    .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
-    .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
-    .cs-img-row.c3 { grid-template-columns: repeat(3,1fr); }
-    .cs-img-row.c4 { grid-template-columns: repeat(4,1fr); }
-    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: var(--bg-2); border: 1px solid var(--border); }
-    .cs-img-wrap img { width: 100%; display: block; }
-    .cs-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 40px; border: 1px solid var(--border); }
+    /* pain cards */
+    .pain-grid { display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .pain-card { background:var(--white); padding:16px; display:flex; align-items:flex-start; gap:12px; }
+    .pain-icon { font-size:18px; flex-shrink:0; line-height:1; margin-top:2px; }
+    .pain-title { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; margin-bottom:4px; }
+    .pain-text { font-size:12px; color:var(--text-2); line-height:1.55; font-weight:300; }
 
-    /* ── Placeholder blocks (until real screenshots) ── */
-    .ph {
-      aspect-ratio: var(--ar, 9/16);
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 8px;
-      background: linear-gradient(150deg, var(--proj) 0%, var(--proj-l) 100%);
-    }
-    .ph.wide { --ar: 16/9; }
-    .ph.sq   { --ar: 1; }
-    .ph-label {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 12px;
-      font-weight: 700; color: rgba(255,255,255,.5);
-      letter-spacing: .1em; text-transform: uppercase;
-    }
-    .ph-title {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px;
-      font-weight: 700; color: rgba(255,255,255,.9);
-    }
+    /* insight box */
+    .insight-box { margin-top:20px; padding:20px; background:var(--bg); border:1px solid var(--border); border-radius:4px; }
+    .insight-label { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px; }
+    .insight-text { font-size:13.5px; line-height:1.7; color:var(--text-2); font-weight:300; }
 
-    /* ── Two col ── */
-    .two-col {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
-      align-items: start; margin-top: 48px;
-    }
-    .two-col-3-2 {
-      display: grid; grid-template-columns: 3fr 2fr; gap: 64px;
-      align-items: start; margin-top: 48px;
-    }
+    /* process steps */
+    .process-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .process-step { background:var(--white); padding:24px; }
+    .step-num { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--text-3); margin-bottom:10px; }
+    .step-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; margin-bottom:8px; }
+    .step-text { font-size:13px; line-height:1.6; color:var(--text-2); font-weight:300; }
+    @media(max-width:768px){ .process-steps{grid-template-columns:repeat(2,1fr)} }
 
-    /* ── Pain cards ── */
-    .pain-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; }
-    .pain-card {
-      display: grid; grid-template-columns: 28px 1fr; gap: 14px;
-      align-items: flex-start; background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 18px 20px;
-    }
-    .pain-icon { font-size: 16px; padding-top: 1px; }
-    .pain-title { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
-    .pain-text  { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    /* arch diagram */
+    .arch-diagram { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:32px; margin-top:32px; }
+    .arch-label { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:24px; }
+    .arch-flow { display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
+    .arch-node { display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .arch-box { width:80px; height:80px; border-radius:4px; border:1px solid var(--border); background:var(--white); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-size:12px; font-weight:700; text-align:center; line-height:1.3; }
+    .arch-node-label { font-size:11px; color:var(--text-3); text-align:center; line-height:1.4; }
+    .arch-arrow { font-size:20px; color:var(--text-3); }
 
-    /* ── Insight box ── */
-    .insight-box {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-left: 3px solid var(--accent);
-      border-radius: 14px; padding: 24px; margin-top: 32px;
-    }
-    .insight-label {
-      font-size: 11px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
-    }
-    .insight-text { font-size: 15px; color: var(--text); line-height: 1.65; }
+    /* features grid */
+    .features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .feature-card { background:var(--white); padding:24px; }
+    .feature-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .feature-icon { width:36px; height:36px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+    .feature-name { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; }
+    .feature-items { display:flex; flex-direction:column; gap:7px; }
+    .feature-item { font-size:13px; color:var(--text-2); line-height:1.55; font-weight:300; padding-left:14px; position:relative; }
+    .feature-item::before { content:'—'; position:absolute; left:0; color:var(--text-3); }
+    @media(max-width:768px){ .features-grid{grid-template-columns:1fr} }
 
-    /* ── Process steps ── */
-    .process-steps {
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 2px;
-      margin-top: 40px; background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden;
-    }
-    .process-step {
-      padding: 24px 20px; background: var(--bg);
-      border-right: 1px solid var(--border);
-    }
-    .process-step:last-child { border-right: none; }
-    .step-num {
-      font-size: 11px; font-weight: 700; color: var(--accent);
-      letter-spacing: .1em; margin-bottom: 10px;
-    }
-    .step-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .step-text  { font-size: 12px; color: var(--text-2); line-height: 1.6; }
+    /* scoring table */
+    .scoring-table { border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .st-header { display:grid; grid-template-columns:1fr auto; background:var(--bg); padding:10px 16px; border-bottom:1px solid var(--border); }
+    .st-head { font-size:10px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--text-3); }
+    .st-row { display:grid; grid-template-columns:1fr auto; padding:10px 16px; border-bottom:1px solid var(--border); background:var(--white); }
+    .st-row:last-child { border-bottom:none; }
+    .st-action { font-size:13px; color:var(--text-2); font-weight:300; }
+    .st-points { font-family:'Syne',sans-serif; font-size:13px; font-weight:700; }
 
-    /* ── Architecture diagram ── */
-    .arch-diagram {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 20px; padding: 40px; margin-top: 40px;
-    }
-    .arch-label {
-      font-size: 11px; font-weight: 600; letter-spacing: .08em;
-      text-transform: uppercase; color: var(--text-3);
-      text-align: center; margin-bottom: 32px;
-    }
-    .arch-flow {
-      display: grid; grid-template-columns: 1fr auto 1fr auto 1fr;
-      align-items: center; gap: 12px; max-width: 640px; margin: 0 auto;
-    }
-    .arch-node { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-    .arch-box {
-      width: 100%; padding: 14px 16px; border-radius: 12px;
-      text-align: center; font-size: 13px; font-weight: 700; line-height: 1.3;
-    }
-    .arch-box.sheets { background: rgba(52,168,83,.12); color: #1e7e34; border: 1.5px solid rgba(52,168,83,.25); }
-    .arch-box.script { background: rgba(66,133,244,.1);  color: #1a56c4; border: 1.5px solid rgba(66,133,244,.2); }
-    .arch-box.app    { background: rgba(13,61,26,.08);   color: var(--proj); border: 1.5px solid rgba(13,61,26,.18); }
-    .arch-node-label { font-size: 11px; color: var(--text-3); text-align: center; }
-    .arch-arrow { font-size: 20px; color: var(--text-3); padding-bottom: 20px; }
+    /* grand prize note */
+    .grand-note { margin-top:14px; padding:14px 16px; background:var(--bg); border:1px solid var(--border); border-radius:4px; font-size:13px; color:var(--text-2); line-height:1.65; font-weight:300; }
+    .grand-note strong { color:var(--text); font-weight:500; }
 
-    /* ── Stack grid ── */
-    .stack-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 40px;
-    }
-    .stack-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 22px;
-    }
-    .stack-icon  { font-size: 22px; margin-bottom: 10px; }
-    .stack-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .stack-role  { font-size: 12px; color: var(--text-2); line-height: 1.5; }
+    /* stack grid */
+    .stack-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .stack-card { background:var(--white); padding:24px; }
+    .stack-icon { font-size:22px; margin-bottom:10px; }
+    .stack-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; margin-bottom:8px; }
+    .stack-role { font-size:13px; line-height:1.6; color:var(--text-2); font-weight:300; }
+    @media(max-width:768px){ .stack-grid{grid-template-columns:repeat(2,1fr)} }
 
-    /* ── Feature cards ── */
-    .features-grid {
-      display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 40px;
-    }
-    .feature-card {
-      border: 1px solid var(--border); border-radius: 16px; padding: 24px;
-      background: var(--bg-2);
-    }
-    .feature-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
-    .feature-icon {
-      width: 38px; height: 38px; border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 17px; flex-shrink: 0;
-    }
-    .feature-name { font-size: 15px; font-weight: 700; }
-    .feature-items { display: flex; flex-direction: column; gap: 6px; }
-    .feature-item {
-      display: flex; gap: 10px; align-items: flex-start;
-      font-size: 13px; color: var(--text-2); line-height: 1.5;
-    }
-    .feature-item::before { content: '—'; color: var(--text-3); flex-shrink: 0; margin-top: 1px; }
+    /* results */
+    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .result-card { background:var(--white); padding:28px; }
+    .result-val { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; letter-spacing:-.04em; margin-bottom:10px; }
+    .result-desc { font-size:13.5px; line-height:1.65; color:var(--text-2); font-weight:300; margin-bottom:10px; }
+    .result-note { font-size:11px; color:var(--text-3); }
+    @media(max-width:768px){ .results-grid{grid-template-columns:1fr} }
 
-    /* ── Scoring table ── */
-    .scoring-table { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 0; }
-    .st-header { display: grid; grid-template-columns: 1fr auto; background: var(--bg-2); padding: 12px 20px; }
-    .st-head { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--text-3); }
-    .st-row { display: grid; grid-template-columns: 1fr auto; border-top: 1px solid var(--border); padding: 13px 20px; align-items: center; }
-    .st-row:nth-child(even) { background: rgba(0,120,95,.025); }
-    .st-action { font-size: 14px; color: var(--text); }
-    .st-points { font-size: 15px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+    /* quote block */
+    .quote-block { background:var(--bg); border:1px solid var(--border); border-radius:4px; padding:32px; margin-top:24px; }
+    .quote-text { font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.75; color:var(--text); font-style:italic; font-weight:400; margin-bottom:20px; }
+    .quote-text em { font-style:normal; font-weight:700; }
+    .quote-list { display:flex; flex-direction:column; gap:9px; }
+    .quote-item { display:flex; align-items:flex-start; gap:10px; font-size:13px; color:var(--text-2); line-height:1.6; font-weight:300; }
+    .q-dot { width:5px; height:5px; background:var(--text-3); border-radius:50%; flex-shrink:0; margin-top:7px; }
 
-    /* ── Results grid ── */
-    .results-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px;
-    }
-    .result-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 28px;
-    }
-    .result-val {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(30px, 3.5vw, 44px);
-      font-weight: 700; letter-spacing: -.035em;
-      color: var(--accent); line-height: 1; margin-bottom: 8px;
-    }
-    .result-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
-    .result-note { font-size: 12px; color: var(--text-3); margin-top: 6px; }
+    /* next */
+    .next-section { border-top:1px solid var(--border); padding:56px 0; }
+    .next-label { font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin-bottom:16px; }
+    .next-link { display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--text); padding:24px; border:1px solid var(--border); border-radius:4px; transition:background .2s; margin-bottom:16px; }
+    .next-link:hover { background:var(--bg); }
+    .next-title { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; letter-spacing:-.03em; }
+    .next-arrow { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s, transform .2s; flex-shrink:0; }
+    .next-link:hover .next-arrow { background:var(--text); border-color:var(--text); transform:rotate(-45deg); }
+    .next-link:hover .next-arrow path { stroke:#fff; }
+    .next-meta { font-size:12px; color:var(--text-3); margin-bottom:24px; }
+    .back-all { display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); text-decoration:none; transition:color .2s; }
+    .back-all:hover { color:var(--text); }
 
-    /* ── Quote / highlight block ── */
-    .quote-block {
-      background: linear-gradient(140deg, var(--proj), var(--proj-m));
-      border-radius: 20px; padding: 48px; margin-top: 48px;
-    }
-    .quote-text {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(17px, 2.2vw, 24px);
-      font-weight: 600; color: #fff; line-height: 1.45; margin-bottom: 28px;
-    }
-    .quote-text em { font-style: normal; color: var(--proj-gold); }
-    .quote-list { display: flex; flex-direction: column; gap: 12px; }
-    .quote-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      font-size: 15px; color: rgba(255,255,255,.8); line-height: 1.5;
-    }
-    .q-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,.4); flex-shrink: 0; margin-top: 8px;
-    }
+    /* footer */
+    footer { border-top:1px solid rgba(255,255,255,.07); background:var(--text); }
+    .foot-in { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:22px var(--pad); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .foot-copy { font-size:11px; color:rgba(255,255,255,.25); }
+    .foot-links { display:flex; gap:20px; flex-wrap:wrap; }
+    .foot-links a { font-size:11px; color:rgba(255,255,255,.25); text-decoration:none; transition:color .2s; }
+    .foot-links a:hover { color:#fff; }
+    @media(max-width:768px){ .foot-in{padding:20px var(--mob-pad)} }
 
-    /* ── Buttons ── */
-    .btn-fill{display:inline-flex;align-items:center;gap:8px;background:var(--text);color:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;padding:13px 26px;border-radius:100px;text-decoration:none;border:none;cursor:pointer;transition:transform .2s;position:relative;overflow:hidden}
-    .btn-fill:hover{transform:translateY(-2px)}
-    .btn-fill .btn-ripple{position:absolute;border-radius:50%;background:var(--accent);width:0;height:0;transform:scale(0);opacity:0;pointer-events:none;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .6s cubic-bezier(.22,1,.36,1)}
-    .btn-fill.ripple-active .btn-ripple{transform:scale(1);opacity:1}
-    .btn-fill span.btn-label{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px}
-    .btn-out{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;padding:13px 26px;border-radius:100px;text-decoration:none;border:1px solid var(--border);transition:background .2s,border-color .2s,color .2s}
-    .btn-out:hover{background:transparent;border-color:var(--accent);color:var(--accent)}
-    .proj-btns{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:28px;}
-
-    /* ── Live badge ── */
-    .live-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(34,197,94,.08); border: 1px solid rgba(34,197,94,.22);
-      border-radius: 100px; padding: 6px 14px;
-      font-size: 13px; color: #16a34a; margin-bottom: 28px;
-    }
-    .live-dot {
-      width: 7px; height: 7px; background: #22c55e; border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.85)} }
-
-    /* ── Ukraine badge ── */
-    .ua-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,214,0,.1); border: 1px solid rgba(255,214,0,.28);
-      border-radius: 100px; padding: 7px 16px;
-      font-size: 13px; color: var(--text); margin-top: 24px;
-    }
-
-    /* ── Next project ── */
-    .next-project { border-top: 1px solid var(--border); padding: 80px 0; }
-    .next-label {
-      font-size: 12px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--text-3); margin-bottom: 20px;
-    }
-    .next-link {
-      display: inline-flex; align-items: center; gap: 16px;
-      text-decoration: none; color: var(--text); transition: gap .2s;
-    }
-    .next-link:hover { gap: 24px; }
-    .next-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(28px, 4vw, 56px);
-      font-weight: 800; letter-spacing: -.04em;
-    }
-    .next-arrow {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--bg-2); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: background .2s, border-color .2s;
-    }
-    .next-link:hover .next-arrow { background: var(--text); border-color: var(--text); }
-    .next-link:hover .next-arrow svg { color: var(--bg); }
-
-    /* ── Reveal ── */
-    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s, transform .7s; }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: .1s; }
-    .d2 { transition-delay: .2s; }
-    .d3 { transition-delay: .3s; }
-
-    /* ── Responsive ── */
-    @media(max-width:1024px) {
-      .two-col, .two-col-3-2 { grid-template-columns: 1fr; gap: 32px; }
-      .process-steps { grid-template-columns: repeat(2,1fr); }
-      .process-step { border-right: none; border-bottom: 1px solid var(--border); }
-      .process-step:nth-child(2n) { border-right: none; }
-      .results-grid { grid-template-columns: repeat(2,1fr); }
-      .stack-grid { grid-template-columns: repeat(2,1fr); }
-      .arch-flow { grid-template-columns: 1fr; }
-      .arch-arrow { transform: rotate(90deg); padding-bottom: 0; }
-      .cs-img-row.c4 { grid-template-columns: repeat(2,1fr); }
-    }
-    @media(max-width:768px) {
-      .glass-back-wrap { padding: 0 24px; }
-      .case-hero { padding: 100px 24px 48px; }
-      .meta-inner { grid-template-columns: repeat(2,1fr); padding: 24px; }
-      .case-body { padding: 0 24px; }
-      .cs-section { padding: 56px 0; }
-      .features-grid { grid-template-columns: 1fr; }
-      .results-grid { grid-template-columns: 1fr; }
-      .stack-grid { grid-template-columns: 1fr; }
-      .cs-img-row.c2, .cs-img-row.c3 { grid-template-columns: 1fr; }
-      .quote-block { padding: 32px 24px; }
-      .two-col { gap: 28px; }
-    }
-    @media(hover:none),(max-width:768px){ body{ cursor: auto; } }
+    /* reveal */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .65s, transform .65s; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:.07s}.d2{transition-delay:.14s}
   </style>
 </head>
 <body>
 
-<!-- Back button -->
-<div class="glass-back-wrap">
-  <a href="index.html" class="glass-back">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    All work
-  </a>
-</div>
+<!-- FLOATING BACK -->
+<a href="index.html" class="float-back">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  All work
+</a>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="case-hero">
-  <h1 class="case-title">Predator Fest League App</h1>
-  <p class="case-subtitle">From a notepad on someone's knee to a real-time Telegram Mini App — a solo passion project that digitised an entire fishing competition league.</p>
-  <div class="case-tags">
-    <span class="case-tag green">Personal Project</span>
-    <span class="case-tag">Telegram Mini App</span>
-    <span class="case-tag">Progressive Web App</span>
-    <span class="case-tag">Mobile-first</span>
-    <span class="case-tag">Sport · Ukraine</span>
-
+  <div class="inner">
+    <div class="case-tags">
+      <span class="case-tag">Personal Project</span>
+      <span class="case-tag">Telegram Mini App</span>
+      <span class="case-tag">PWA</span>
+      <span class="case-tag">Sport</span>
+      <span class="case-tag">Ukraine · 2026</span>
+    </div>
+    <h1 class="case-title">Predator Fest<br>League App</h1>
+    <p class="case-subtitle">Solo end-to-end project — a Telegram Mini App & PWA for a competitive fishing league. Real-time results, season leaderboard, live standings.</p>
   </div>
 </div>
 
-<!-- Meta strip -->
+<!-- META -->
 <div class="meta-strip">
   <div class="meta-inner">
-    <div>
+    <div class="meta-cell">
       <div class="meta-label">Role</div>
-      <div class="meta-value">Solo Designer + Founder<br><span class="hl">AI pair: Claude Code</span></div>
+      <div class="meta-value">Designer, Developer & Founder</div>
     </div>
-    <div>
+    <div class="meta-cell" style="padding-left:24px">
       <div class="meta-label">Timeline</div>
-      <div class="meta-value">2026<br><span class="hl">Personal initiative</span></div>
+      <div class="meta-value">2026 · Personal initiative</div>
     </div>
-    <div>
+    <div class="meta-cell" style="padding-left:24px">
       <div class="meta-label">Platform</div>
-      <div class="meta-value">Telegram Mini App<br>+ Progressive Web App</div>
+      <div class="meta-value">Telegram Mini App + PWA</div>
     </div>
-    <div>
+    <div class="meta-cell" style="padding-left:24px">
       <div class="meta-label">Stack</div>
-      <div class="meta-value">Google Sheets · Apps Script<br>Vanilla JS · GitHub</div>
+      <div class="meta-value">Google Sheets · Apps Script · Vanilla JS · GitHub</div>
     </div>
   </div>
 </div>
 
-<!-- Body -->
+<!-- HERO BANNER -->
+<div style="max-width:calc(var(--body-w) + var(--pad)*2);margin:40px auto 0;padding:0 var(--pad);" class="banner-wrap">
+  <img src="assets/img/pfl/hero-banner.png" alt="Predator Fest League App — overview" style="width:100%;display:block;border-radius:4px;border:1px solid var(--border);">
+</div>
+<style>@media(max-width:768px){ .banner-wrap{ padding:0 !important; margin-top:24px !important; } .banner-wrap img{ border-radius:0; border-left:none; border-right:none; } }</style>
+
+<!-- BODY -->
 <div class="case-body">
+<div class="inner">
 
-  <!-- Hero banner -->
-  <div class="cs-section reveal" style="padding-bottom:0;border-bottom:none;">
-    <div class="cs-img-wrap">
-      <img src="assets/img/pfl/hero-banner.png" alt="Predator Fest League App — overview">
-    </div>
-  </div>
-
-  <!-- 01 Overview -->
+  <!-- Overview -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">01 — Overview</div>
-    <h2 class="cs-section-title">Project Overview</h2>
-
-    <div class="live-badge">
-      <div class="live-dot"></div>
-      Live at predatorfest.com · tg: @predatorfest
-    </div>
+    <div class="cs-label">Overview</div>
+    <h2 class="cs-title">Project Overview</h2>
+    <div class="live-badge"><div class="live-dot"></div>Live at predatorfest.com · tg: @predatorfest</div>
     <div class="proj-btns">
-      <a href="https://predatorfest.com" target="_blank" class="btn-fill"><div class="btn-ripple"></div><span class="btn-label">predatorfest.com ↗</span></a>
-      <a href="https://t.me/predatorfestbot" target="_blank" class="btn-out" style="background:#229ED9;color:#fff;border-color:#229ED9;">@predatorfest on Telegram ↗</a>
+      <a href="https://predatorfest.com" target="_blank" class="btn-fill">predatorfest.com ↗</a>
+      <a href="https://t.me/predatorfestbot" target="_blank" class="btn-tg">@predatorfest on Telegram ↗</a>
     </div>
-
-    <p class="cs-text">
-      <strong>Predator Fest League (PFL)</strong> is a competitive fishing league I founded in Lviv — solo, from scratch, as CEO and the only person behind the entire project. I noticed the same problem at almost every tournament — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.
-    </p>
-    <p class="cs-text">
-      I designed and built the PFL App from scratch — a <strong>Telegram Mini App and PWA</strong> that gives every participant instant access to live results, tournament standings, a full season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.
-    </p>
-    <p class="cs-text">
-      The app has been live across multiple seasons, tracked <strong>80+ participants</strong>, and helped the community raise <strong>64,375 UAH</strong> for Ukraine's armed forces through competition entry fees.
-    </p>
+    <p class="cs-text"><strong>Predator Fest League (PFL)</strong> is a competitive fishing league I founded in Lviv — solo, from scratch, as CEO and the only person behind the entire project. I noticed the same problem at almost every tournament — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.</p>
+    <p class="cs-text">I designed and built the PFL App from scratch — a <strong>Telegram Mini App and PWA</strong> that gives every participant instant access to live results, tournament standings, a full season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.</p>
+    <p class="cs-text">The app has been live across multiple seasons, tracked <strong>80+ participants</strong>, and helped the community raise <strong>64,375 UAH</strong> for Ukraine's armed forces through competition entry fees.</p>
     <div class="ua-badge">🇺🇦 64,375 UAH raised for the Armed Forces of Ukraine across all PFL events</div>
   </div>
 
-  <!-- 02 Problem -->
+  <!-- Problem -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">02 — Problem</div>
-    <h2 class="cs-section-title">The Problem I Kept Running Into</h2>
-
-    <div class="two-col-3-2">
+    <div class="cs-label">Problem</div>
+    <h2 class="cs-title">The Problem I Kept Running Into</h2>
+    <div class="two-col">
       <div>
-        <p class="cs-text">
-          After moving to Lviv and getting seriously into competitive spin fishing, I noticed the same friction at practically every second tournament. The system technically worked — but only for the organiser holding the pen.
-        </p>
-        <p class="cs-text">
-          Scores were written by hand on paper during the weigh-in, then photographed and dropped into a Telegram group. If you missed the message or the chat was busy, your result was gone. Season standings lived in a Google Sheet that only one person had access to. Finding a quick summary or checking your position in the rankings was a separate task that required hunting through message history.
-        </p>
-        <p class="cs-text">
-          This is exactly the kind of problem familiar to anyone who works in product: <strong>the system technically works, but using it is genuinely uncomfortable.</strong>
-        </p>
+        <p class="cs-text">After moving to Lviv and getting seriously into competitive spin fishing, I noticed the same friction at practically every second tournament. The system technically worked — but only for the organiser holding the pen.</p>
+        <p class="cs-text">Scores were written by hand on paper during the weigh-in, then photographed and dropped into a Telegram group. If you missed the message or the chat was busy, your result was gone. Season standings lived in a Google Sheet that only one person had access to.</p>
+        <p class="cs-text">This is exactly the kind of problem familiar to anyone who works in product: <strong>the system technically works, but using it is genuinely uncomfortable.</strong></p>
         <div class="insight-box">
           <div class="insight-label">Root insight</div>
           <div class="insight-text">The data already existed — it just lived in the wrong place. The fix wasn't a new data model, it was a better interface over data that was already there.</div>
@@ -512,116 +278,49 @@
       </div>
       <div>
         <div class="pain-grid">
-          <div class="pain-card">
-            <div class="pain-icon">📄</div>
-            <div>
-              <div class="pain-title">Results on paper</div>
-              <div class="pain-text">Scores written at weigh-in, photographed once, shared in chat — then effectively impossible to find.</div>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">💬</div>
-            <div>
-              <div class="pain-title">Data scattered in chats</div>
-              <div class="pain-text">Part of the info in Telegram messages, part in photo albums, part in someone's private spreadsheet.</div>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">🔍</div>
-            <div>
-              <div class="pain-title">No quick lookup</div>
-              <div class="pain-text">Checking your season standing required scrolling through weeks of chat history.</div>
-            </div>
-          </div>
-          <div class="pain-card">
-            <div class="pain-icon">❌</div>
-            <div>
-              <div class="pain-title">Manual counting errors</div>
-              <div class="pain-text">Complex scoring rules — place points + bonus points — led to frequent miscalculations by hand.</div>
-            </div>
-          </div>
+          <div class="pain-card"><div class="pain-icon">📄</div><div><div class="pain-title">Results on paper</div><div class="pain-text">Scores written at weigh-in, photographed once, shared in chat — then effectively impossible to find.</div></div></div>
+          <div class="pain-card"><div class="pain-icon">💬</div><div><div class="pain-title">Data scattered in chats</div><div class="pain-text">Part in Telegram messages, part in photo albums, part in someone's private spreadsheet.</div></div></div>
+          <div class="pain-card"><div class="pain-icon">🔍</div><div><div class="pain-title">No quick lookup</div><div class="pain-text">Checking your season standing required scrolling through weeks of chat history.</div></div></div>
+          <div class="pain-card"><div class="pain-icon">❌</div><div><div class="pain-title">Manual counting errors</div><div class="pain-text">Complex scoring rules — place points + bonus points — led to frequent miscalculations by hand.</div></div></div>
         </div>
       </div>
     </div>
-
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/pfl/problem-before.png" alt="Before — paper results and Telegram chat">
-    </div>
+    <img src="assets/img/pfl/problem-before.png" alt="Before — paper results and Telegram chat" class="cs-img reveal">
   </div>
 
-  <!-- 03 Solution -->
+  <!-- Solution -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">03 — Solution</div>
-    <h2 class="cs-section-title">Why a Telegram Mini App?</h2>
-    <p class="cs-text">
-      The fishing community lives in Telegram. A native iOS/Android app would mean App Store submissions, installs, updates, and a completely separate context from where people already communicate. A Telegram Mini App opens with <strong>one tap inside the chat they use every day</strong> — no install, no friction, native on mobile by default.
-    </p>
-    <p class="cs-text">
-      My choice was about meeting users exactly where they already are — a core UX principle — while keeping the architecture simple enough to build and maintain solo.
-    </p>
-
+    <div class="cs-label">Solution</div>
+    <h2 class="cs-title">Why a Telegram Mini App?</h2>
+    <p class="cs-text">The fishing community lives in Telegram. A native iOS/Android app would mean App Store submissions, installs, updates, and a completely separate context from where people already communicate. A Telegram Mini App opens with <strong>one tap inside the chat they use every day</strong> — no install, no friction, native on mobile by default.</p>
+    <p class="cs-text">My choice was about meeting users exactly where they already are — a core UX principle — while keeping the architecture simple enough to build and maintain solo.</p>
     <div class="process-steps reveal">
-      <div class="process-step">
-        <div class="step-num">01</div>
-        <div class="step-title">Google Sheets as DB</div>
-        <div class="step-text">Organisers enter results in a familiar spreadsheet. Zero learning curve, zero new tools to adopt.</div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">02</div>
-        <div class="step-title">Apps Script API</div>
-        <div class="step-text">A thin Google Apps Script layer reads the sheet and exposes a clean JSON endpoint — an instant backend.</div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">03</div>
-        <div class="step-title">Vanilla JS front-end</div>
-        <div class="step-text">No framework overhead. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</div>
-      </div>
-      <div class="process-step">
-        <div class="step-num">04</div>
-        <div class="step-title">GitHub + CI/CD</div>
-        <div class="step-text">Staging and production environments. Changes deploy automatically on push — the same workflow as professional engineering teams.</div>
-      </div>
+      <div class="process-step"><div class="step-num">01</div><div class="step-title">Google Sheets as DB</div><div class="step-text">Organisers enter results in a familiar spreadsheet. Zero learning curve, zero new tools to adopt.</div></div>
+      <div class="process-step"><div class="step-num">02</div><div class="step-title">Apps Script API</div><div class="step-text">A thin Google Apps Script layer reads the sheet and exposes a clean JSON endpoint — an instant backend.</div></div>
+      <div class="process-step"><div class="step-num">03</div><div class="step-title">Vanilla JS front-end</div><div class="step-text">No framework overhead. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</div></div>
+      <div class="process-step"><div class="step-num">04</div><div class="step-title">GitHub + CI/CD</div><div class="step-text">Staging and production environments. Changes deploy automatically on push — same as professional engineering teams.</div></div>
     </div>
-
     <div class="arch-diagram reveal">
       <div class="arch-label">Data flow — from spreadsheet to participant's phone</div>
       <div class="arch-flow">
-        <div class="arch-node">
-          <div class="arch-box sheets">Google<br>Sheets</div>
-          <div class="arch-node-label">Organiser enters<br>results here</div>
-        </div>
+        <div class="arch-node"><div class="arch-box">Google<br>Sheets</div><div class="arch-node-label">Organiser enters<br>results here</div></div>
         <div class="arch-arrow">→</div>
-        <div class="arch-node">
-          <div class="arch-box script">Apps<br>Script</div>
-          <div class="arch-node-label">Reads &amp; exposes<br>JSON endpoint</div>
-        </div>
+        <div class="arch-node"><div class="arch-box">Apps<br>Script</div><div class="arch-node-label">Reads &amp; exposes<br>JSON endpoint</div></div>
         <div class="arch-arrow">→</div>
-        <div class="arch-node">
-          <div class="arch-box app">PFL<br>Mini App</div>
-          <div class="arch-node-label">Renders live data<br>in Telegram / PWA</div>
-        </div>
+        <div class="arch-node"><div class="arch-box">PFL<br>Mini App</div><div class="arch-node-label">Renders live data<br>in Telegram / PWA</div></div>
       </div>
     </div>
   </div>
 
-  <!-- 04 Design & UX -->
+  <!-- Design & UX -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">04 — Design &amp; UX</div>
-    <h2 class="cs-section-title">Interface Design</h2>
-    <p class="cs-text">
-      The visual identity — deep forest green with gold — comes directly from the brand materials I designed for Predator Fest events. It signals "outdoors, sport, serious competition" without a word. The interface is built around five core tabs, each solving a specific job-to-be-done for a participant standing at the water's edge on their phone.
-    </p>
-
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/pfl/fests-screens.png" alt="PFL App — Fests and Leaderboard screens">
-    </div>
-
+    <div class="cs-label">Design & UX</div>
+    <h2 class="cs-title">Interface Design</h2>
+    <p class="cs-text">The visual identity — deep forest green with gold — comes directly from the brand materials I designed for Predator Fest events. It signals "outdoors, sport, serious competition" without a word. The interface is built around five core tabs, each solving a specific job-to-be-done for a participant standing at the water's edge on their phone.</p>
+    <img src="assets/img/pfl/fests-screens.png" alt="PFL App — Fests and Leaderboard screens" class="cs-img reveal">
     <div class="features-grid reveal">
       <div class="feature-card">
-        <div class="feature-header">
-          <div class="feature-icon" style="background:rgba(13,61,26,.1);">🎣</div>
-          <div class="feature-name">Fests — Tournament Results</div>
-        </div>
+        <div class="feature-header"><div class="feature-icon">🎣</div><div class="feature-name">Fests — Tournament Results</div></div>
         <div class="feature-items">
           <div class="feature-item">Live individual &amp; team standings per round</div>
           <div class="feature-item">Multi-year archive — 2025 and 2026 seasons</div>
@@ -630,10 +329,7 @@
         </div>
       </div>
       <div class="feature-card">
-        <div class="feature-header">
-          <div class="feature-icon" style="background:rgba(212,160,23,.15);">🏆</div>
-          <div class="feature-name">Leaderboard — Season Rankings</div>
-        </div>
+        <div class="feature-header"><div class="feature-icon">🏆</div><div class="feature-name">Leaderboard — Season Rankings</div></div>
         <div class="feature-items">
           <div class="feature-item">Points accumulated across all 6 season events</div>
           <div class="feature-item">Grand prize race — Shimano Vanquish 2500S</div>
@@ -642,10 +338,7 @@
         </div>
       </div>
       <div class="feature-card">
-        <div class="feature-header">
-          <div class="feature-icon" style="background:rgba(0,120,95,.1);">⭐️</div>
-          <div class="feature-name">Arena — Multi-format Rankings</div>
-        </div>
+        <div class="feature-header"><div class="feature-icon">⭐️</div><div class="feature-name">Arena — Multi-format Rankings</div></div>
         <div class="feature-items">
           <div class="feature-item">Cross-format standings across different competition types</div>
           <div class="feature-item">Perch, Pike, and multi-species event tracking</div>
@@ -653,10 +346,7 @@
         </div>
       </div>
       <div class="feature-card">
-        <div class="feature-header">
-          <div class="feature-icon" style="background:rgba(34,197,94,.1);">🌳</div>
-          <div class="feature-name">Didyliv — Venue-specific Tab</div>
-        </div>
+        <div class="feature-header"><div class="feature-icon">🌳</div><div class="feature-name">Didyliv — Venue-specific Tab</div></div>
         <div class="feature-items">
           <div class="feature-item">Dedicated section for Ozero Didyliv venue results</div>
           <div class="feature-item">Local rankings and historical catches</div>
@@ -664,183 +354,116 @@
         </div>
       </div>
     </div>
-
-    <div class="cs-img-wrap reveal" style="margin-top:24px;">
-      <img src="assets/img/pfl/tabs.png" alt="PFL App — all four tabs: Fests, Leaderboard, Arena, Partners">
-    </div>
+    <img src="assets/img/pfl/tabs.png" alt="PFL App — all tabs" class="cs-img reveal" style="margin-top:24px">
   </div>
 
-  <!-- 05 Scoring system -->
+  <!-- Scoring system -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">05 — Product Complexity</div>
-    <h2 class="cs-section-title">The Scoring System Behind the App</h2>
-    <p class="cs-text">
-      One of the real design challenges was making a genuinely complex scoring model feel transparent and simple to understand. The PFL season uses placement-based points across 6 events, with multiple bonus point categories and a tiebreaker chain. Getting this wrong — in the UI or the underlying formulas — destroys trust with competitors.
-    </p>
-
-    <div class="two-col reveal" style="margin-top:40px;">
+    <div class="cs-label">Product Complexity</div>
+    <h2 class="cs-title">The Scoring System Behind the App</h2>
+    <p class="cs-text">One of the real design challenges was making a genuinely complex scoring model feel transparent and simple to understand. The PFL season uses placement-based points across 6 events, with multiple bonus point categories and a tiebreaker chain.</p>
+    <div class="two-col" style="margin-top:32px">
       <div>
-        <p style="font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Placement points per event</p>
+        <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;">Placement points per event</p>
         <div class="scoring-table">
-          <div class="st-header">
-            <div class="st-head">Finish</div>
-            <div class="st-head">Points</div>
-          </div>
+          <div class="st-header"><div class="st-head">Finish</div><div class="st-head">Points</div></div>
           <div class="st-row"><div class="st-action">🥇 1st place</div><div class="st-points">24 pts</div></div>
           <div class="st-row"><div class="st-action">🥈 2nd place</div><div class="st-points">18 pts</div></div>
           <div class="st-row"><div class="st-action">🥉 3rd place</div><div class="st-points">15 pts</div></div>
           <div class="st-row"><div class="st-action">4th place</div><div class="st-points">12 pts</div></div>
           <div class="st-row"><div class="st-action">5th place</div><div class="st-points">10 pts</div></div>
-          <div class="st-row"><div class="st-action">6th–8th place</div><div class="st-points">8 – 4 pts</div></div>
-          <div class="st-row"><div class="st-action">9th–15th place</div><div class="st-points">3 – 1 pts</div></div>
+          <div class="st-row"><div class="st-action">6th–8th place</div><div class="st-points">8–4 pts</div></div>
+          <div class="st-row"><div class="st-action">9th–15th place</div><div class="st-points">3–1 pts</div></div>
         </div>
       </div>
       <div>
-        <p style="font-size:13px;font-weight:700;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px;">Bonus points (per event)</p>
+        <p style="font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px;">Bonus points (per event)</p>
         <div class="scoring-table">
-          <div class="st-header">
-            <div class="st-head">Action</div>
-            <div class="st-head">Bonus</div>
-          </div>
+          <div class="st-header"><div class="st-head">Action</div><div class="st-head">Bonus</div></div>
           <div class="st-row"><div class="st-action">Participation in event</div><div class="st-points">+10</div></div>
           <div class="st-row"><div class="st-action">BigFish nomination</div><div class="st-points">+5</div></div>
           <div class="st-row"><div class="st-action">Instagram story w/ sponsor tag</div><div class="st-points">+3</div></div>
           <div class="st-row"><div class="st-action">Inviting a new participant</div><div class="st-points">+2</div></div>
           <div class="st-row"><div class="st-action">1st place in a round</div><div class="st-points">+2</div></div>
         </div>
-        <div style="margin-top:14px;padding:14px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;font-size:13px;color:var(--text-2);line-height:1.6;">
-          <strong style="color:var(--text);">Grand prize condition:</strong> minimum 5 of 6 events attended. Top scorer with ≥ 5 fests wins the <strong style="color:var(--text);">Shimano Vanquish 2500S</strong> or premium rod up to 20k UAH.
-        </div>
+        <div class="grand-note"><strong>Grand prize condition:</strong> minimum 5 of 6 events attended. Top scorer with ≥5 fests wins the <strong>Shimano Vanquish 2500S</strong> or premium rod up to 20k UAH.</div>
       </div>
     </div>
   </div>
 
-  <!-- 06 Technology -->
+  <!-- Technology -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">06 — Technology</div>
-    <h2 class="cs-section-title">Built Solo, Built to Last</h2>
-    <p class="cs-text">
-      The entire app was designed, built, and deployed by me — a product designer who used <strong>AI-assisted development</strong> to go from idea to production without a dedicated engineering team. This was a deliberate experiment in what a designer can ship independently in 2024–2025.
-    </p>
-
+    <div class="cs-label">Technology</div>
+    <h2 class="cs-title">Built Solo, Built to Last</h2>
+    <p class="cs-text">The entire app was designed, built, and deployed by me — a product designer who used <strong>AI-assisted development</strong> to go from idea to production without a dedicated engineering team. This was a deliberate experiment in what a designer can ship independently in 2024–2025.</p>
     <div class="stack-grid reveal">
-      <div class="stack-card">
-        <div class="stack-icon">📊</div>
-        <div class="stack-title">Google Sheets</div>
-        <div class="stack-role">The "database". Organisers use it like a familiar spreadsheet — no new tools, zero training, zero errors from manual re-entry.</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon">⚙️</div>
-        <div class="stack-title">Google Apps Script</div>
-        <div class="stack-role">Acts as a lightweight API layer. Reads the sheet, applies scoring logic, returns clean JSON to the front-end.</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon">⚡️</div>
-        <div class="stack-title">Vanilla JS</div>
-        <div class="stack-role">No framework, no build step. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon">🐙</div>
-        <div class="stack-title">GitHub + CI/CD</div>
-        <div class="stack-role">Staging and production branches. Automated deploys on push — the same workflow used by professional engineering teams.</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon">✈️</div>
-        <div class="stack-title">Telegram Mini App</div>
-        <div class="stack-role">Native Telegram integration. Opens in one tap from the community channel — no install, no app store, no friction at all.</div>
-      </div>
-      <div class="stack-card">
-        <div class="stack-icon">🌐</div>
-        <div class="stack-title">Progressive Web App</div>
-        <div class="stack-role">Also accessible at predatorfest.com — same codebase, works on any device or browser.</div>
-      </div>
+      <div class="stack-card"><div class="stack-icon">📊</div><div class="stack-title">Google Sheets</div><div class="stack-role">The "database". Organisers use it like a familiar spreadsheet — no new tools, zero training, zero errors from manual re-entry.</div></div>
+      <div class="stack-card"><div class="stack-icon">⚙️</div><div class="stack-title">Google Apps Script</div><div class="stack-role">Acts as a lightweight API layer. Reads the sheet, applies scoring logic, returns clean JSON to the front-end.</div></div>
+      <div class="stack-card"><div class="stack-icon">⚡️</div><div class="stack-title">Vanilla JS</div><div class="stack-role">No framework, no build step. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</div></div>
+      <div class="stack-card"><div class="stack-icon">🐙</div><div class="stack-title">GitHub + CI/CD</div><div class="stack-role">Staging and production branches. Automated deploys on push — same workflow used by professional engineering teams.</div></div>
+      <div class="stack-card"><div class="stack-icon">✈️</div><div class="stack-title">Telegram Mini App</div><div class="stack-role">Native Telegram integration. Opens in one tap from the community channel — no install, no app store, no friction.</div></div>
+      <div class="stack-card"><div class="stack-icon">🌐</div><div class="stack-title">Progressive Web App</div><div class="stack-role">Also accessible at predatorfest.com — same codebase, works on any device or browser.</div></div>
     </div>
-
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/pfl/screens-web-desktop.png" alt="PFL — web desktop view">
-    </div>
-    <div class="cs-img-wrap reveal" style="margin-top:16px;">
-      <img src="assets/img/pfl/screens-tg-mini-app.png" alt="PFL — Telegram Mini App">
-    </div>
+    <img src="assets/img/pfl/screens-web-desktop.png" alt="PFL — web desktop view" class="cs-img reveal">
+    <img src="assets/img/pfl/screens-tg-mini-app.png" alt="PFL — Telegram Mini App" class="cs-img reveal">
   </div>
 
-  <!-- 07 Results -->
+  <!-- Results -->
   <div class="cs-section reveal">
-    <div class="cs-section-label">07 — Results</div>
-    <h2 class="cs-section-title">Impact</h2>
+    <div class="cs-label">Results</div>
+    <h2 class="cs-title">Impact</h2>
     <p class="cs-text">A real product, used by a real community, built by one person with a passion for fishing and product design.</p>
-
     <div class="results-grid">
-      <div class="result-card reveal">
-        <div class="result-val">80+</div>
-        <div class="result-desc">Participants tracked across tournaments in the 2025–2026 seasons.</div>
-        <div class="result-note">Growing community · Lviv &amp; region</div>
-      </div>
-      <div class="result-card reveal d1">
-        <div class="result-val">64k UAH</div>
-        <div class="result-desc">Raised for Ukraine's Armed Forces from competition entry fees across all events.</div>
-        <div class="result-note">🇺🇦 Sport with a purpose</div>
-      </div>
-      <div class="result-card reveal d2">
-        <div class="result-val">1 tap</div>
-        <div class="result-desc">That's all it takes to check live results during a tournament — from any device, any time.</div>
-        <div class="result-note">vs. digging through chat history before</div>
-      </div>
+      <div class="result-card reveal"><div class="result-val">80+</div><div class="result-desc">Participants tracked across tournaments in the 2025–2026 seasons.</div><div class="result-note">Growing community · Lviv &amp; region</div></div>
+      <div class="result-card reveal d1"><div class="result-val">64k UAH</div><div class="result-desc">Raised for Ukraine's Armed Forces from competition entry fees across all events.</div><div class="result-note">🇺🇦 Sport with a purpose</div></div>
+      <div class="result-card reveal d2"><div class="result-val">1 tap</div><div class="result-desc">That's all it takes to check live results during a tournament — from any device, any time.</div><div class="result-note">vs. digging through chat history before</div></div>
     </div>
-
     <div class="quote-block reveal">
       <div class="quote-text">What this project actually proves: <em>a designer can ship.</em></div>
       <div class="quote-list">
         <div class="quote-item"><div class="q-dot"></div>Identified a real problem from personal experience — then built the solution end-to-end</div>
         <div class="quote-item"><div class="q-dot"></div>Designed the full product: IA, visual identity, UI system, event brand materials — all consistent</div>
         <div class="quote-item"><div class="q-dot"></div>Shipped a working Telegram Mini App + PWA using AI-assisted development</div>
-        <div class="quote-item"><div class="q-dot"></div>Maintained staging / production CI/CD — the same workflow as professional engineering teams</div>
+        <div class="quote-item"><div class="q-dot"></div>Maintained staging / production CI/CD — same workflow as professional engineering teams</div>
         <div class="quote-item"><div class="q-dot"></div>Iterated based on real feedback from an active community across multiple seasons</div>
       </div>
     </div>
   </div>
 
   <!-- Next project -->
-  <div class="next-project reveal">
+  <div class="next-section reveal">
     <div class="next-label">Next project</div>
     <a href="rentflow.html" class="next-link">
-      <div class="next-title">RentFlow Dubai</div>
-      <div class="next-arrow">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
+      <div class="next-title">RentFlow — PropTech Platform</div>
+      <div class="next-arrow"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
-    <p style="font-size:14px;color:var(--text-3);margin-top:12px;">PropTech · Fintech · Web · Dubai · 2023</p>
-    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:32px;font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-2)'">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="next-meta">PropTech · Fintech · Web · 2023</div>
+    <a href="index.html" class="back-all">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back to all work
     </a>
   </div>
 
+</div><!-- /inner -->
 </div><!-- /case-body -->
 
-<script>
-  document.querySelectorAll('.btn-fill').forEach(function(btn){
-    btn.addEventListener('click',function(e){
-      var r=btn.querySelector('.btn-ripple');
-      if(!r)return;
-      var rect=btn.getBoundingClientRect();
-      var size=Math.max(rect.width,rect.height)*2;
-      r.style.width=r.style.height=size+'px';
-      r.style.left=(e.clientX-rect.left-size/2)+'px';
-      r.style.top=(e.clientY-rect.top-size/2)+'px';
-      btn.classList.add('ripple-active');
-      setTimeout(function(){btn.classList.remove('ripple-active');},600);
-    });
-  });
+<footer>
+  <div class="foot-in">
+    <span class="foot-copy">© 2026 Andrii Teslia — Lviv, Ukraine</span>
+    <div class="foot-links">
+      <a href="mailto:tesliaandrii@gmail.com">tesliaandrii@gmail.com</a>
+      <a href="tel:+380955085475">+380 95 508 54 75</a>
+      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank">LinkedIn</a>
+      <a href="https://t.me/andriiteslia" target="_blank">Telegram</a>
+      <a href="https://dribbble.com/andriiteslia" target="_blank">Dribbble</a>
+      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank">Resume</a>
+    </div>
+  </div>
+</footer>
 
-  var ro = new IntersectionObserver(function(es) {
-    es.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); ro.unobserve(e.target); }
-    });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(function(el) { ro.observe(el); });
+<script>
+var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } }); },{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
 </script>
 </body>
 </html>

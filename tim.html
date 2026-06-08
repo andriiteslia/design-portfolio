@@ -5,527 +5,239 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TIM — On-Demand Jobs App · Andrii Teslia</title>
   <meta name="description" content="RTL on-demand jobs marketplace for Israel. UX/UI case study by Andrii Teslia — 95% task success, 4.7★ App Store debut.">
-  <link rel="icon" href="favicon.png" type="image/png">
-  
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
+  <link rel="shortcut icon" href="favicon.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg:      #FFFFFF;
-      --bg-2:    #F5F6FF;
-      --bg-3:    #ECEFFE;
-      --text:    #12110E;
-      --text-2:  #6B6880;
-      --text-3:  #9C9AAE;
-      --accent:  #4865F4;
-      --proj:    #92400E;
-      --proj-m:  #D97706;
-      --proj-l:  #FCD34D;
-      --border:  rgba(72,101,244,0.12);
-      --nav-h:   68px;
-      --max-w:   1024px;
+      --bg: #F7F7F7;
+      --white: #FFFFFF;
+      --text: #111111;
+      --text-2: #666666;
+      --text-3: #AAAAAA;
+      --border: #E4E4E4;
+      --pad: 48px;
+      --mob-pad: 24px;
+      --body-w: 960px;
+      --max-w: 1200px;
     }
-
     html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg); color: var(--text);
-      overflow-x: hidden;
+    body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+    /* ── FLOATING BACK ── */
+    .float-back { position:fixed; top:20px; left:28px; z-index:200; display:inline-flex; align-items:center; gap:7px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:500; color:var(--text); text-decoration:none; background:rgba(255,255,255,0.88); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); border:1px solid var(--border); padding:8px 16px 8px 12px; border-radius:100px; box-shadow:0 2px 16px rgba(0,0,0,0.06); transition:background .2s, border-color .2s; }
+    .float-back:hover { background:#fff; border-color:var(--text); }
+    .float-back svg { transition:transform .2s; }
+    .float-back:hover svg { transform:translateX(-3px); }
+    @media(max-width:768px){ .float-back { top:14px; left:16px; font-size:12px; padding:7px 14px 7px 10px; } }
+
+    /* ── CONTAINER ── */
+    .inner { max-width:calc(var(--body-w) + var(--pad)*2); margin:0 auto; padding:0 var(--pad); }
+    @media(max-width:768px){ .inner { padding:0 var(--mob-pad); } }
+
+    /* ── HERO ── */
+    .case-hero { padding:80px 0 56px; }
+    .case-tags { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:24px; }
+    .case-tag { font-size:10px; font-weight:500; letter-spacing:.04em; padding:4px 10px; border-radius:100px; background:var(--bg); border:1px solid var(--border); color:var(--text-2); }
+    .case-title { font-family:'Syne',sans-serif; font-size:clamp(32px,5vw,64px); font-weight:800; letter-spacing:-.04em; line-height:.95; color:var(--text); margin-bottom:20px; }
+    .case-subtitle { font-size:16px; line-height:1.75; color:var(--text-2); font-weight:300; max-width:600px; }
+
+    /* ── META ── */
+    .meta-inner { max-width:calc(var(--body-w) + var(--pad)*2); margin:0 auto; padding:0 var(--pad); display:grid; grid-template-columns:repeat(4,1fr); }
+    .meta-cell { padding:28px 0; border-right:1px solid var(--border); padding-right:24px; }
+    .meta-cell:first-child { padding-left:0; }
+    .meta-cell:last-child { border-right:none; }
+    .meta-label { font-size:10px; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:var(--text-3); margin-bottom:8px; }
+    .meta-value { font-size:13px; line-height:1.55; color:var(--text); }
+    @media(max-width:768px){
+      .meta-inner { grid-template-columns:repeat(2,1fr); padding:0 var(--mob-pad); gap:0; }
+      .meta-cell { padding:20px 0; border-right:none !important; border-bottom:1px solid var(--border); padding-left:0 !important; }
+      .meta-cell:nth-child(even) { padding-left:16px !important; border-left:1px solid var(--border); }
+      .meta-cell:nth-last-child(-n+2) { border-bottom:none; }
     }
 
-    /* ── Glass back button ── */
-    .glass-back-wrap {
-      position: fixed; top: 20px; left: 0; right: 0; z-index: 100;
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px; pointer-events: none;
-    }
-    .glass-back {
-      pointer-events: auto;
-      display: inline-flex; align-items: center; gap: 8px;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 13px; font-weight: 600; color: var(--text);
-      text-decoration: none;
-      background: rgba(255,255,255,0.6);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid var(--accent);
-      
-      padding: 8px 16px 8px 12px;
-      border-radius: 100px;
-      transition: background .2s, transform .2s;
-    }
-    .glass-back:hover { background: rgba(255,255,255,0.82); transform: translateX(-2px); }
-    .glass-back svg { transition: transform .2s; }
-    .glass-back:hover svg { transform: translateX(-3px); }
-    @media(max-width:768px){ .glass-back-wrap { padding: 0 24px; } }
+    /* ── BANNER ── */
+    .banner-wrap { max-width:calc(var(--body-w) + var(--pad)*2); margin:40px auto 0; padding:0 var(--pad); }
+    .banner-wrap img { width:100%; display:block; border-radius:4px; border:1px solid var(--border); }
+    @media(max-width:768px){ .banner-wrap { padding:0 !important; margin-top:24px !important; } .banner-wrap img { border-radius:0; border-left:none; border-right:none; } }
 
-    /* ── Hero ── */
-    .case-hero {
-      padding: 120px 48px 64px;
-      text-align: center;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .case-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; justify-content: center; }
-    .case-tag {
-      font-size: 11px; font-weight: 600; letter-spacing: .05em;
-      padding: 4px 12px; border-radius: 100px;
-      background: var(--bg-2); border: 1px solid var(--border);
-      color: var(--text-2);
-    }
-    .case-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(36px, 5vw, 72px);
-      font-weight: 800; letter-spacing: -.04em; line-height: .95;
-      color: var(--text); margin-bottom: 24px; max-width: 800px;
-    }
-    .case-subtitle {
-      font-size: 17px; color: var(--text-2);
-      max-width: 580px; line-height: 1.7; font-weight: 300;
-    }
+    /* ── BODY ── */
+    .case-body { padding:72px 0; }
+    .cs-section { padding:56px 0; border-top:1px solid var(--border); }
+    .cs-section:first-child { border-top:none; padding-top:0; }
+    .cs-label { font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin-bottom:10px; }
+    .cs-title { font-family:'Syne',sans-serif; font-size:clamp(22px,2.8vw,34px); font-weight:800; letter-spacing:-.03em; line-height:1; margin-bottom:20px; }
+    .cs-text { font-size:14.5px; line-height:1.8; color:var(--text-2); font-weight:300; margin-bottom:16px; }
+    .cs-text strong { color:var(--text); font-weight:500; }
+    .cs-img { width:100%; display:block; border-radius:4px; border:1px solid var(--border); margin:32px 0; }
 
-    /* ── Meta strip ── */
-    .meta-strip {
-      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    }
-    .meta-inner {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 32px 48px; width: 100%;
-      display: grid; grid-template-columns: repeat(4,1fr); gap: 24px;
-    }
-    .meta-label {
-      font-size: 11px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--text-3); margin-bottom: 6px;
-    }
-    .meta-value { font-size: 14px; color: var(--text); line-height: 1.5; }
-    .meta-value .hl { color: var(--accent); font-weight: 600; }
+    /* challenges list */
+    .ch-list { display:flex; flex-direction:column; margin-top:24px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .ch-card { display:flex; gap:20px; padding:20px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .ch-card:last-child { border-bottom:none; }
+    .ch-num { font-family:'Syne',sans-serif; font-size:11px; font-weight:700; color:var(--text-3); flex-shrink:0; width:20px; padding-top:2px; }
+    .ch-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; margin-bottom:6px; }
+    .ch-text { font-size:13px; line-height:1.6; color:var(--text-2); font-weight:300; }
 
-    /* ── Body ── */
-    .case-body {
-      max-width: calc(var(--max-w) + 96px); margin: 0 auto;
-      padding: 0 48px;
-    }
-    .cs-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
-    .cs-section:last-of-type { border-bottom: none; }
-    .cs-step{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-    .cs-label{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(18px,2vw,24px);font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:20px}
-    .cs-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(24px, 3vw, 40px);
-      font-weight: 700; letter-spacing: -.03em; margin-bottom: 28px;
-    }
-    .cs-text {
-      font-size: 16px; line-height: 1.8; color: var(--text-2);
-      font-weight: 300; max-width: 760px;
-    }
-    .cs-text + .cs-text { margin-top: 18px; }
-    .cs-text strong { color: var(--text); font-weight: 500; }
+    /* discovery list */
+    .disc-list { display:flex; flex-direction:column; gap:8px; margin-top:20px; padding-left:0; list-style:none; }
+    .disc-list li { font-size:14px; line-height:1.7; color:var(--text-2); font-weight:300; padding-left:16px; position:relative; }
+    .disc-list li::before { content:'—'; position:absolute; left:0; color:var(--text-3); }
 
-    /* ── Process ribbon ── */
-    .process-ribbon {
-      display: flex; align-items: center; gap: 0;
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 16px; overflow: hidden; margin-top: 40px;
-    }
-    .pr-step {
-      flex: 1; padding: 18px 20px; text-align: center;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 12px; font-weight: 700;
-      color: var(--text-2); letter-spacing: .02em;
-      border-right: 1px solid var(--border);
-      position: relative;
-    }
-    .pr-step:last-child { border-right: none; }
-    .pr-step.active {
-      background: var(--bg-3); color: var(--text);
-    }
-    .pr-num {
-      font-size: 10px; color: var(--text-3);
-      display: block; margin-bottom: 4px;
-    }
+    /* iter grid */
+    .iter-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .iter-card { background:var(--white); padding:24px; text-align:center; }
+    .iter-card.highlight { background:var(--text); }
+    .iter-card.highlight .iter-num, .iter-card.highlight .iter-lbl { color:#fff; }
+    .iter-num { font-family:'Syne',sans-serif; font-size:28px; font-weight:800; letter-spacing:-.03em; margin-bottom:8px; }
+    .iter-lbl { font-size:11px; color:var(--text-2); line-height:1.5; }
+    @media(max-width:768px){ .iter-grid { grid-template-columns:repeat(3,1fr); } }
 
-    /* ── Two col ── */
-    .two-col {
-      display: grid; grid-template-columns: 3fr 2fr;
-      gap: 56px; align-items: start; margin-top: 40px;
-    }
+    /* img grid 3col */
+    .img-row-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-top:32px; }
+    .img-row-3 img { width:100%; display:block; border-radius:4px; border:1px solid var(--border); }
+    @media(max-width:768px){ .img-row-3 { grid-template-columns:1fr; } }
 
-    /* ── Pain-gain table ── */
-    .pg-table { margin-top: 40px; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-    .pg-header {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      background: var(--bg-2);
-    }
-    .pg-col-head {
-      padding: 14px 20px;
-      font-size: 11px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--text-3);
-      border-right: 1px solid var(--border);
-    }
-    .pg-col-head:last-child { border-right: none; }
-    .pg-row {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      border-top: 1px solid var(--border);
-    }
-    .pg-cell {
-      padding: 16px 20px; font-size: 13px; line-height: 1.55;
-      color: var(--text-2); border-right: 1px solid var(--border);
-      vertical-align: top;
-    }
-    .pg-cell:last-child { border-right: none; }
-    .pg-cell strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 3px; }
-    .pg-cell .opp { color: var(--accent); font-weight: 600; }
+    /* design gallery */
+    .gallery-wrap { margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .gallery-track { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:1px; background:var(--border); scrollbar-width:none; -ms-overflow-style:none; cursor:grab; }
+    .gallery-track::-webkit-scrollbar { display:none; }
+    .gallery-track:active { cursor:grabbing; }
+    .gallery-item { flex:0 0 100%; scroll-snap-align:start; }
+    .gallery-item img { width:100%; display:block; }
+    .gallery-nav { display:flex; justify-content:space-between; align-items:center; padding:14px 20px; border-top:1px solid var(--border); background:var(--white); }
+    .gallery-dots { display:flex; gap:6px; align-items:center; }
+    .g-dot { width:6px; height:6px; border-radius:50%; background:var(--border); cursor:pointer; transition:background .2s; }
+    .g-dot.active { background:var(--text); }
+    .gallery-arrows { display:flex; gap:8px; }
+    .g-arrow { width:32px; height:32px; border-radius:50%; border:1px solid var(--border); background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s; }
+    .g-arrow:hover { background:var(--text); border-color:var(--text); }
+    .g-arrow:hover path { stroke:#fff; }
 
-    /* ── Challenge cards ── */
-    .challenges { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
-    .ch-card {
-      display: grid; grid-template-columns: 36px 1fr;
-      gap: 16px; align-items: start;
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 20px 24px;
-    }
-    .ch-num {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 800;
-      color: var(--text-3); letter-spacing: -.01em; padding-top: 1px;
-    }
-    .ch-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .ch-text  { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    /* results */
+    .results-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); margin-top:32px; border:1px solid var(--border); border-radius:4px; overflow:hidden; }
+    .result-card { background:var(--white); padding:28px; }
+    .result-val { font-family:'Syne',sans-serif; font-size:32px; font-weight:800; letter-spacing:-.04em; margin-bottom:10px; }
+    .result-desc { font-size:13.5px; line-height:1.65; color:var(--text-2); font-weight:300; margin-bottom:10px; }
+    .result-note { font-size:11px; color:var(--text-3); }
+    @media(max-width:768px){ .results-grid { grid-template-columns:1fr; } }
 
-    /* ── Screen blocks ── */
-    .screen-row { display: grid; gap: 16px; margin-top: 36px; }
-    .screen-row.c2 { grid-template-columns: repeat(2,1fr); }
-    .screen-row.c3 { grid-template-columns: repeat(3,1fr); }
-    .screen-row.c4 { grid-template-columns: repeat(4,1fr); }
-    .screen-block {
-      border-radius: 16px; overflow: hidden; position: relative;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .screen-block.tall { aspect-ratio: 9/16; }
-    .screen-block.phone { aspect-ratio: 9/18; }
-    .screen-block.wide { aspect-ratio: 16/9; }
-    .screen-block.sq   { aspect-ratio: 1; }
-    .sb-ghost {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800;
-      color: rgba(255,255,255,.12); letter-spacing: -.04em;
-      font-size: clamp(32px, 5vw, 64px);
-    }
-    .sb-label {
-      position: absolute; bottom: 14px; left: 14px; right: 14px;
-    }
-    .sb-title { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,.9); }
-    .sb-sub   { font-size: 11px; color: rgba(255,255,255,.55); margin-top: 2px; }
+    /* deliverables */
+    .deliverables { border:1px solid var(--border); border-radius:4px; overflow:hidden; margin-top:32px; }
+    .del-title { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; padding:16px 24px; border-bottom:1px solid var(--border); background:var(--bg); letter-spacing:-.01em; }
+    .del-list { display:flex; flex-direction:column; }
+    .del-item { display:flex; gap:16px; padding:16px 24px; border-bottom:1px solid var(--border); background:var(--white); }
+    .del-item:last-child { border-bottom:none; }
+    .del-check { font-size:13px; color:var(--text-3); flex-shrink:0; }
+    .del-text { font-size:13px; line-height:1.65; color:var(--text-2); font-weight:300; }
+    .del-text strong { color:var(--text); font-weight:500; }
 
-    /* amber gradients */
-    .g-amber-d  { background: linear-gradient(150deg,#78350F,#B45309); }
-    .g-amber-m  { background: linear-gradient(150deg,#92400E,#D97706); }
-    .g-amber-l  { background: linear-gradient(150deg,#B45309,#F59E0B); }
-    .g-amber-xl { background: linear-gradient(150deg,#D97706,#FCD34D); }
+    /* next */
+    .next-section { border-top:1px solid var(--border); padding:56px 0; }
+    .next-label { font-size:10px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--text-3); margin-bottom:16px; }
+    .next-link { display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--text); padding:24px; border:1px solid var(--border); border-radius:4px; transition:background .2s; margin-bottom:16px; }
+    .next-link:hover { background:var(--bg); }
+    .next-title { font-family:'Syne',sans-serif; font-size:22px; font-weight:800; letter-spacing:-.03em; }
+    .next-arrow { width:36px; height:36px; border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; transition:background .2s, border-color .2s, transform .2s; flex-shrink:0; }
+    .next-link:hover .next-arrow { background:var(--text); border-color:var(--text); transform:rotate(-45deg); }
+    .next-link:hover .next-arrow path { stroke:#fff; }
+    .next-meta { font-size:12px; color:var(--text-3); margin-bottom:24px; }
+    .back-all { display:inline-flex; align-items:center; gap:7px; font-size:13px; color:var(--text-2); text-decoration:none; transition:color .2s; }
+    .back-all:hover { color:var(--text); }
 
-    /* ── Iterations showcase ── */
-    .iter-grid {
-      display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-top: 36px;
-    }
-    .iter-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px; text-align: center;
-    }
-    .iter-card .iter-num {
-      font-family: 'Plus Jakarta Sans', sans-serif; font-size: 28px; font-weight: 800;
-      letter-spacing: -.04em; color: var(--text-3); line-height: 1; margin-bottom: 6px;
-    }
-    .iter-card .iter-lbl { font-size: 11px; color: var(--text-3); line-height: 1.4; }
-    .iter-card.highlight .iter-num { color: var(--accent); }
-    .iter-card.highlight { border-color: var(--accent); background: rgba(72,101,244,.06); }
+    /* footer */
+    footer { border-top:1px solid rgba(255,255,255,.07); background:var(--text); }
+    .foot-in { max-width:calc(var(--max-w) + var(--pad)*2); margin:0 auto; padding:22px var(--pad); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; }
+    .foot-copy { font-size:11px; color:rgba(255,255,255,.25); }
+    .foot-links { display:flex; gap:20px; flex-wrap:wrap; }
+    .foot-links a { font-size:11px; color:rgba(255,255,255,.25); text-decoration:none; transition:color .2s; }
+    .foot-links a:hover { color:#fff; }
+    @media(max-width:768px){ .foot-in { padding:20px var(--mob-pad); } }
 
-    /* ── Metrics ── */
-    .metrics-grid {
-      display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px;
-    }
-    .metric-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 16px; padding: 28px;
-    }
-    .metric-val {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(32px, 3.5vw, 48px);
-      font-weight: 800; letter-spacing: -.04em;
-      color: var(--accent); line-height: 1; margin-bottom: 10px;
-    }
-    .metric-desc { font-size: 14px; color: var(--text-2); line-height: 1.55; }
-    .metric-note { font-size: 12px; color: var(--text-3); margin-top: 6px; }
-
-    /* ── Highlight banner ── */
-    .highlight-banner {
-      background: linear-gradient(140deg, var(--proj), var(--proj-m));
-      border-radius: 20px; padding: 48px; margin-top: 48px;
-    }
-    .hb-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(18px, 2.5vw, 28px);
-      font-weight: 700; color: #fff; line-height: 1.4; margin-bottom: 20px;
-    }
-    .hb-list { display: flex; flex-direction: column; gap: 12px; }
-    .hb-item {
-      display: flex; align-items: flex-start; gap: 12px;
-      font-size: 15px; color: rgba(255,255,255,.8); line-height: 1.5;
-    }
-    .hb-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: rgba(255,255,255,.5); flex-shrink: 0; margin-top: 8px;
-    }
-
-    /* ── TIM deliverables ── */
-    .tim-deliverables{background:linear-gradient(140deg,var(--proj),var(--proj-m));border-radius:20px;padding:40px;margin-top:0}
-    .tim-del-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:24px}
-    .tim-del-list{display:flex;flex-direction:column;gap:14px}
-    .tim-del-item{display:flex;gap:14px;align-items:flex-start;font-size:14px;line-height:1.65;color:rgba(255,255,255,.85)}
-    .tim-del-item strong{color:#fff;font-weight:600}
-    .tim-del-check{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,.2);color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
-
-    /* ── Real images ── */
-    .cs-img-row { display: grid; gap: 16px; margin-top: 40px; }
-    .cs-img-row.c2 { grid-template-columns: repeat(2,1fr); }
-    .cs-img-row.c3 { grid-template-columns: repeat(3,1fr); }
-    .cs-img-row.c4 { grid-template-columns: repeat(4,1fr); }
-    .cs-img-wrap { border-radius: 16px; overflow: hidden; background: #fff; border: 1px solid var(--border); }
-    .cs-img-wrap img { width: 100%; display: block; }
-    .cs-img-full { width: 100%; border-radius: 16px; display: block; margin-top: 40px; border: 1px solid var(--border); }
-
-    /* ── Design phase gallery ── */
-    .design-gallery{position:relative;margin-top:40px;}
-    .design-gallery-track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:16px;cursor:grab}
-    .design-gallery-track:active{cursor:grabbing}
-    .design-gallery-track::-webkit-scrollbar{height:4px}
-    .design-gallery-track::-webkit-scrollbar-track{background:var(--bg-2);border-radius:100px}
-    .design-gallery-track::-webkit-scrollbar-thumb{background:var(--border);border-radius:100px}
-    .design-gallery-track::-webkit-scrollbar-thumb:hover{background:var(--accent)}
-    .design-gallery-item{flex:0 0 80%;scroll-snap-align:start;border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#fff}
-    .design-gallery-item img{width:100%;display:block}
-    .design-gallery-nav{display:flex;align-items:center;justify-content:space-between;margin-top:16px;}
-    .design-gallery-arrows{display:flex;gap:8px;align-items:center;}
-    .dg-arrow{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,border-color .2s,color .2s;color:var(--text-2);padding:0;outline:none;flex-shrink:0}
-    .dg-arrow:hover{background:var(--text);border-color:var(--text);color:#fff}
-    .dg-arrow svg{pointer-events:none}
-    .design-gallery-counter{display:flex;align-items:center;gap:6px;}
-    .dg-dot{width:6px;height:6px;border-radius:50%;background:var(--border);transition:background .2s,transform .2s;cursor:pointer}
-    .dg-dot.active{background:var(--accent);transform:scale(1.3)}
-    @media(max-width:768px){.design-gallery-item{flex:0 0 90%}}
-    .ds-grid {
-      display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-top: 40px;
-    }
-    .ds-card {
-      background: var(--bg-2); border: 1px solid var(--border);
-      border-radius: 14px; padding: 24px;
-    }
-    .ds-card-title { font-size: 13px; font-weight: 600; margin-bottom: 14px; }
-    .ds-colors { display: flex; gap: 8px; flex-wrap: wrap; }
-    .ds-swatch {
-      width: 36px; height: 36px; border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .ds-tokens { display: flex; flex-direction: column; gap: 8px; }
-    .ds-token {
-      display: flex; justify-content: space-between;
-      font-size: 12px; color: var(--text-2);
-    }
-    .ds-token code {
-      font-family: monospace; font-size: 11px;
-      background: var(--bg-3); padding: 2px 6px; border-radius: 4px;
-      color: var(--accent);
-    }
-
-    /* ── Next project ── */
-    .next-project {
-      border-top: 1px solid var(--border); padding: 80px 0;
-    }
-    .next-label {
-      font-size: 12px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--text-3); margin-bottom: 20px;
-    }
-    .next-link {
-      display: inline-flex; align-items: center; gap: 16px;
-      text-decoration: none; color: var(--text); transition: gap .25s;
-    }
-    .next-link:hover { gap: 28px; }
-    .next-title {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: clamp(28px, 4vw, 56px);
-      font-weight: 800; letter-spacing: -.04em;
-    }
-    .next-arrow {
-      width: 56px; height: 56px; border-radius: 50%;
-      background: var(--bg-2); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; transition: background .2s, border-color .2s;
-    }
-    .next-link:hover .next-arrow { background: var(--text); border-color: var(--text); }
-    .next-link:hover .next-arrow svg { color: var(--bg); }
-
-    /* ── Reveal ── */
-    .reveal {
-      opacity: 0; transform: translateY(22px);
-      transition: opacity .7s, transform .7s;
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    .d1 { transition-delay: .1s; }
-    .d2 { transition-delay: .2s; }
-    .d3 { transition-delay: .3s; }
-
-    /* ── Responsive ── */
-    @media(max-width:1024px) {
-      .two-col { grid-template-columns: 1fr; gap: 32px; }
-      .pg-table { overflow-x: auto; }
-      .iter-grid { grid-template-columns: repeat(3,1fr); }
-      .metrics-grid { grid-template-columns: repeat(2,1fr); }
-      .screen-row.c4 { grid-template-columns: repeat(2,1fr); }
-    }
-    @media(max-width:768px) {
-      .nav-inner { padding: 0 24px; }
-      .case-hero-inner { padding: 40px 24px; }
-      .meta-inner { grid-template-columns: repeat(2,1fr); padding: 24px; }
-      .case-body { padding: 0 24px; }
-      .cs-section { padding: 56px 0; }
-      .screen-row.c3, .screen-row.c2 { grid-template-columns: 1fr; }
-      .ds-grid { grid-template-columns: 1fr; }
-      .metrics-grid { grid-template-columns: 1fr; }
-      .iter-grid { grid-template-columns: repeat(3,1fr); }
-      .process-ribbon { flex-wrap: wrap; }
-      .pr-step { flex: 0 0 33%; border-right: 1px solid var(--border); }
-      .highlight-banner { padding: 28px 24px; }
-    }
-
-    /* ── Cursor ── */
-    
-      #cur, 
-    }
-    #cur {
-      width: 44px; height: 44px;
-      background: #fff;
-      border-radius: 50%;
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9998;
-      mix-blend-mode: difference;
-      will-change: transform;
-      transition: width .25s cubic-bezier(.22,1,.36,1),
-                  height .25s cubic-bezier(.22,1,.36,1),
-                  opacity .2s;
-    }
-    #cur.expand { width: 72px; height: 72px; }
-    #cur.press  { width: 32px; height: 32px; }
-    
-    #cur-label {
-      position: fixed; top: 0; left: 0;
-      pointer-events: none; z-index: 9997;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 11px; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: #fff; mix-blend-mode: difference;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity .2s;
-      transform-origin: center;
-    }
-    #cur-label.visible { opacity: 1; }
-
-    /* ── Cursor C: ring + label ── */
-        
-      
-    }
-    
-    
-    
-    
-    
-    
-
-    /* cursor */
-    @media(hover:none),(max-width:768px){body{cursor:auto}#c-dot,#c-ring,#c-lbl{display:none!important}}
+    /* reveal */
+    .reveal { opacity:0; transform:translateY(20px); transition:opacity .65s, transform .65s; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:.07s}.d2{transition-delay:.14s}
   </style>
 </head>
 <body>
-<div class="glass-back-wrap">
-  <a href="index.html" class="glass-back">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    All work
-  </a>
-</div>
 
-<!-- Hero -->
+<a href="index.html" class="float-back">
+  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  All work
+</a>
+
+<!-- HERO -->
 <div class="case-hero">
-  <h1 class="case-title">TIM (Israel) — On-Demand Jobs App</h1>
-  <p class="case-subtitle">TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs.</p>
-  <div class="case-tags">
-    <span class="case-tag">Mobile Design</span>
-    <span class="case-tag">User Research</span>
-    <span class="case-tag">Information Architecture</span>
-    <span class="case-tag">UI-Kit</span>
-    <span class="case-tag">Presentation</span>
-    <span class="case-tag">User Persona</span>
-    <span class="case-tag">UX/UI Design</span>
-    <span class="case-tag">Figma</span>
-    <span class="case-tag">XMind</span>
+  <div class="inner">
+    <div class="case-tags">
+      <span class="case-tag">Mobile Design</span>
+      <span class="case-tag">UX Research</span>
+      <span class="case-tag">Information Architecture</span>
+      <span class="case-tag">RTL</span>
+      <span class="case-tag">UI Kit</span>
+      <span class="case-tag">Israel · 2019</span>
+    </div>
+    <h1 class="case-title">TIM —<br>On-Demand Jobs App</h1>
+    <p class="case-subtitle">A right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs.</p>
   </div>
 </div>
 
-<!-- Meta -->
-<div class="meta-strip">
-  <div class="meta-inner">
-    <div>
-      <div class="meta-label">My role</div>
-      <div class="meta-value">UX/UI Designer<br><span class="hl">+ Project Manager</span></div>
-    </div>
-    <div>
-      <div class="meta-label">Date</div>
-      <div class="meta-value">September 1, 2019<br><span class="hl">2-month sprint</span></div>
-    </div>
-    <div>
-      <div class="meta-label">Collaborators</div>
-      <div class="meta-value">UX/UI Designer,<br>UI Designer &amp; Project Manager</div>
-    </div>
-    <div>
-      <div class="meta-label">My Role</div>
-      <div class="meta-value">UX/UI · IA · Presentation<br>Calls with clients</div>
-    </div>
+<!-- META -->
+<div class="meta-inner">
+  <div class="meta-cell">
+    <div class="meta-label">Role</div>
+    <div class="meta-value">UX/UI Designer + Project Manager</div>
+  </div>
+  <div class="meta-cell" style="padding-left:24px">
+    <div class="meta-label">Timeline</div>
+    <div class="meta-value">September 2019 · 2-month sprint</div>
+  </div>
+  <div class="meta-cell" style="padding-left:24px">
+    <div class="meta-label">Team</div>
+    <div class="meta-value">PM + 2 UX/UI designers</div>
+  </div>
+  <div class="meta-cell" style="padding-left:24px">
+    <div class="meta-label">Deliverables</div>
+    <div class="meta-value">UX/UI · IA · RTL Design System · Presentation</div>
   </div>
 </div>
 
-<!-- Body -->
+<!-- HERO BANNER -->
+<div class="banner-wrap">
+  <img src="assets/img/tim/hero-banner.png" alt="TIM — On-Demand Jobs App">
+</div>
+
+<!-- BODY -->
 <div class="case-body">
-
-  <!-- Hero banner -->
-  <div class="cs-section reveal" style="padding-bottom:0;border-bottom:none;">
-    <div class="cs-img-wrap">
-      <img src="assets/img/tim/hero-banner.png" alt="TIM — On-Demand Jobs App">
-    </div>
-  </div>
+<div class="inner">
 
   <!-- Overview -->
   <div class="cs-section reveal">
-    <div class="cs-step">01 — Overview</div><div class="cs-label">Project Overview</div>
-    <p class="cs-text">
-      TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs. Our <strong>three-person squad (PM + 2 UX/UI)</strong> had just <strong>two months</strong> to transform the founders' "time = money" vision into a launch-ready MVP, tackling trust, instant booking, and clear pay as core pain points. Through <strong>25+ rapid concept iterations</strong>, user research, IA planning, and usability tests, I led the end-to-end UX/UI effort — shaping a validated product concept, scalable design system, and developer-ready guidelines that set the stage for a <strong>higher job-fill rate and a 4.7-star App Store debut</strong>.
-    </p>
+    <div class="cs-label">Overview</div>
+    <h2 class="cs-title">Project Overview</h2>
+    <p class="cs-text">TIM is a right-to-left, on-demand jobs marketplace that lets people hire vetted "Timos" for everyday tasks — dog-walking, handyman work, deliveries, even late-night grocery runs. Our <strong>three-person squad (PM + 2 UX/UI)</strong> had just <strong>two months</strong> to transform the founders' "time = money" vision into a launch-ready MVP, tackling trust, instant booking, and clear pay as core pain points.</p>
+    <p class="cs-text">Through <strong>25+ rapid concept iterations</strong>, user research, IA planning, and usability tests, I led the end-to-end UX/UI effort — shaping a validated product concept, scalable design system, and developer-ready guidelines that set the stage for a <strong>higher job-fill rate and a 4.7-star App Store debut</strong>.</p>
   </div>
 
-  <!-- Problem Statement -->
+  <!-- Problem -->
   <div class="cs-section reveal">
-    <div class="cs-step">02 — Problem</div><div class="cs-label">Problem Statement</div>
-    <p class="cs-text">
-      Urban Israelis struggle to reclaim personal time because current gig apps are <strong>slow, unclear on pay, and feel risky</strong>, especially when a stranger must enter the home. Our challenge was to create a service that lets them turn time into money through <strong>instant, trustworthy bookings</strong>.
-    </p>
+    <div class="cs-label">Problem</div>
+    <h2 class="cs-title">Problem Statement</h2>
+    <p class="cs-text">Urban Israelis struggle to reclaim personal time because current gig apps are <strong>slow, unclear on pay, and feel risky</strong>, especially when a stranger must enter the home. Our challenge was to create a service that lets them turn time into money through <strong>instant, trustworthy bookings</strong>.</p>
   </div>
 
-  <!-- Key Challenges -->
+  <!-- Challenges -->
   <div class="cs-section reveal">
-    <div class="cs-step">03 — Challenges</div><div class="cs-label">Key Challenges</div>
-    <div class="challenges" style="margin-top:24px;">
+    <div class="cs-label">Challenges</div>
+    <h2 class="cs-title">Key Challenges</h2>
+    <div class="ch-list reveal">
       <div class="ch-card"><div class="ch-num">1</div><div><div class="ch-title">Mind-set shift — selling "time = money"</div><div class="ch-text">Early concepts fell flat; 25 iterations before the right hook resonated.</div></div></div>
-      <div class="ch-card"><div class="ch-num">2</div><div><div class="ch-title">Trust &amp; safety</div><div class="ch-text">Users will only hire people they'd let into their homes or walk their pets.</div></div></div>
+      <div class="ch-card"><div class="ch-num">2</div><div><div class="ch-title">Trust & safety</div><div class="ch-text">Users will only hire people they'd let into their homes or walk their pets.</div></div></div>
       <div class="ch-card"><div class="ch-num">3</div><div><div class="ch-title">Task diversity</div><div class="ch-text">Eight very different job categories (Pets, Indoor, Outdoor, etc.) had to feel coherent yet easy to filter.</div></div></div>
       <div class="ch-card"><div class="ch-num">4</div><div><div class="ch-title">RTL localisation</div><div class="ch-text">Hebrew layout and microcopy had to read naturally while preserving global patterns.</div></div></div>
       <div class="ch-card"><div class="ch-num">5</div><div><div class="ch-title">Compressed timeline</div><div class="ch-text">A two-month window demanded lean, evidence-driven decisions.</div></div></div>
@@ -534,44 +246,40 @@
 
   <!-- Design Process -->
   <div class="cs-section reveal">
-    <div class="cs-step">04 — Process</div><div class="cs-label">Design Process</div>
+    <div class="cs-label">Process</div>
+    <h2 class="cs-title">Design Process</h2>
     <p class="cs-text">I used the <strong>Design Thinking approach</strong> to solve the challenges we faced.</p>
-    <div class="cs-img-wrap reveal" style="margin-top:32px;">
-      <img src="assets/img/tim/design-process.png" alt="Design Thinking process — Discover, Define, Ideation, Prototype, Test, Design, Delivery">
-    </div>
+    <img src="assets/img/tim/design-process.png" alt="Design Thinking process" class="cs-img reveal">
   </div>
 
-  <!-- Discover Phase -->
+  <!-- Discover -->
   <div class="cs-section reveal">
-    <div class="cs-step">05 — Discover</div><div class="cs-label">Discover Phase</div>
-    <ul class="cs-text" style="padding-left:20px;display:flex;flex-direction:column;gap:8px;list-style:disc;">
+    <div class="cs-label">Discover</div>
+    <h2 class="cs-title">Discover Phase</h2>
+    <ul class="disc-list">
       <li>Conducted 10 seeker + 6 provider interviews</li>
-      <li>Competitor teardown (TaskRabbit, local apps) to map gaps in booking speed &amp; pay clarity</li>
+      <li>Competitor teardown (TaskRabbit, local apps) to map gaps in booking speed & pay clarity</li>
     </ul>
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/tim/discover-interviews.png" alt="Interviews with clients and Timo providers">
-    </div>
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/tim/discover-pain-gain.png" alt="Pain-Gain Map table">
-    </div>
+    <img src="assets/img/tim/discover-interviews.png" alt="Interviews with clients and Timo providers" class="cs-img reveal">
+    <img src="assets/img/tim/discover-pain-gain.png" alt="Pain-Gain Map" class="cs-img reveal">
   </div>
 
-  <!-- Define Phase -->
+  <!-- Define -->
   <div class="cs-section reveal">
-    <div class="cs-step">06 — Define</div><div class="cs-label">Define Phase</div>
-    <ul class="cs-text" style="padding-left:20px;display:flex;flex-direction:column;gap:8px;list-style:disc;">
-      <li>Synthesised insights into a problem statement and three opportunity areas (instant match, transparent pay, trust signals)</li>
-      <li>Prioritised success metrics: posting time, task success rate, user trust score.</li>
-      <li>We created an information architecture (IA) for the key user flows we had selected.</li>
+    <div class="cs-label">Define</div>
+    <h2 class="cs-title">Define Phase</h2>
+    <ul class="disc-list">
+      <li>Synthesised insights into a problem statement and three opportunity areas: instant match, transparent pay, trust signals</li>
+      <li>Prioritised success metrics: posting time, task success rate, user trust score</li>
+      <li>Created an information architecture (IA) for the key user flows</li>
     </ul>
-    <div class="cs-img-wrap reveal" style="margin-top:40px;">
-      <img src="assets/img/tim/define-ia.png" alt="Information Architecture — mind maps">
-    </div>
+    <img src="assets/img/tim/define-ia.png" alt="Information Architecture — mind maps" class="cs-img reveal">
   </div>
 
-  <!-- Ideation Phase -->
+  <!-- Ideation -->
   <div class="cs-section reveal">
-    <div class="cs-step">07 — Ideation</div><div class="cs-label">Ideation Phase</div>
+    <div class="cs-label">Ideation</div>
+    <h2 class="cs-title">Ideation Phase</h2>
     <p class="cs-text">Ran <strong>crazy-8s and decision matrix workshops</strong> → <strong>25 concepts</strong> → narrowed to <strong>1 "perfect" concept</strong> after iterative user voting.</p>
     <div class="iter-grid reveal">
       <div class="iter-card"><div class="iter-num">25</div><div class="iter-lbl">Concepts generated in ideation</div></div>
@@ -580,148 +288,147 @@
       <div class="iter-card"><div class="iter-num">2</div><div class="iter-lbl">Research loops with real users</div></div>
       <div class="iter-card highlight"><div class="iter-num">1</div><div class="iter-lbl">Final "perfect" concept shipped</div></div>
     </div>
-    <div class="cs-img-wrap reveal" style="margin-top:32px;">
-      <img src="assets/img/tim/ideation-concepts.png" alt="25 concepts — Interaction V1, V2, V4">
-    </div>
+    <img src="assets/img/tim/ideation-concepts.png" alt="25 concepts" class="cs-img reveal">
   </div>
 
   <!-- Prototype & Testing -->
   <div class="cs-section reveal">
-    <div class="cs-step">08 — Prototype &amp; Testing</div><div class="cs-label">Prototype &amp; Testing</div>
+    <div class="cs-label">Prototype & Testing</div>
+    <h2 class="cs-title">Prototype & Testing</h2>
     <p class="cs-text">We built <strong>high-fidelity Figma prototypes</strong> and tested them with clients and potential users. Each prototype featured different interactions, allowing us to gather insights that informed better design decisions and feature prioritization.</p>
-    <div class="cs-img-row c3 reveal" style="margin-top:40px;">
-      <div class="cs-img-wrap"><img src="assets/img/tim/prototype-a.gif" alt="Prototype A"></div>
-      <div class="cs-img-wrap"><img src="assets/img/tim/prototype-b.gif" alt="Prototype B"></div>
-      <div class="cs-img-wrap"><img src="assets/img/tim/prototype-c.gif" alt="Prototype C"></div>
+    <div class="img-row-3 reveal">
+      <img src="assets/img/tim/prototype-a.gif" alt="Prototype A">
+      <img src="assets/img/tim/prototype-b.gif" alt="Prototype B">
+      <img src="assets/img/tim/prototype-c.gif" alt="Prototype C">
     </div>
   </div>
 
   <!-- Design Phase -->
   <div class="cs-section reveal">
-    <div class="cs-step">09 — Design</div><div class="cs-label">Design Phase</div>
+    <div class="cs-label">Design</div>
+    <h2 class="cs-title">Design Phase</h2>
     <p class="cs-text">Crafted an <strong>RTL-ready lite design system</strong> (8-pt grid, tokens, light/dark themes). Delivered all assets, notes, and annotations to the client's development team. Designed <strong>high-fidelity screens</strong> with micro-interactions for booking, payment breakdown, and trust badges.</p>
-
-    <div class="design-gallery reveal" style="margin-top:40px;">
-      <div class="design-gallery-track" id="designGallery">
-        <div class="design-gallery-item"><img src="assets/img/tim/design-authorization.png" alt="Authorization screens"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-registration.png" alt="Registration screens"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-timo-flow.png" alt="Timo flow screens"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-components.png" alt="Components"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-styles-left.png" alt="Styles & icons"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-styles-right.png" alt="Colors & typography"></div>
-        <div class="design-gallery-item"><img src="assets/img/tim/design-system.png" alt="Design system kit"></div>
+    <div class="gallery-wrap reveal">
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-item"><img src="assets/img/tim/design-authorization.png" alt="Authorization screens"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-registration.png" alt="Registration screens"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-timo-flow.png" alt="Timo flow screens"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-components.png" alt="Components"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-styles-left.png" alt="Styles & icons"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-styles-right.png" alt="Colors & typography"></div>
+        <div class="gallery-item"><img src="assets/img/tim/design-system.png" alt="Design system kit"></div>
       </div>
-      <div class="design-gallery-nav">
-        <div class="design-gallery-counter" id="designDots">
-          <div class="dg-dot active" data-i="0"></div>
-          <div class="dg-dot" data-i="1"></div>
-          <div class="dg-dot" data-i="2"></div>
-          <div class="dg-dot" data-i="3"></div>
-          <div class="dg-dot" data-i="4"></div>
-          <div class="dg-dot" data-i="5"></div>
-          <div class="dg-dot" data-i="6"></div>
+      <div class="gallery-nav">
+        <div class="gallery-dots" id="galleryDots">
+          <div class="g-dot active" data-i="0"></div>
+          <div class="g-dot" data-i="1"></div>
+          <div class="g-dot" data-i="2"></div>
+          <div class="g-dot" data-i="3"></div>
+          <div class="g-dot" data-i="4"></div>
+          <div class="g-dot" data-i="5"></div>
+          <div class="g-dot" data-i="6"></div>
         </div>
-        <div class="design-gallery-arrows">
-          <button class="dg-arrow" id="dgPrev" aria-label="Previous">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
-          <button class="dg-arrow" id="dgNext" aria-label="Next">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </button>
+        <div class="gallery-arrows">
+          <button class="g-arrow" id="gPrev"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="g-arrow" id="gNext"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Final Results -->
+  <!-- Results -->
   <div class="cs-section reveal">
-    <div class="cs-step">10 — Results</div><div class="cs-label">Final Result — A Polished, Ready-to-Ship Product</div>
-    <div class="metrics-grid" style="margin-bottom:40px;">
-      <div class="metric-card reveal"><div class="metric-val">95%</div><div class="metric-desc">Task-success rate across all key flows in usability testing.</div><div class="metric-note">SUS = 85/100 · n = 15 (Maze + guerrilla)</div></div>
-      <div class="metric-card reveal d1"><div class="metric-val">−70%</div><div class="metric-desc">Average "create-order" flow cut — from ~3 min down to &lt;1 min.</div><div class="metric-note">Measured via Maze internal testing</div></div>
-      <div class="metric-card reveal d2"><div class="metric-val">4.7★</div><div class="metric-desc">App Store debut rating, driven by intuitive onboarding and trust-first design.</div><div class="metric-note">Launch day · Israeli App Store</div></div>
+    <div class="cs-label">Results</div>
+    <h2 class="cs-title">Final Result — A Polished, Ready-to-Ship Product</h2>
+    <div class="results-grid">
+      <div class="result-card reveal">
+        <div class="result-val">95%</div>
+        <div class="result-desc">Task-success rate across all key flows in usability testing.</div>
+        <div class="result-note">SUS = 85/100 · n = 15 (Maze + guerrilla)</div>
+      </div>
+      <div class="result-card reveal d1">
+        <div class="result-val">−70%</div>
+        <div class="result-desc">Average "create-order" flow cut — from ~3 min down to &lt;1 min.</div>
+        <div class="result-note">Measured via Maze internal testing</div>
+      </div>
+      <div class="result-card reveal d2">
+        <div class="result-val">4.7★</div>
+        <div class="result-desc">App Store debut rating, driven by intuitive onboarding and trust-first design.</div>
+        <div class="result-note">Launch day · Israeli App Store</div>
+      </div>
     </div>
-    <div class="tim-deliverables reveal">
-      <div class="tim-del-title">What was delivered</div>
-      <div class="tim-del-list">
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Created a design system</strong> — delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>110+ hi-fi, RTL-ready mobile screens</strong> — token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA & user-flow specs.</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div>25 design concepts explored → <strong>1 "perfect" concept</strong> chosen after two research loops (15 + 10 iterations).</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) — Internal Maze & guerrilla tests, n = 15.</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Mini design systems accelerate even MVPs</strong> — tokens + RTL components cut dev time and future-proof scaling.</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div><strong>Quantify everything early</strong> — lab metrics (SUS, task time) gave stakeholders objective proof, smoothing sign-off and funding pitches.</div></div>
-        <div class="tim-del-item"><span class="tim-del-check">✓</span><div>Founders <strong>successfully</strong> used the prototype in investor demos.</div></div>
+    <div class="deliverables reveal">
+      <div class="del-title">What was delivered</div>
+      <div class="del-list">
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text"><strong>Created a design system</strong> — delivered all assets, notes, and annotations to the client's development team. Designed high-fidelity screens with micro-interactions for booking, payment breakdown, and trust badges.</div></div>
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text"><strong>110+ hi-fi, RTL-ready mobile screens</strong> — token-based mini design-system (8-pt grid, light/dark, JSON hand-off) · Annotated IA & user-flow specs.</div></div>
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text">25 design concepts explored → <strong>1 "perfect" concept</strong> chosen after two research loops (15 + 10 iterations).</div></div>
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text"><strong>95% task-success rate</strong> · SUS = 85/100 · Average "create-order" flow cut ↓ 70% (≈3 min → &lt;1 min) — Internal Maze & guerrilla tests, n = 15.</div></div>
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text"><strong>Mini design systems accelerate even MVPs</strong> — tokens + RTL components cut dev time and future-proof scaling.</div></div>
+        <div class="del-item"><div class="del-check">✓</div><div class="del-text">Founders <strong>successfully</strong> used the prototype in investor demos.</div></div>
       </div>
     </div>
   </div>
 
   <!-- Next -->
-  <div class="next-project reveal">
+  <div class="next-section reveal">
     <div class="next-label">Next project</div>
     <a href="medpal.html" class="next-link">
       <div class="next-title">MedPal — AI Health App</div>
-      <div class="next-arrow"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="next-arrow"><svg width="14" height="14" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
     </a>
-    <p style="font-size:14px;color:var(--text-3);margin-top:12px;">HealthTech · AI · Mobile · UK · 2025</p>
-    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;margin-top:32px;font-size:13px;font-weight:600;color:var(--text-2);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--accent)'" onmouseout="this.style.color='var(--text-2)'">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <div class="next-meta">HealthTech · AI · Mobile · UK · 2025</div>
+    <a href="index.html" class="back-all">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Back to all work
     </a>
   </div>
 
+</div><!-- /inner -->
 </div><!-- /case-body -->
 
+<footer>
+  <div class="foot-in">
+    <span class="foot-copy">© 2026 Andrii Teslia — Lviv, Ukraine</span>
+    <div class="foot-links">
+      <a href="mailto:tesliaandrii@gmail.com">tesliaandrii@gmail.com</a>
+      <a href="tel:+380955085475">+380 95 508 54 75</a>
+      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank">LinkedIn</a>
+      <a href="https://t.me/andriiteslia" target="_blank">Telegram</a>
+      <a href="https://dribbble.com/andriiteslia" target="_blank">Dribbble</a>
+      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank">Resume</div>
+    </div>
+  </div>
+</footer>
+
 <script>
-(function() {
-  var gallery = document.getElementById('designGallery');
-  var dots = document.querySelectorAll('#designDots .dg-dot');
-  var prevBtn = document.getElementById('dgPrev');
-  var nextBtn = document.getElementById('dgNext');
-  if (!gallery) return;
+// Gallery
+(function(){
+  var track = document.getElementById('galleryTrack');
+  var dots = document.querySelectorAll('#galleryDots .g-dot');
+  var prev = document.getElementById('gPrev');
+  var next = document.getElementById('gNext');
+  if(!track) return;
 
-  function getItemWidth() {
-    var item = gallery.querySelector('.design-gallery-item');
-    return item ? item.getBoundingClientRect().width + 16 : 0;
-  }
+  function getW(){ var item = track.querySelector('.gallery-item'); return item ? item.getBoundingClientRect().width : 0; }
+  function getIdx(){ return Math.round(track.scrollLeft / getW()); }
+  function updateDots(){ var i=getIdx(); dots.forEach(function(d,j){ d.classList.toggle('active',i===j); }); }
+  function goTo(i){ track.scrollTo({left:i*getW(),behavior:'smooth'}); }
 
-  function getActiveIndex() {
-    return Math.round(gallery.scrollLeft / getItemWidth());
-  }
+  track.addEventListener('scroll', updateDots, {passive:true});
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ goTo(i); }); });
+  if(prev) prev.addEventListener('click',function(){ goTo(Math.max(0,getIdx()-1)); });
+  if(next) next.addEventListener('click',function(){ goTo(Math.min(dots.length-1,getIdx()+1)); });
 
-  function updateDots() {
-    var idx = getActiveIndex();
-    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
-  }
-
-  function scrollTo(idx) {
-    gallery.scrollTo({ left: idx * getItemWidth(), behavior: 'smooth' });
-  }
-
-  gallery.addEventListener('scroll', updateDots, { passive: true });
-
-  dots.forEach(function(dot, i) {
-    dot.addEventListener('click', function() { scrollTo(i); });
-  });
-
-  if (prevBtn) prevBtn.addEventListener('click', function() {
-    scrollTo(Math.max(0, getActiveIndex() - 1));
-  });
-  if (nextBtn) nextBtn.addEventListener('click', function() {
-    scrollTo(Math.min(dots.length - 1, getActiveIndex() + 1));
-  });
-
-  var isDragging = false, startX, startScroll;
-  gallery.addEventListener('mousedown', function(e) {
-    isDragging = true; startX = e.pageX; startScroll = gallery.scrollLeft;
-    gallery.style.userSelect = 'none';
-  });
-  document.addEventListener('mouseup', function() { isDragging = false; gallery.style.userSelect = ''; });
-  gallery.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    gallery.scrollLeft = startScroll - (e.pageX - startX);
-  });
+  var isDrag=false, startX, startScroll;
+  track.addEventListener('mousedown',function(e){ isDrag=true; startX=e.pageX; startScroll=track.scrollLeft; track.style.userSelect='none'; });
+  document.addEventListener('mouseup',function(){ isDrag=false; track.style.userSelect=''; });
+  track.addEventListener('mousemove',function(e){ if(!isDrag) return; track.scrollLeft=startScroll-(e.pageX-startX); });
 })();
-</script>
 
-<script src="assets/js/main.js"></script>
+// Reveal
+var ro=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); } }); },{threshold:0.08});
+document.querySelectorAll('.reveal').forEach(function(el){ ro.observe(el); });
+</script>
+</body>
 </html>
