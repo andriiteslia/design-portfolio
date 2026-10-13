@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Predator Fest League App — Andrii Teslia</title>
+  <meta name="description" content="Personal project — Telegram Mini App &amp; PWA for a competitive fishing league. Case study by Andrii Teslia.">
+  <meta name="theme-color" content="#0D0D10">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Predator Fest League App — Andrii Teslia">
+  <meta property="og:description" content="Personal project — Telegram Mini App &amp; PWA for a competitive fishing league. Case study by Andrii Teslia.">
+  <meta property="og:image" content="assets/img/pfl/hero-banner.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..900&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="assets/css/case.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body style="--c:#3DDC97">
+
+<a class="hero-back" href="index.html#predatorfest" data-back aria-label="Back to all work"><span class="ico" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 14 14" fill="none"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="mono">Back to all work</span></a>
+<div class="progress" aria-hidden="true"></div>
+
+<main>
+  <section class="hero">
+    <div class="hero-ghost" aria-hidden="true">Predator Fest · Predator Fest · Predator Fest</div>
+    <div class="wrap">
+      <div class="hero-kicker mono mute"><span>Case study <b>02</b> / 04</span><span>2026</span></div>
+      <div class="tags"><span>Personal Project</span><span>Telegram Mini App</span><span>PWA</span><span>Sport</span><span>Ukraine · 2026</span></div>
+      <h1 class="case-title" data-words>Predator Fest<br><em>League App</em></h1>
+      <p class="case-sub">Solo end-to-end project — a Telegram Mini App &amp; PWA for a competitive fishing league. Real-time results, season leaderboard, live standings.</p>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="meta"><div><span class="mono">Role</span><p>Designer, Developer &amp; Founder</p></div><div><span class="mono">Timeline</span><p>2026 · Personal initiative</p></div><div><span class="mono">Platform</span><p>Telegram Mini App + PWA</p></div><div><span class="mono">Stack</span><p>Google Sheets · Apps Script · Vanilla JS · GitHub</p></div></div>
+    <div class="banner"><figure class="shot"><img src="assets/img/pfl/hero-banner.png" alt="Predator Fest League App — overview" fetchpriority="high" decoding="async"><figcaption>Predator Fest League App — overview</figcaption></figure></div>
+
+    <div class="body">
+      <ol class="toc" aria-label="Sections"><li><a href="#overview"><i>01</i>Overview</a></li><li><a href="#problem"><i>02</i>Problem</a></li><li><a href="#solution"><i>03</i>Solution</a></li><li><a href="#design"><i>04</i>Design & UX</a></li><li><a href="#scoring"><i>05</i>Scoring system</a></li><li><a href="#technology"><i>06</i>Technology</a></li><li><a href="#results"><i>07</i>Results</a></li></ol>
+      <div class="content">
+      <section class="sec" id="overview">
+        <div class="sec-label mono up"><i>01</i>Overview</div>
+        <h2 class="up">Project Overview</h2>
+        <p class="live mono up"><i></i>Live at predatorfest.com · tg: @predatorfest</p><div class="btns up"><a class="btn" href="https://predatorfest.com" target="_blank" rel="noopener">predatorfest.com ↗</a><a class="btn ghost" href="https://t.me/predatorfestbot" target="_blank" rel="noopener">@predatorfest on Telegram ↗</a></div><p class="txt up"><strong>Predator Fest League (PFL)</strong> is a competitive fishing league I founded in Lviv — solo, from scratch, as CEO and the only person behind the entire project. I noticed the same problem at almost every tournament — results scribbled on paper at the weigh-in, photographed once, dropped into a Telegram chat, and effectively lost forever.</p><p class="txt up">I designed and built the PFL App from scratch — a <strong>Telegram Mini App and PWA</strong> that gives every participant instant access to live results, tournament standings, a full season leaderboard, and partner information. All data updates in real time directly from a Google Sheet. No backend, no database, no overhead.</p><p class="txt up">The app has been live across multiple seasons, tracked <strong>80+ participants</strong>, and helped the community raise <strong>64,375 UAH</strong> for Ukraine's armed forces through competition entry fees.</p><div class="callout up"><span class="mono">For Ukraine</span><p><strong>64,375 UAH</strong> raised for the Armed Forces of Ukraine across all PFL events</p></div>
+      </section>
+      <section class="sec" id="problem">
+        <div class="sec-label mono up"><i>02</i>Problem</div>
+        <h2 class="up">The Problem I Kept Running Into</h2>
+        <div class="cols"><div><p class="txt up">After moving to Lviv and getting seriously into competitive spin fishing, I noticed the same friction at practically every second tournament. The system technically worked — but only for the organiser holding the pen.</p><p class="txt up">Scores were written by hand on paper during the weigh-in, then photographed and dropped into a Telegram group. If you missed the message or the chat was busy, your result was gone. Season standings lived in a Google Sheet that only one person had access to.</p><p class="txt up">This is exactly the kind of problem familiar to anyone who works in product: <strong>the system technically works, but using it is genuinely uncomfortable.</strong></p><div class="callout up"><span class="mono">Root insight</span><p>The data already existed — it just lived in the wrong place. The fix wasn't a new data model, it was a better interface over data that was already there.</p></div></div><div><div class="cards stack" style="grid-template-columns:1fr;margin-top:0"><div class="card up" style="--d:0"><span class="n">01</span><h3>Results on paper</h3><p>Scores written at weigh-in, photographed once, shared in chat — then effectively impossible to find.</p></div><div class="card up" style="--d:1"><span class="n">02</span><h3>Data scattered in chats</h3><p>Part in Telegram messages, part in photo albums, part in someone's private spreadsheet.</p></div><div class="card up" style="--d:2"><span class="n">03</span><h3>No quick lookup</h3><p>Checking your season standing required scrolling through weeks of chat history.</p></div><div class="card up" style="--d:3"><span class="n">04</span><h3>Manual counting errors</h3><p>Complex scoring rules — place points + bonus points — led to frequent miscalculations by hand.</p></div></div></div></div><figure class="shot up"><img src="assets/img/pfl/problem-before.png" alt="Before — paper results and Telegram chat" loading="lazy" decoding="async"><figcaption>Before — paper results and Telegram chat</figcaption></figure>
+      </section>
+      <section class="sec" id="solution">
+        <div class="sec-label mono up"><i>03</i>Solution</div>
+        <h2 class="up">Why a Telegram Mini App?</h2>
+        <p class="txt up">The fishing community lives in Telegram. A native iOS/Android app would mean App Store submissions, installs, updates, and a completely separate context from where people already communicate. A Telegram Mini App opens with <strong>one tap inside the chat they use every day</strong> — no install, no friction, native on mobile by default.</p><p class="txt up">My choice was about meeting users exactly where they already are — a core UX principle — while keeping the architecture simple enough to build and maintain solo.</p><div class="cards four"><div class="card up" style="--d:0"><span class="n">01</span><h3>Google Sheets as DB</h3><p>Organisers enter results in a familiar spreadsheet. Zero learning curve, zero new tools to adopt.</p></div><div class="card up" style="--d:1"><span class="n">02</span><h3>Apps Script API</h3><p>A thin Google Apps Script layer reads the sheet and exposes a clean JSON endpoint — an instant backend.</p></div><div class="card up" style="--d:2"><span class="n">03</span><h3>Vanilla JS front-end</h3><p>No framework overhead. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</p></div><div class="card up" style="--d:3"><span class="n">04</span><h3>GitHub + CI/CD</h3><p>Staging and production environments. Changes deploy automatically on push — same as professional engineering teams.</p></div></div><div class="flow up"><span class="flow-cap mono">Data flow — from spreadsheet to participant's phone</span><div class="flow-node"><div class="flow-box">Google Sheets</div><small>Organiser enters results here</small></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><div class="flow-box">Apps Script</div><small>Reads &amp; exposes JSON endpoint</small></div><span class="flow-arrow" aria-hidden="true">→</span><div class="flow-node"><div class="flow-box">PFL Mini App</div><small>Renders live data in Telegram / PWA</small></div></div>
+      </section>
+      <section class="sec" id="design">
+        <div class="sec-label mono up"><i>04</i>Design &amp; UX</div>
+        <h2 class="up">Interface Design</h2>
+        <p class="txt up">The visual identity — deep forest green with gold — comes directly from the brand materials I designed for Predator Fest events. It signals "outdoors, sport, serious competition" without a word. The interface is built around five core tabs, each solving a specific job-to-be-done for a participant standing at the water's edge on their phone.</p><figure class="shot up"><img src="assets/img/pfl/fests-screens.png" alt="PFL App — Fests and Leaderboard screens" loading="lazy" decoding="async"><figcaption>PFL App — Fests and Leaderboard screens</figcaption></figure><div class="cards two"><div class="card up" style="--d:0"><span class="n">Fests</span><h3>Tournament Results</h3><ul><li>Live individual &amp; team standings per round</li><li>Multi-year archive — 2025 and 2026 seasons</li><li>Per-tournament breakdown: results, catches, placements</li><li>Updates in real time as organiser enters weigh-in data</li></ul></div><div class="card up" style="--d:1"><span class="n">Leaderboard</span><h3>Season Rankings</h3><ul><li>Points accumulated across all 6 season events</li><li>Grand prize race — Shimano Vanquish 2500S</li><li>Bonus point tracking: participation, BigFish, referrals</li><li>Tiebreaker logic: wins → total weight across season</li></ul></div><div class="card up" style="--d:2"><span class="n">Arena</span><h3>Multi-format Rankings</h3><ul><li>Cross-format standings across different competition types</li><li>Perch, Pike, and multi-species event tracking</li><li>Separate views for individual vs team formats</li></ul></div><div class="card up" style="--d:3"><span class="n">Didyliv</span><h3>Venue-specific Tab</h3><ul><li>Dedicated section for Ozero Didyliv venue results</li><li>Local rankings and historical catches</li><li>Real-time updates from the same sheet infrastructure</li></ul></div></div><figure class="shot up"><img src="assets/img/pfl/tabs.png" alt="PFL App — all tabs" loading="lazy" decoding="async"><figcaption>PFL App — all tabs</figcaption></figure>
+      </section>
+      <section class="sec" id="scoring">
+        <div class="sec-label mono up"><i>05</i>Product Complexity</div>
+        <h2 class="up">The Scoring System Behind the App</h2>
+        <p class="txt up">One of the real design challenges was making a genuinely complex scoring model feel transparent and simple to understand. The PFL season uses placement-based points across 6 events, with multiple bonus point categories and a tiebreaker chain.</p><div class="cols even" style="margin-top:28px"><div class="up"><span class="table-h mono">Placement points per event</span><div class="table"><div class="tr"><span>Finish</span><span>Points</span></div><div class="tr"><span>1st place</span><b>24 pts</b></div><div class="tr"><span>2nd place</span><b>18 pts</b></div><div class="tr"><span>3rd place</span><b>15 pts</b></div><div class="tr"><span>4th place</span><b>12 pts</b></div><div class="tr"><span>5th place</span><b>10 pts</b></div><div class="tr"><span>6th–8th place</span><b>8–4 pts</b></div><div class="tr"><span>9th–15th place</span><b>3–1 pts</b></div></div></div><div class="up"><span class="table-h mono">Bonus points (per event)</span><div class="table"><div class="tr"><span>Action</span><span>Bonus</span></div><div class="tr"><span>Participation in event</span><b>+10</b></div><div class="tr"><span>BigFish nomination</span><b>+5</b></div><div class="tr"><span>Instagram story w/ sponsor tag</span><b>+3</b></div><div class="tr"><span>Inviting a new participant</span><b>+2</b></div><div class="tr"><span>1st place in a round</span><b>+2</b></div></div><div class="note"><strong>Grand prize condition:</strong> minimum 5 of 6 events attended. Top scorer with ≥5 fests wins the <strong>Shimano Vanquish 2500S</strong> or premium rod up to 20k UAH.</div></div></div>
+      </section>
+      <section class="sec" id="technology">
+        <div class="sec-label mono up"><i>06</i>Technology</div>
+        <h2 class="up">Built Solo, Built to Last</h2>
+        <p class="txt up">The entire app was designed, built, and deployed by me — a product designer who used <strong>AI-assisted development</strong> to go from idea to production without a dedicated engineering team. This was a deliberate experiment in what a designer can ship independently in 2024–2025.</p><div class="cards "><div class="card up" style="--d:0"><span class="n">01</span><h3>Google Sheets</h3><p>The "database". Organisers use it like a familiar spreadsheet — no new tools, zero training, zero errors from manual re-entry.</p></div><div class="card up" style="--d:1"><span class="n">02</span><h3>Google Apps Script</h3><p>Acts as a lightweight API layer. Reads the sheet, applies scoring logic, returns clean JSON to the front-end.</p></div><div class="card up" style="--d:2"><span class="n">03</span><h3>Vanilla JS</h3><p>No framework, no build step. Fast initial load inside Telegram's Mini App webview — critical for mobile performance.</p></div><div class="card up" style="--d:3"><span class="n">04</span><h3>GitHub + CI/CD</h3><p>Staging and production branches. Automated deploys on push — same workflow used by professional engineering teams.</p></div><div class="card up" style="--d:0"><span class="n">05</span><h3>Telegram Mini App</h3><p>Native Telegram integration. Opens in one tap from the community channel — no install, no app store, no friction.</p></div><div class="card up" style="--d:1"><span class="n">06</span><h3>Progressive Web App</h3><p>Also accessible at predatorfest.com — same codebase, works on any device or browser.</p></div></div><figure class="shot up"><img src="assets/img/pfl/screens-web-desktop.png" alt="PFL — web desktop view" loading="lazy" decoding="async"><figcaption>PFL — web desktop view</figcaption></figure><figure class="shot up"><img src="assets/img/pfl/screens-tg-mini-app.png" alt="PFL — Telegram Mini App" loading="lazy" decoding="async"><figcaption>PFL — Telegram Mini App</figcaption></figure>
+      </section>
+      <section class="sec" id="results">
+        <div class="sec-label mono up"><i>07</i>Results</div>
+        <h2 class="up">Impact</h2>
+        <p class="txt up">A real product, used by a real community, built by one person with a passion for fishing and product design.</p><div class="results"><div class="result up" style="--d:0"><b>80+</b><p>Participants tracked across tournaments in the 2025–2026 seasons.</p><small>Growing community · Lviv &amp; region</small></div><div class="result up" style="--d:1"><b>64k UAH</b><p>Raised for Ukraine's Armed Forces from competition entry fees across all events.</p><small>Sport with a purpose</small></div><div class="result up" style="--d:2"><b>1 tap</b><p>That's all it takes to check live results during a tournament — from any device, any time.</p><small>vs. digging through chat history before</small></div></div><blockquote class="quote up"><p>What this project actually proves: <em>a designer can ship.</em></p><ul><li>Identified a real problem from personal experience — then built the solution end-to-end</li><li>Designed the full product: IA, visual identity, UI system, event brand materials — all consistent</li><li>Shipped a working Telegram Mini App + PWA using AI-assisted development</li><li>Maintained staging / production CI/CD — same workflow as professional engineering teams</li><li>Iterated based on real feedback from an active community across multiple seasons</li></ul></blockquote>
+      </section>
+
+        <section class="sec" aria-label="Next project">
+          <p class="mono mute up">Next project</p>
+          <a class="next up" href="rentflow.html" style="--n:#FFB020">
+            <span class="mono">03 / 04</span>
+            <strong>RentFlow</strong>
+            <span class="meta-n">PropTech · Fintech · Web · 2023</span>
+            <span class="next-arrow" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 15 15" fill="none"><path d="M3 7.5h9M8.5 3.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </a>
+          <a class="back mono" href="index.html#predatorfest"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M9 2L4 7l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to all work</a>
+        </section>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap mono">
+    <span class="mute">© 2026 Andrii Teslia · Lviv, Ukraine</span>
+    <nav aria-label="Contact">
+      <a href="mailto:tesliaandrii@gmail.com">tesliaandrii@gmail.com</a>
+      <a href="https://www.linkedin.com/in/andriiteslia/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://t.me/andriiteslia" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://dribbble.com/andriiteslia" target="_blank" rel="noopener">Dribbble</a>
+      <a href="assets/cv/andrii-teslia-cv.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
+  </div>
+</footer>
+
+<div class="fx vig" aria-hidden="true"></div><div class="fx grain" aria-hidden="true"></div>
+<div class="cur" aria-hidden="true"><span></span></div>
+<script src="assets/js/case.js"></script>
+</body>
+</html>
